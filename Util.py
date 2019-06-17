@@ -2,7 +2,6 @@ import pygame
 import math
 import random
 import time
-import Clases
 
 class Util:
     #colores
