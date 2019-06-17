@@ -4,19 +4,17 @@ from clases.Jugador import *
 
 if __name__ == '__main__':
     pygame.init()
-    pantalla=pygame.display.set_mode([ANCHO,ALTO])
+    pantalla=pygame.display.set_mode([Util.ANCHO, Util.ALTO])
     img= pygame.image.load('/images/Liche.png')
 
     info=img.get_rect()
     ancho_img=info[2]
     alto_img=info[3]
 
-    lim=[3,3,2,4,1,3,4,4,6,0]
-
-    m=cortar(img, 70, 80)
+    m=Util.cut(img, 9, 21, 26, 31)
 
     jugadores=pygame.sprite.Group()
-    j=Jugador(m,[100,50], lim)
+    j=Jugador(m,[100,50])
     jugadores.add(j)
     fin=False
     reloj=pygame.time.Clock()
@@ -60,7 +58,7 @@ if __name__ == '__main__':
             
 
         jugadores.update()
-        pantalla.fill(NEGRO)
+        pantalla.fill(Util.NEGRO)
         jugadores.draw(pantalla)
         pygame.display.flip()
         reloj.tick(30)
