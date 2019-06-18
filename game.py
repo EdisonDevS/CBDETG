@@ -1,6 +1,7 @@
 import pygame
 from Util import *
 from clases.Jugador import *
+from clases.Bala import *
 
 if __name__ == '__main__':
     pygame.init()
@@ -13,7 +14,10 @@ if __name__ == '__main__':
 
     m=Util.cut(img, 9, 21, 29, 33)
 
+    #grupos
     jugadores=pygame.sprite.Group()
+    balas=pygame.sprite.Group()
+
     j=Jugador(Util.CENTRO,m)
     jugadores.add(j)
     fin=False
@@ -47,8 +51,12 @@ if __name__ == '__main__':
                 j.vely=0
 
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if j.animacion != 0:
-                        j.animacion = 1
+                if event.button==3:
+                    if j.animacion != 0:
+                            j.animacion = 1
+                if event.button==1:
+                    b=Bala([j.rect.x, j.rect.y], pygame.mouse.get_pos(), m)
+                    balas.add(b)
         '''
         inicio = [j.rect.x,j.rect.y]
         end = pygame.mouse.get_pos()
@@ -57,7 +65,7 @@ if __name__ == '__main__':
         '''
 
 
-
+        balas.update()
         jugadores.update()
         pantalla.fill(Util.BLANCO)
         '''
@@ -65,5 +73,6 @@ if __name__ == '__main__':
         pygame.draw.circle(pantalla, Util.NEGRO, [int(j.rect.x+j.rect.width/2), int(j.rect.y+j.rect.height/2)], 100, 1)
         '''
         jugadores.draw(pantalla)
+        balas.draw(pantalla)
         pygame.display.flip()
         reloj.tick(20)
