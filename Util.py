@@ -11,6 +11,7 @@ class Util:
     AZUL=[0,255,255]
     NEGRO=[0,0,0]
     AMARILLO = [255, 255, 0]
+    CYAN = [32,178,170]
 
     #tamaños enemigos
     GRANDE = [30,30]

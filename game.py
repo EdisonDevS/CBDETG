@@ -47,23 +47,23 @@ if __name__ == '__main__':
                 j.vely=0
 
             if event.type == pygame.MOUSEBUTTONDOWN:
+                j.puntero = True
+            if event.type == pygame.MOUSEBUTTONUP:
+                j.puntero = False
                 if j.animacion != 0:
                         j.animacion = 1
-        '''
         inicio = [j.rect.x,j.rect.y]
         end = pygame.mouse.get_pos()
         desplazamiento = Util.angular(end, inicio)
         desplazamiento = [(j.rect.x - 100*desplazamiento[0]+j.rect.width/2),(j.rect.y - 100*desplazamiento[1]+j.rect.height/2)]
-        '''
 
 
 
         jugadores.update()
         pantalla.fill(Util.BLANCO)
-        '''
-        pygame.draw.line(pantalla, Util.ROJO, [int(j.rect.x+j.rect.width/2), int(j.rect.y+j.rect.height/2)], desplazamiento, 1)
-        pygame.draw.circle(pantalla, Util.NEGRO, [int(j.rect.x+j.rect.width/2), int(j.rect.y+j.rect.height/2)], 100, 1)
-        '''
+        if j.puntero:
+            pygame.draw.line(pantalla, Util.CYAN, [int(j.rect.x+j.rect.width/2), int(j.rect.y+j.rect.height/2)], desplazamiento, 1)
+        #pygame.draw.circle(pantalla, Util.NEGRO, [int(j.rect.x+j.rect.width/2), int(j.rect.y+j.rect.height/2)], 100, 1)
         jugadores.draw(pantalla)
         pygame.display.flip()
         reloj.tick(20)

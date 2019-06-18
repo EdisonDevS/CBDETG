@@ -20,6 +20,7 @@ class Jugador(pygame.sprite.Sprite):
         self.vida = 100
         self.cadencia = 30
         self.escudo = 0
+        self.puntero = False
         self.inmune = False
 
     def update(self):
