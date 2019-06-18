@@ -42,10 +42,13 @@ class Util:
 
         return imagenes
 
-    def VelTr(Enemigo, Jugador):
-        yo = Jugador.rect.y - Enemigo.rect.y
-        xo = Jugador.rect.x - Enemigo.rect.x
+    def angular(Inicio, Fin):
+        yo = Fin[1] - Inicio[1]
+        xo = Fin[0] - Inicio[0]
+        print(yo)
+        print(xo)
         ang = math.atan2(yo,xo)
-        x = int(math.cos(ang))
-        y = int(math.sin(ang))
+        print(ang)
+        x = math.cos(ang)
+        y = math.sin(ang)
         return ([x,y])
