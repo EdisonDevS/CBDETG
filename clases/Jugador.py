@@ -26,16 +26,9 @@ class Jugador(pygame.sprite.Sprite):
 		self.rect.y+=self.vely
 		self.image=self.matriz[self.accion][self.animacion]
 
-		if self.rect.y < 300:	
-			self.vely+=1
-		else:
-			self.vely=0
-
 		if self.accion < self.limite[self.animacion]-1:
 			self.accion+=1
 		else:
-			if self.animacion!=13:
-				self.animacion=13
 			self.accion=0
 
 	

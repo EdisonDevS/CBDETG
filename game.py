@@ -11,7 +11,7 @@ if __name__ == '__main__':
     ancho_img=info[2]
     alto_img=info[3]
 
-    m=Util.cut(img, 9, 21, 26, 31)
+    m=Util.cut(img, 9, 21, 29, 33)
 
     jugadores=pygame.sprite.Group()
     j=Jugador([100,50],m)
@@ -26,35 +26,26 @@ if __name__ == '__main__':
             if event.type == pygame.QUIT:
                 fin=True
             if event.type==pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:
-                    j.accion=8
-                    j.concol=0
-                if event.key == pygame.K_e:
-                    j.accion=0
-                    j.concol=0
-                if event.key == pygame.K_q:
-                    j.accion=2
-                    j.concol=0
-                if event.key == pygame.K_w:
-                    j.accion=3
-                    j.concol=0
-                if event.key == pygame.K_LCTRL:
-                    j.accion=9
-                    j.concol=0
-                if event.key == pygame.K_e:
-                    j.accion=6
-                    j.concol=0
-                if event.key == pygame.K_r:
-                    j.accion=7
-                    j.concol=0
                 if event.key == pygame.K_LEFT:
                     j.velx=-5
+                    j.animacion = 10
                     j.concol=0
                 if event.key == pygame.K_RIGHT:
                     j.velx=5
+                    j.animacion = 10
+                    j.concol=0
+                if event.key == pygame.K_UP:
+                    j.vely=-5
+                    j.animacion = 18
+                    j.concol=0
+                if event.key == pygame.K_DOWN:
+                    j.vely=5
+                    j.animacion = 8
                     j.concol=0
             if event.type==pygame.KEYUP:
+                j.animacion = 13
                 j.velx=0
+                j.vely=0
             
 
         jugadores.update()
