@@ -33,8 +33,8 @@ class Bala(pygame.sprite.Sprite):
         print(self.pos_fin, self.pos_ini)
         ang= math.atan2((self.pos_fin[1]-self.pos_ini[1]),(self.pos_fin[0]-self.pos_ini[0]))
         #print(ang)
-        x=int(20*math.cos(ang))
-        y=int(20*math.sin(ang))
+        x=int(30*math.cos(ang))
+        y=int(30*math.sin(ang))
         print (x,y)
         self.velx=x
         self.vely=y

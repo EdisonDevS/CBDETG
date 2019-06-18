@@ -32,16 +32,16 @@ if __name__ == '__main__':
                 fin=True
             if event.type==pygame.KEYDOWN:
                 j.accion=0
-                if event.key == pygame.K_a:
+                if event.key == pygame.K_a or event.key == pygame.K_LEFT:
                     j.velx=-5
                     j.animacion = 8
-                if event.key == pygame.K_d:
+                if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
                     j.velx=5
                     j.animacion = 10
-                if event.key == pygame.K_w:
+                if event.key == pygame.K_w or event.key == pygame.K_UP:
                     j.vely=-5
                     j.animacion = 18
-                if event.key == pygame.K_s:
+                if event.key == pygame.K_s or event.key == pygame.K_DOWN:
                     j.vely=5
                     j.animacion = 9
             if event.type==pygame.KEYUP:
