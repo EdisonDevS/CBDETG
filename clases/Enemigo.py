@@ -29,7 +29,6 @@ class Enemigo(pygame.sprite.Sprite):
 
         if self.accion < self.limite[self.animacion]-1:
             self.accion+=1
-            print('entró')
         else:
             self.accion=0
 

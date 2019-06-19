@@ -33,7 +33,7 @@ if __name__ == '__main__':
 
         posibilidad_enemigo=random.randint(0,100)
 
-        print(posibilidad_enemigo)
+        #print(posibilidad_enemigo)
 
         if posibilidad_enemigo in [100,50,0]:
             coordenadas=[random.randint(0,Util.ANCHO), random.randint(0,Util.ALTO)]
@@ -75,6 +75,14 @@ if __name__ == '__main__':
         for b in balas:
             if (b.rect.x > Util.ANCHO) or (b.rect.x < 0) or (b.rect.y > Util.ALTO) or (b.rect.y < 0):
                 balas.remove(b)
+
+
+        #COLISIONES
+        for b in balas:
+            ls_col = pygame.sprite.spritecollide(b, enemigos, True)
+            for be in ls_col:
+                balas.remove(b)
+
         '''
         inicio = [j.rect.x,j.rect.y]
         end = pygame.mouse.get_pos()
