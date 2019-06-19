@@ -46,3 +46,7 @@ class Jugador(pygame.sprite.Sprite):
             desplazamiento = Util.angular(inicio, end)
             self.rect.x += 100*desplazamiento[0]
             self.rect.y += 100*desplazamiento[1]
+
+
+    def getPosition(self):
+    	return [self.rect.x, self.rect.y]
