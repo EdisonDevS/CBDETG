@@ -26,11 +26,11 @@ class Bala(pygame.sprite.Sprite):
     def update(self):
         self.rect.x+=self.velx
         self.rect.y+=self.vely
-        print(self.rect.x, self.rect.y)
+        #print(self.rect.x, self.rect.y)
 
 
     def trayectoria(self):
-        print(self.pos_fin, self.pos_ini)
+        #print(self.pos_fin, self.pos_ini)
         ang= math.atan2((self.pos_fin[1]-self.pos_ini[1]),(self.pos_fin[0]-self.pos_ini[0]))
         #print(ang)
         x=int(30*math.cos(ang))

@@ -23,8 +23,8 @@ class Util:
     BOMBA = [30,30]
 
     #pantalla
-    ANCHO = 700
-    ALTO = 700
+    ANCHO = 680
+    ALTO = 680
     TAMAÑOPANTALLA = [ANCHO, ALTO]
     CENTROX = ANCHO // 2
     CENTROY = ALTO // 2
