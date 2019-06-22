@@ -9,7 +9,7 @@ class Jugador(pygame.sprite.Sprite):
         self.animacion = 0
         self.matriz = mat_i
         self.limite = [8,8,7,9,9,9,9,6,6,6,6,4,4,4,4,6,5,4,6,3,3]
-        self.image = self.matriz[self.accion][self.animacion]
+        self.image=pygame.transform.scale2x(self.matriz[self.accion][self.animacion])
         self.rect = self.image.get_rect()
         self.rect.x = pos[0]
         self.rect.y = pos[1]
@@ -26,7 +26,7 @@ class Jugador(pygame.sprite.Sprite):
         self.dash()
         self.rect.x+=self.velx
         self.rect.y+=self.vely
-        self.image=self.matriz[self.accion][self.animacion]
+        self.image=pygame.transform.scale2x(self.matriz[self.accion][self.animacion])
 
         if self.accion < self.limite[self.animacion]-1:
             self.accion+=1

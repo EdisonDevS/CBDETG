@@ -7,7 +7,7 @@ class Bala(pygame.sprite.Sprite):
         self.accion = 0
         self.animacion = 0
         self.matriz = mat_i
-        self.image = self.matriz[1][0]
+        self.image=pygame.transform.scale2x(self.matriz[1][0])
         self.rect = self.image.get_rect()
         self.rect.x = pos_ini[0]
         self.rect.y = pos_ini[1]

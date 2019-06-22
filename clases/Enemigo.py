@@ -13,7 +13,7 @@ class Enemigo(pygame.sprite.Sprite):
         self.animacion = 1
         self.matriz = mat_i
         self.limite = [4,6,7,7,4,6,7,7,4,6,7,7,4,6,7,7,4,6,7,7,4,6,7,7,4,6,7,7,4,6,7,7]
-        self.image = self.matriz[self.accion][self.animacion+self.tipo_enemigo]
+        self.image=pygame.transform.scale2x(self.matriz[self.accion][self.animacion+self.tipo_enemigo])
         self.rect = self.image.get_rect()
         self.rect.x = pos[0]
         self.rect.y = pos[1]
@@ -29,7 +29,7 @@ class Enemigo(pygame.sprite.Sprite):
 
 
     def update(self, player_position):
-        self.image=self.matriz[self.accion][self.animacion+self.tipo_enemigo]
+        self.image=pygame.transform.scale2x(self.matriz[self.accion][self.animacion+self.tipo_enemigo])
 
         if self.correr:
             self.velx=2
