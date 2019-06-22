@@ -78,8 +78,20 @@ if __name__ == '__main__':
                     if j.animacion != 0:
                             j.animacion = 1
                 if event.button==1:
-                    b=Bala([j.rect.x, j.rect.y], pygame.mouse.get_pos(), imagenesJugador)
-                    balas.add(b)
+                    j.disparando = True
+
+            if event.type == pygame.MOUSEBUTTONUP:
+                if event.button==1:
+                    j.disparando = False
+                    
+
+        #Disparo
+        if j.disparando:
+            j.disparos += 1
+            if j.disparos >= j.cadencia:
+                j.disparos = 0
+                b=Bala([j.rect.x, j.rect.y], pygame.mouse.get_pos(), imagenesJugador)
+                balas.add(b)
 
         #elimina la bala de memoria cuando sale de la pantalla
         for b in balas:

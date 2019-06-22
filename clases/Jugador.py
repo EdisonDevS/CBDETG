@@ -18,9 +18,11 @@ class Jugador(pygame.sprite.Sprite):
         self.velx = 0
         self.vely = 0
         self.vida = 100
-        self.cadencia = 30
+        self.cadencia = 5
+        self.disparos = 0
         self.escudo = 0
         self.inmune = False
+        self.disparando = False
 
     def update(self):
         self.dash()
