@@ -39,6 +39,14 @@ if __name__ == '__main__':
     puntaje=0
 
     while not fin:
+        eventos=pygame.event.get()
+
+        for event in eventos:
+            if event.type == pygame.QUIT:
+                fin=True
+            #eventos del jugador
+        j.eventos(balas, eventos)
+
 
         posibilidad_enemigo=random.randint(0,100)
 
@@ -50,36 +58,7 @@ if __name__ == '__main__':
             e.tipo_enemigo=random.randint(0,3)*8
             enemigos.add(e)
 
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                fin=True
-            if event.type==pygame.KEYDOWN:
-                j.accion=0
-                if event.key == pygame.K_a or event.key == pygame.K_LEFT:
-                    j.velx=-5
-                    j.animacion = 8
-                if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
-                    j.velx=5
-                    j.animacion = 10
-                if event.key == pygame.K_w or event.key == pygame.K_UP:
-                    j.vely=-5
-                    j.animacion = 18
-                if event.key == pygame.K_s or event.key == pygame.K_DOWN:
-                    j.vely=5
-                    j.animacion = 9
-            if event.type==pygame.KEYUP:
-                j.accion = 0
-                j.animacion = 13
-                j.velx=0
-                j.vely=0
-
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button==3:
-                    if j.animacion != 0:
-                            j.animacion = 1
-                if event.button==1:
-                    b=Bala([j.rect.x, j.rect.y], pygame.mouse.get_pos(), imagenesJugador)
-                    balas.add(b)
+        
 
         #elimina la bala de memoria cuando sale de la pantalla
         for b in balas:
