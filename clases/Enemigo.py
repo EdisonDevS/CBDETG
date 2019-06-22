@@ -32,8 +32,8 @@ class Enemigo(pygame.sprite.Sprite):
         self.image=pygame.transform.scale2x(self.matriz[self.accion][self.animacion+self.tipo_enemigo])
 
         if self.correr:
-            self.velx=2
-            self.vely=2
+            self.velx=3
+            self.vely=3
         else:
             self.velx=1
             self.vely=1
