@@ -1,5 +1,6 @@
 import pygame
 from Util import *
+from clases.Bala import *
 class Jugador(pygame.sprite.Sprite):
     
     def __init__(self, pos, mat_i):
@@ -52,3 +53,34 @@ class Jugador(pygame.sprite.Sprite):
 
     def getPosition(self):
     	return [self.rect.x, self.rect.y]
+
+
+    def eventos(self, balas, evento):
+        for event in evento:
+            if event.type==pygame.KEYDOWN:
+                self.accion=0
+                if event.key == pygame.K_a or event.key == pygame.K_LEFT:
+                    self.velx=-5
+                    self.animacion = 8
+                if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
+                    self.velx=5
+                    self.animacion = 10
+                if event.key == pygame.K_w or event.key == pygame.K_UP:
+                    self.vely=-5
+                    self.animacion = 18
+                if event.key == pygame.K_s or event.key == pygame.K_DOWN:
+                    self.vely=5
+                    self.animacion = 9
+            if event.type==pygame.KEYUP:
+                self.accion = 0
+                self.animacion = 13
+                self.velx=0
+                self.vely=0
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button==3:
+                    if self.animacion != 0:
+                            self.animacion = 1
+                if event.button==1:
+                    b=Bala([self.rect.x, self.rect.y], pygame.mouse.get_pos(), self.matriz)
+                    balas.add(b)
