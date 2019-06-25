@@ -19,6 +19,7 @@ class Enemigo(pygame.sprite.Sprite):
         self.rect.y = pos[1]
 
         #stats
+        self.daño_bala=25
         self.velx = 1
         self.vely = 1
         self.vida = 100

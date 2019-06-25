@@ -74,8 +74,12 @@ if __name__ == '__main__':
 
         #COLISIONES
         for b in balas:
-            ls_col = pygame.sprite.spritecollide(b, enemigos, True)
+            ls_col = pygame.sprite.spritecollide(b, enemigos, False)
             for be in ls_col:
+                if be.vida>0:
+                    be.vida-=be.daño_bala
+                else:
+                    enemigos.remove(be)
                 balas.remove(b)
 
         '''
