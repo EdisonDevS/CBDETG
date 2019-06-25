@@ -82,8 +82,5 @@ class Jugador(pygame.sprite.Sprite):
                     if self.animacion != 0:
                             self.animacion = 1
                 if event.button==1:
-                    self.disparando = True
-
-            if event.type == pygame.MOUSEBUTTONUP:
-                if event.button==1:
-                    self.disparando = False
+                    b=Bala([self.rect.x, self.rect.y], pygame.mouse.get_pos(), self.matriz)
+                    balas.add(b)

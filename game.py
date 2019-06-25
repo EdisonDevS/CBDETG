@@ -6,6 +6,7 @@ from Util import *
 from clases.Jugador import *
 from clases.Bala import *
 from clases.Enemigo import *
+from clases.Explosion import *
 
 if __name__ == '__main__':
     pygame.init()
@@ -14,19 +15,22 @@ if __name__ == '__main__':
 
     #configuracion del jugador
     img_juagador= pygame.image.load('images/liche.png')
-
     imagenesJugador=Util.cut(img_juagador, 9, 21, 29, 33)
 
 
     #configuraion de los enemigos
     img_enemigo= pygame.image.load('images/enemigos.png')
-
     imagenesEnemigo=Util.cut(img_enemigo, 7, 32, 24, 24)
+
+    #configuracion de las explosiones
+    img_explosion=pygame.image.load('images/explosion.png')
+    imagenesExplosion=Util.cut(img_explosion, 8, 6, 256, 256)
 
     #grupos
     jugadores=pygame.sprite.Group()
     balas=pygame.sprite.Group()
     enemigos=pygame.sprite.Group()
+    explosiones=pygame.sprite.Group()
 
     j=Jugador(Util.CENTRO,imagenesJugador)
     jugadores.add(j)
@@ -44,8 +48,13 @@ if __name__ == '__main__':
         for event in eventos:
             if event.type == pygame.QUIT:
                 fin=True
-            #eventos del jugador
+        #eventos del jugador
         j.eventos(balas, eventos)
+
+        #actualizacion de explosiones
+        for e in explosiones:
+            if(e.animacion==5):
+                explosiones.remove(e)
 
 
         posibilidad_enemigo=random.randint(0,100)
@@ -59,13 +68,14 @@ if __name__ == '__main__':
             enemigos.add(e)
 
         #Disparo
+        """
         if j.disparando:
             j.disparos += 1
             if j.disparos >= j.cadencia:
                 j.disparos = 0
                 b=Bala([j.rect.x, j.rect.y], pygame.mouse.get_pos(), imagenesJugador)
                 balas.add(b)
-
+        """
 
         #elimina la bala de memoria cuando sale de la pantalla
         for b in balas:
@@ -86,7 +96,20 @@ if __name__ == '__main__':
                 if be.vida>0:
                     be.vida-=be.daño_bala
                 else:
+                    #la muerte del enemigo depende del tipo
+                    if(be.tipo_enemigo==0):
+                        None
+                    elif(be.tipo_enemigo==8):
+                        None
+                    elif(be.tipo_enemigo==16):
+                        None
+                    elif(be.tipo_enemigo==24):
+                        print("entro")
+                        e=Explosion([be.rect.x-128, be.rect.y-128], imagenesExplosion)
+                        explosiones.add(e)
+
                     enemigos.remove(be)
+                
                 balas.remove(b)
 
         '''
@@ -105,6 +128,7 @@ if __name__ == '__main__':
         balas.update()
         jugadores.update()
         enemigos.update(player_position)
+        explosiones.update()
         pantalla.fill(Util.BLANCO)
 
 
@@ -122,5 +146,6 @@ if __name__ == '__main__':
         jugadores.draw(pantalla)
         balas.draw(pantalla)
         enemigos.draw(pantalla)
+        explosiones.draw(pantalla)
         pygame.display.flip()
         reloj.tick(20)
