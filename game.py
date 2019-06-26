@@ -7,6 +7,7 @@ from clases.Jugador import *
 from clases.Bala import *
 from clases.Enemigo import *
 from clases.Explosion import *
+from clases.Botiquin import *
 
 if __name__ == '__main__':
     pygame.init()
@@ -34,12 +35,17 @@ if __name__ == '__main__':
     img_balas_enemigo=pygame.image.load('images/balas.png')
     imagenesBalasEnemigo=Util.cut(img_balas_enemigo, 9, 2, 128, 128)
 
+    #configuracion de los botiquines
+    img_botiquin=pygame.image.load('images/botiquin.png')
+    imagenesBotiquin=Util.cut(img_botiquin, 1, 1, 512, 512)
+
     #grupos
     jugadores=pygame.sprite.Group()
     balas=pygame.sprite.Group()
     enemigos=pygame.sprite.Group()
     explosiones=pygame.sprite.Group()
     balas_enemigas=pygame.sprite.Group()
+    botiquines=pygame.sprite.Group()
 
     j=Jugador(Util.CENTRO,imagenesJugador)
     jugadores.add(j)
@@ -117,7 +123,10 @@ if __name__ == '__main__':
                 else:
                     #la muerte del enemigo depende del tipo
                     if(be.tipo_enemigo==0):
-                        None
+                        posibilidad_botiquin=random.randint(0,1)
+                        if posibilidad_botiquin==1:
+                            b=Botiquin([be.rect.x,be.rect.y], imagenesBotiquin)
+                            botiquines.add(b)
                     elif(be.tipo_enemigo==8):
                         None
                     elif(be.tipo_enemigo==16):
@@ -196,5 +205,6 @@ if __name__ == '__main__':
         balas_enemigas.draw(pantalla)
         enemigos.draw(pantalla)
         explosiones.draw(pantalla)
+        botiquines.draw(pantalla)
         pygame.display.flip()
         reloj.tick(20)
