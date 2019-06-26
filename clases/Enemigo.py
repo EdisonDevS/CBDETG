@@ -1,5 +1,7 @@
 import pygame
+import random
 from Util import *
+from clases.Bala import *
 
 class Enemigo(pygame.sprite.Sprite):
     
@@ -29,7 +31,9 @@ class Enemigo(pygame.sprite.Sprite):
         self.correr=False
 
 
-    def update(self, player_position):
+    def update(self, player_position, balas_enemgas, img_balas):
+        self.disparar(balas_enemgas, player_position, img_balas)
+
         self.image=pygame.transform.scale2x(self.matriz[self.accion][self.animacion+self.tipo_enemigo])
 
         if self.correr:
@@ -69,3 +73,13 @@ class Enemigo(pygame.sprite.Sprite):
             self.rect.y += self.vely
         else: 
             self.rect.y -= self.vely
+
+
+    def disparar(self, balas_enemigas, player_position, img_balas):
+        if self.tipo_enemigo==8:
+            posibilidad=random.randint(0,200)
+            if posibilidad in [0,100]:
+                print("bala")
+                img_balas[2][0]=pygame.transform.scale(img_balas[2][0], [32,32])
+                b=Bala([self.rect.x, self.rect.y], player_position, img_balas)
+                balas_enemigas.add(b)

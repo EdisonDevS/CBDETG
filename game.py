@@ -26,11 +26,16 @@ if __name__ == '__main__':
     img_explosion=pygame.image.load('images/explosion.png')
     imagenesExplosion=Util.cut(img_explosion, 8, 6, 256, 256)
 
+    #configuracion de las balas
+    img_balas_enemigo=pygame.image.load('images/balas.png')
+    imagenesBalasEnemigo=Util.cut(img_balas_enemigo, 9, 2, 128, 128)
+
     #grupos
     jugadores=pygame.sprite.Group()
     balas=pygame.sprite.Group()
     enemigos=pygame.sprite.Group()
     explosiones=pygame.sprite.Group()
+    balas_enemigas=pygame.sprite.Group()
 
     j=Jugador(Util.CENTRO,imagenesJugador)
     jugadores.add(j)
@@ -89,7 +94,8 @@ if __name__ == '__main__':
             else:
                 e.correr=False
 
-        #COLISIONES
+
+        #COLISIONES BALAS-ENEMIGOS
         for b in balas:
             ls_col = pygame.sprite.spritecollide(b, enemigos, False)
             for be in ls_col:
@@ -112,6 +118,14 @@ if __name__ == '__main__':
                 
                 balas.remove(b)
 
+
+        #COLISIONES EXPLOSION-JUGADOR
+        for e in explosiones:
+            ls_col = pygame.sprite.spritecollide(e, jugadores, False)
+            for jugador in ls_col:
+                if(jugador.vida > 0):
+                    jugador.vida-=1
+
         '''
         inicio = [j.rect.x,j.rect.y]
         end = pygame.mouse.get_pos()
@@ -126,18 +140,19 @@ if __name__ == '__main__':
 
 
         balas.update()
+        balas_enemigas.update()
         jugadores.update()
-        enemigos.update(player_position)
+        enemigos.update(player_position, balas_enemigas, imagenesBalasEnemigo)
         explosiones.update()
         pantalla.fill(Util.BLANCO)
 
 
         #se muestran los puntajes
-        """
-        texto="Puntaje: "+str(puntaje)
+        
+        texto="Vida: "+str(j.vida)
         textoPuntaje=fuente.render(texto, 1, Util.NEGRO)
         pantalla.blit(textoPuntaje,[100,100])
-        """
+        
         '''
         pygame.draw.line(pantalla, Util.ROJO, [int(j.rect.x+j.rect.width/2), int(j.rect.y+j.rect.height/2)], desplazamiento, 1)
         pygame.draw.circle(pantalla, Util.NEGRO, [int(j.rect.x+j.rect.width/2), int(j.rect.y+j.rect.height/2)], 100, 1)
@@ -145,6 +160,7 @@ if __name__ == '__main__':
 
         jugadores.draw(pantalla)
         balas.draw(pantalla)
+        balas_enemigas.draw(pantalla)
         enemigos.draw(pantalla)
         explosiones.draw(pantalla)
         pygame.display.flip()
