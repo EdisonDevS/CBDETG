@@ -168,6 +168,16 @@ if __name__ == '__main__':
                     jugador.vida-=10
                     balas_enemigas.remove(b)
 
+
+        #COLISIONES JUGADOR - BOTIQUIN
+        for b in botiquines:
+            ls_col = pygame.sprite.spritecollide(b, jugadores, False)
+            for jugador in ls_col:
+                if(jugador.vida > 0):
+                    jugador.vida+=40
+                    botiquines.remove(b)
+
+
         '''
         inicio = [j.rect.x,j.rect.y]
         end = pygame.mouse.get_pos()
