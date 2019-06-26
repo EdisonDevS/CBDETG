@@ -52,7 +52,7 @@ class Jugador(pygame.sprite.Sprite):
 
 
     def getPosition(self):
-    	return [self.rect.x, self.rect.y]
+    	return [self.rect.x+self.rect.width/2, self.rect.y+self.rect.height/2]
 
 
     def eventos(self, balas, evento):

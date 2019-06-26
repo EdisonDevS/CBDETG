@@ -7,6 +7,7 @@ from clases.Jugador import *
 from clases.Bala import *
 from clases.Enemigo import *
 from clases.Explosion import *
+from clases.Jefe import *
 
 if __name__ == '__main__':
     pygame.init()
@@ -30,17 +31,25 @@ if __name__ == '__main__':
     img_balas_enemigo=pygame.image.load('images/balas.png')
     imagenesBalasEnemigo=Util.cut(img_balas_enemigo, 9, 2, 128, 128)
 
+    #configuracion del jefe
+    img_jefe=pygame.image.load('images/boss.png')
+    imagenesjefe=Util.cut(img_jefe, 9, 20, 96, 96)
+
     #grupos
     jugadores=pygame.sprite.Group()
     balas=pygame.sprite.Group()
     enemigos=pygame.sprite.Group()
     explosiones=pygame.sprite.Group()
     balas_enemigas=pygame.sprite.Group()
+    jefes=pygame.sprite.Group()
 
     j=Jugador(Util.CENTRO,imagenesJugador)
     jugadores.add(j)
     fin=False
     reloj=pygame.time.Clock()
+
+    jefe = Jefe(Util.CENTRO, imagenesjefe)
+    jefes.add(jefe)
 
     vuelo=0
     desplazamiento = [0,0]
@@ -99,6 +108,27 @@ if __name__ == '__main__':
             else:
                 e.correr=False
 
+        #el jefe ataca cuando está a determinada distancia del jugador
+        for je in jefes:
+            if pygame.sprite.collide_circle_ratio(0.5)(j,je):
+                je.atacar=True
+            else:
+                je.atacar=False
+
+        jefe.run(j.getPosition())
+        posibilidad_ataque=random.randint(0,100)
+        print(jefe.daño_ataque)
+        if jefe.atacar:
+            jefe.velx = 0
+            jefe.vely = 0
+            if not jefe.atacando:
+                if posibilidad_ataque in [1,2]:
+                    jefe.ataqueRotatorio(j.getPosition())
+                if posibilidad_ataque in [3,4,5]:
+                    jefe.ataquePesado(j.getPosition())
+                if posibilidad_ataque in [6,7,8,9,10]:
+                    jefe.ataqueLiviano(j.getPosition())
+
 
         #COLISIONES BALAS-ENEMIGOS
         for b in balas:
@@ -150,16 +180,18 @@ if __name__ == '__main__':
         player_position=[]
 
         
-        for j in jugadores:
-            player_position=j.getPosition()
+        for je in jugadores:
+            player_position=je.getPosition()
+        
 
 
         balas.update()
+        jefes.update()
         balas_enemigas.update()
         jugadores.update()
         enemigos.update(player_position, balas_enemigas, imagenesBalasEnemigo)
         explosiones.update()
-        pantalla.fill(Util.BLANCO)
+        pantalla.fill(Util.NEGRO)
 
 
         #se muestran los puntajes
@@ -174,9 +206,10 @@ if __name__ == '__main__':
         '''
 
         jugadores.draw(pantalla)
+        jefes.draw(pantalla)
         balas.draw(pantalla)
         balas_enemigas.draw(pantalla)
         enemigos.draw(pantalla)
         explosiones.draw(pantalla)
         pygame.display.flip()
-        reloj.tick(20)
+        reloj.tick(15)
