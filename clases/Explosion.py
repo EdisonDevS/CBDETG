@@ -2,8 +2,12 @@ import pygame
 import math
 
 class Explosion(pygame.sprite.Sprite):
-    def __init__(self, pos_ini, mat_i):
+    def __init__(self, pos_ini, mat_i, lim):
         pygame.sprite.Sprite.__init__(self)
+        #limites de los sprites
+        self.lim_accion=lim[0]
+        self.lim_animacion=lim[1]
+
         self.accion = 0
         self.animacion = 0
         self.matriz = mat_i

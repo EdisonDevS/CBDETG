@@ -29,6 +29,8 @@ class Enemigo(pygame.sprite.Sprite):
         self.escudo = 0
         self.inmune = False
         self.correr=False
+        self.incremento_correr=0
+        self.incremento_caminar=0
 
 
     def update(self, player_position, balas_enemgas, img_balas):
@@ -37,11 +39,11 @@ class Enemigo(pygame.sprite.Sprite):
         self.image=pygame.transform.scale2x(self.matriz[self.accion][self.animacion+self.tipo_enemigo])
 
         if self.correr:
-            self.velx=3
-            self.vely=3
+            self.velx=3+self.incremento_correr
+            self.vely=3+self.incremento_correr
         else:
-            self.velx=1
-            self.vely=1
+            self.velx=1+self.incremento_caminar
+            self.vely=1+self.incremento_caminar
 
         if self.accion < self.limite[self.animacion]-1:
             self.accion+=1

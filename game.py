@@ -24,7 +24,11 @@ if __name__ == '__main__':
 
     #configuracion de las explosiones
     img_explosion=pygame.image.load('images/explosion.png')
-    imagenesExplosion=Util.cut(img_explosion, 8, 6, 256, 256)
+    imagenesExplosionRojo=Util.cut(img_explosion, 8, 6, 256, 256)
+
+    #configuracion de las explosiones
+    img_explosion_azul=pygame.image.load('images/explosion_azul.png')
+    imagenesExplosionAzul=Util.cut(img_explosion_azul, 8, 4, 256, 256)
 
     #configuracion de las balas
     img_balas_enemigo=pygame.image.load('images/balas.png')
@@ -58,7 +62,7 @@ if __name__ == '__main__':
 
         #actualizacion de explosiones
         for e in explosiones:
-            if(e.animacion==5):
+            if(e.animacion==e.lim_animacion):
                 explosiones.remove(e)
 
 
@@ -69,12 +73,16 @@ if __name__ == '__main__':
         if posibilidad_enemigo in [100,50,0]:
             x=j.rect.x
             y=j.rect.y
+            #se garantiza que el enemigo no salga a menos de 12px del jugador
             while(abs(x-j.rect.x)<200 or abs(y-j.rect.y)<200):
                 x=random.randint(0,Util.ANCHO)
                 y=random.randint(0,Util.ALTO)
             coordenadas=[x, y]
             e=Enemigo(coordenadas, imagenesEnemigo)
             e.tipo_enemigo=random.randint(0,3)*8
+            if(e.tipo_enemigo==16):
+                e.incremento_caminar=3
+                e.incremento_correr=3
             enemigos.add(e)
 
         #Disparo
@@ -115,8 +123,7 @@ if __name__ == '__main__':
                     elif(be.tipo_enemigo==16):
                         None
                     elif(be.tipo_enemigo==24):
-                        print("entro")
-                        e=Explosion([be.rect.x-128, be.rect.y-128], imagenesExplosion)
+                        e=Explosion([be.rect.x-128, be.rect.y-128], imagenesExplosionRojo, [7,5])
                         explosiones.add(e)
 
                     enemigos.remove(be)
@@ -130,6 +137,17 @@ if __name__ == '__main__':
             for jugador in ls_col:
                 if(jugador.vida > 0):
                     jugador.vida-=1
+
+
+        #COLISIONES DEL ENEMIGO AZUL
+        for e in enemigos:
+            ls_col = pygame.sprite.spritecollide(e, jugadores, False)
+            for jugador in ls_col:
+                if(jugador.vida > 0):
+                    jugador.vida-=1
+                    enemigos.remove(e)
+                    x=Explosion([jugador.rect.x-64, jugador.rect.y-64], imagenesExplosionAzul, [7,3])
+                    explosiones.add(x)
 
 
 
