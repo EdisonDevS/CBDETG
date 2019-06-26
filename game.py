@@ -1,5 +1,6 @@
 import pygame
 import random
+from datetime import datetime
 from pygame.locals import *
 import sys
 from Util import *
@@ -55,9 +56,98 @@ if __name__ == '__main__':
     vuelo=0
     desplazamiento = [0,0]
     fuente=pygame.font.Font(None, 20)
+    titulos=pygame.font.Font(None, 70)
     puntaje=0
 
+    instanteInicial = datetime.now()
+
     while not fin:
+        instanteFinal = datetime.now()
+        tiempo = instanteFinal - instanteInicial # Devuelve un objeto timedelta
+        segundos = tiempo.seconds
+
+        #oleadas de enemigos
+        if segundos<20:
+            posibilidad_enemigo=random.randint(0,100)
+
+            #print(posibilidad_enemigo)
+
+            if posibilidad_enemigo in [100,50,0]:
+                x=j.rect.x
+                y=j.rect.y
+                #se garantiza que el enemigo no salga a menos de 12px del jugador
+                while(abs(x-j.rect.x)<200 or abs(y-j.rect.y)<200):
+                    x=random.randint(0,Util.ANCHO)
+                    y=random.randint(0,Util.ALTO)
+                coordenadas=[x, y]
+                e=Enemigo(coordenadas, imagenesEnemigo)
+                e.tipo_enemigo=2*8
+                if(e.tipo_enemigo==16):
+                    e.incremento_caminar=3
+                    e.incremento_correr=3
+                enemigos.add(e)
+
+        elif segundos>25 and segundos<45:
+            posibilidad_enemigo=random.randint(0,100)
+
+            #print(posibilidad_enemigo)
+
+            if posibilidad_enemigo in [100,50,0]:
+                x=j.rect.x
+                y=j.rect.y
+                #se garantiza que el enemigo no salga a menos de 12px del jugador
+                while(abs(x-j.rect.x)<200 or abs(y-j.rect.y)<200):
+                    x=random.randint(0,Util.ANCHO)
+                    y=random.randint(0,Util.ALTO)
+                coordenadas=[x, y]
+                e=Enemigo(coordenadas, imagenesEnemigo)
+                e.tipo_enemigo=random.randint(2,3)*8
+                if(e.tipo_enemigo==16):
+                    e.incremento_caminar=3
+                    e.incremento_correr=3
+                enemigos.add(e)
+
+        elif segundos>50 and segundos<70:
+            posibilidad_enemigo=random.randint(0,100)
+
+            #print(posibilidad_enemigo)
+
+            if posibilidad_enemigo in [100,50,0]:
+                x=j.rect.x
+                y=j.rect.y
+                #se garantiza que el enemigo no salga a menos de 12px del jugador
+                while(abs(x-j.rect.x)<200 or abs(y-j.rect.y)<200):
+                    x=random.randint(0,Util.ANCHO)
+                    y=random.randint(0,Util.ALTO)
+                coordenadas=[x, y]
+                e=Enemigo(coordenadas, imagenesEnemigo)
+                e.tipo_enemigo=random.randint(0,3)*8
+                if(e.tipo_enemigo==16):
+                    e.incremento_caminar=3
+                    e.incremento_correr=3
+                enemigos.add(e)
+
+        elif segundos>75 and segundos<95:
+            posibilidad_enemigo=random.randint(0,100)
+
+            #print(posibilidad_enemigo)
+
+            if posibilidad_enemigo in [100,50,0]:
+                x=j.rect.x
+                y=j.rect.y
+                #se garantiza que el enemigo no salga a menos de 12px del jugador
+                while(abs(x-j.rect.x)<200 or abs(y-j.rect.y)<200):
+                    x=random.randint(0,Util.ANCHO)
+                    y=random.randint(0,Util.ALTO)
+                coordenadas=[x, y]
+                e=Enemigo(coordenadas, imagenesEnemigo)
+                e.tipo_enemigo=random.randint(1,3)*8
+                if(e.tipo_enemigo==16):
+                    e.incremento_caminar=3
+                    e.incremento_correr=3
+                enemigos.add(e)
+
+
         eventos=pygame.event.get()
 
         for event in eventos:
@@ -70,26 +160,6 @@ if __name__ == '__main__':
         for e in explosiones:
             if(e.animacion==e.lim_animacion):
                 explosiones.remove(e)
-
-
-        posibilidad_enemigo=random.randint(0,100)
-
-        #print(posibilidad_enemigo)
-
-        if posibilidad_enemigo in [100,50,0]:
-            x=j.rect.x
-            y=j.rect.y
-            #se garantiza que el enemigo no salga a menos de 12px del jugador
-            while(abs(x-j.rect.x)<200 or abs(y-j.rect.y)<200):
-                x=random.randint(0,Util.ANCHO)
-                y=random.randint(0,Util.ALTO)
-            coordenadas=[x, y]
-            e=Enemigo(coordenadas, imagenesEnemigo)
-            e.tipo_enemigo=random.randint(0,3)*8
-            if(e.tipo_enemigo==16):
-                e.incremento_caminar=3
-                e.incremento_correr=3
-            enemigos.add(e)
 
         #Disparo
         """
@@ -203,7 +273,28 @@ if __name__ == '__main__':
         
         texto="Vida: "+str(j.vida)
         textoPuntaje=fuente.render(texto, 1, Util.NEGRO)
-        pantalla.blit(textoPuntaje,[100,100])
+        pantalla.blit(textoPuntaje,[100,20])
+
+
+        texto="Tiempo: "+str(segundos)
+        textoPuntaje=fuente.render(texto, 1, Util.NEGRO)
+        pantalla.blit(textoPuntaje,[300,20])
+
+        if(segundos>20 and segundos<25):
+            texto="Segunda oleada: "+str(25-segundos)
+            textoPuntaje=titulos.render(texto, 1, Util.NEGRO)
+            pantalla.blit(textoPuntaje,[100,300])
+
+        if(segundos>45 and segundos<50):
+            texto="Tercera oleada: "+str(50-segundos)
+            textoPuntaje=titulos.render(texto, 1, Util.NEGRO)
+            pantalla.blit(textoPuntaje,[100,300])
+
+
+        if(segundos>70 and segundos<75):
+            texto="Cuarta oleada: "+str(75-segundos)
+            textoPuntaje=titulos.render(texto, 1, Util.NEGRO)
+            pantalla.blit(textoPuntaje,[100,300])
         
         '''
         pygame.draw.line(pantalla, Util.ROJO, [int(j.rect.x+j.rect.width/2), int(j.rect.y+j.rect.height/2)], desplazamiento, 1)
