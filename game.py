@@ -59,9 +59,15 @@ if __name__ == '__main__':
     titulos=pygame.font.Font(None, 70)
     puntaje=0
 
+    muerte=False
+
     instanteInicial = datetime.now()
 
     while not fin:
+        if j.vida<=0:
+            muerte=True
+            break
+
         instanteFinal = datetime.now()
         tiempo = instanteFinal - instanteInicial # Devuelve un objeto timedelta
         segundos = tiempo.seconds
@@ -309,3 +315,13 @@ if __name__ == '__main__':
         botiquines.draw(pantalla)
         pygame.display.flip()
         reloj.tick(20)
+
+
+    if muerte:
+        while True:
+            texto="Game Over"
+            textoPuntaje=titulos.render(texto, 1, Util.NEGRO)
+            pantalla.blit(textoPuntaje,[300,300])
+            pygame.display.flip()
+            reloj.tick(20)
+
