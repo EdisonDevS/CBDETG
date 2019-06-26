@@ -126,6 +126,16 @@ if __name__ == '__main__':
                 if(jugador.vida > 0):
                     jugador.vida-=1
 
+
+
+        #COLISIONES BALAS ENEMIGAS - JUGADOR
+        for b in balas_enemigas:
+            ls_col = pygame.sprite.spritecollide(b, jugadores, False)
+            for jugador in ls_col:
+                if(jugador.vida > 0):
+                    jugador.vida-=10
+                    balas_enemigas.remove(b)
+
         '''
         inicio = [j.rect.x,j.rect.y]
         end = pygame.mouse.get_pos()
