@@ -67,7 +67,12 @@ if __name__ == '__main__':
         #print(posibilidad_enemigo)
 
         if posibilidad_enemigo in [100,50,0]:
-            coordenadas=[random.randint(0,Util.ANCHO), random.randint(0,Util.ALTO)]
+            x=j.rect.x
+            y=j.rect.y
+            while(abs(x-j.rect.x)<200 or abs(y-j.rect.y)<200):
+                x=random.randint(0,Util.ANCHO)
+                y=random.randint(0,Util.ALTO)
+            coordenadas=[x, y]
             e=Enemigo(coordenadas, imagenesEnemigo)
             e.tipo_enemigo=random.randint(0,3)*8
             enemigos.add(e)
