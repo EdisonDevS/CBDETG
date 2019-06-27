@@ -69,8 +69,7 @@ if __name__ == '__main__':
         for e in explosiones:
             if(e.animacion==5):
                 explosiones.remove(e)
-
-
+      
         posibilidad_enemigo=random.randint(0,100)
 
         #print(posibilidad_enemigo)
@@ -85,7 +84,6 @@ if __name__ == '__main__':
             e=Enemigo(coordenadas, imagenesEnemigo)
             e.tipo_enemigo=random.randint(0,3)*8
             enemigos.add(e)
-
         #Disparo
         """
         if j.disparando:
@@ -115,20 +113,8 @@ if __name__ == '__main__':
             else:
                 je.atacar=False
 
-        jefe.run(j.getPosition())
-        posibilidad_ataque=random.randint(0,100)
+        jefe.comportamientoJefe(j.getPosition())
         print(jefe.daño_ataque)
-        if jefe.atacar:
-            jefe.velx = 0
-            jefe.vely = 0
-            if not jefe.atacando:
-                if posibilidad_ataque in [1,2]:
-                    jefe.ataqueRotatorio(j.getPosition())
-                if posibilidad_ataque in [3,4,5]:
-                    jefe.ataquePesado(j.getPosition())
-                if posibilidad_ataque in [6,7,8,9,10]:
-                    jefe.ataqueLiviano(j.getPosition())
-
 
         #COLISIONES BALAS-ENEMIGOS
         for b in balas:
@@ -152,6 +138,17 @@ if __name__ == '__main__':
                     enemigos.remove(be)
                 
                 balas.remove(b)
+
+
+        #COLISION JEFE
+        for je in jefes:
+            ls_col = pygame.sprite.spritecollide(je, jugadores, False)
+            for ju in ls_col:
+                if ju.vida-je.daño_ataque>0:
+                    ju.vida-=je.daño_ataque
+                else:
+                    ju.vida = 0
+       
 
 
         #COLISIONES EXPLOSION-JUGADOR
@@ -197,7 +194,7 @@ if __name__ == '__main__':
         #se muestran los puntajes
         
         texto="Vida: "+str(j.vida)
-        textoPuntaje=fuente.render(texto, 1, Util.NEGRO)
+        textoPuntaje=fuente.render(texto, 1, Util.BLANCO)
         pantalla.blit(textoPuntaje,[100,100])
         
         '''
@@ -212,4 +209,4 @@ if __name__ == '__main__':
         enemigos.draw(pantalla)
         explosiones.draw(pantalla)
         pygame.display.flip()
-        reloj.tick(15)
+        reloj.tick(20)

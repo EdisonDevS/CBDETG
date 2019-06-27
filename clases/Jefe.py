@@ -76,15 +76,32 @@ class Jefe(pygame.sprite.Sprite):
             self.atacando = False
             if self.animacion == 5:
                 self.animacion = 0
+            if self.animacion == 1:
+                self.animacion = 0
+            if self.animacion == 11:
+                self.animacion = 10
+            if self.animacion == 3:
+                self.animacion = 0
+            if self.animacion == 13:
+                self.animacion = 10
+            if self.animacion == 6:
+                self.animacion = 0
+            if self.animacion == 16:
+                self.animacion = 10
+            if self.animacion == 4:
+                self.animacion = 0
+            if self.animacion == 14:
+                self.animacion = 10
 
     def run(self,pos_jugador):
         desplazamiento = Util.angular(self.centroSprite, pos_jugador)
         self.velx = 5*desplazamiento[0]
         self.vely = 5*desplazamiento[1]
-        if desplazamiento[0] >= 0:
-            self.animacion = 1
-        else:
-            self.animacion = 11
+        if self.accion == 0:
+            if desplazamiento[0] >= 0:
+                self.animacion = 1
+            else:
+                self.animacion = 11
 
     def ataquePesado(self, pos_jugador):
         self.velx = 0
@@ -104,9 +121,9 @@ class Jefe(pygame.sprite.Sprite):
         desplazamiento = Util.angular(self.centroSprite, pos_jugador)
         if self.accion == 0:
             if desplazamiento[0] >= 0:
-                self.animacion = 3
+                self.animacion = 4
             else:
-                self.animacion = 13
+                self.animacion = 14
 
     def ataqueRotatorio(self, pos_jugador):
         self.velx = 0
@@ -118,3 +135,18 @@ class Jefe(pygame.sprite.Sprite):
                 self.animacion = 6
             else:
                 self.animacion = 16
+
+    def comportamientoJefe(self, pos_jugador):
+        if not self.atacar: 
+            self.run(pos_jugador)
+        else:
+            posibilidad_ataque=random.randint(0,20)
+            self.velx = 0
+            self.vely = 0
+            if not self.atacando:
+                if posibilidad_ataque in [1,2]:
+                    self.ataqueRotatorio(pos_jugador)
+                if posibilidad_ataque in [3,4,5]:
+                    self.ataquePesado(pos_jugador)
+                if posibilidad_ataque in [6,7,8,9,10]:
+                    self.ataqueLiviano(pos_jugador)
