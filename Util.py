@@ -2,6 +2,8 @@ import pygame
 import math
 import random
 import time
+import configparser
+from niveles.clases.Bloque import *
 
 class Util:
     #colores
@@ -52,3 +54,25 @@ class Util:
         x = math.cos(ang)
         y = math.sin(ang)
         return ([x,y])
+
+    def mapear(ruta):
+        mapa = configparser.ConfigParser()
+        mapa.read(ruta)
+        cad_map = mapa.get('info','mapa')
+        ls_mapa = cad_map.split('\n')
+        mapi = pygame.image.load('niveles/images/paredes.png')
+        bloques = pygame.sprite.Group()
+        imgs = Util.cut(mapi,8,1,16,16)
+        filas = 0
+        for col in range (9):
+            for c in ls_mapa[col]:
+                        if(c != '.'):
+                            print(int(mapa.get(c,'ux')),int(mapa.get(c,'uy')))
+                            Map = imgs[int(mapa.get(c,'ux'))][int(mapa.get(c,'uy'))]
+                            Map = pygame.transform.scale2x(pygame.transform.scale2x(Map))
+                            bloque = Bloque(Map, [filas*64,col*64])
+                            bloques.add(bloque)
+                        filas += 1
+            filas = 0
+
+        return bloques

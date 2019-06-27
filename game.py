@@ -1,7 +1,6 @@
 import pygame
 import random
 from datetime import datetime
-from pygame.locals import *
 import sys
 from Util import *
 from niveles.lvl1 import *
