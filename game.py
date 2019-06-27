@@ -177,26 +177,6 @@ if __name__ == '__main__':
             if(e.animacion==e.lim_animacion):
                 explosiones.remove(e)
 
-      
-        posibilidad_enemigo=random.randint(0,100)
-
-        #print(posibilidad_enemigo)
-
-        if posibilidad_enemigo in [100,50,0]:
-            x=j.rect.x
-            y=j.rect.y
-            #se garantiza que el enemigo no salga a menos de 12px del jugador
-            while(abs(x-j.rect.x)<200 or abs(y-j.rect.y)<200):
-                x=random.randint(0,Util.ANCHO)
-                y=random.randint(0,Util.ALTO)
-            coordenadas=[x, y]
-            e=Enemigo(coordenadas, imagenesEnemigo)
-            e.tipo_enemigo=random.randint(0,3)*8
-            if(e.tipo_enemigo==16):
-                e.incremento_caminar=3
-                e.incremento_correr=3
-            enemigos.add(e)
-
         #elimina la bala de memoria cuando sale de la pantalla
         for b in balas:
             if (b.rect.x > Util.ANCHO) or (b.rect.x < 0) or (b.rect.y > Util.ALTO) or (b.rect.y < 0):
