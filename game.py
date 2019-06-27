@@ -228,12 +228,15 @@ if __name__ == '__main__':
             ls_col = pygame.sprite.spritecollide(e, jugadores, False)
             for jugador in ls_col:
                 if(jugador.vida > 0):
-                    jugador.vida-=1
-                    if e.tipo_enemigo==24:
+                    if e.tipo_enemigo==0:
+                        None
+                    elif e.tipo_enemigo==24:
+                        jugador.vida-=1
                         x=Explosion([jugador.rect.x-64, jugador.rect.y-64], imagenesExplosionRojo, [7,5])
                         explosiones.add(x)
                         enemigos.remove(e)
                     elif e.tipo_enemigo==16:
+                        jugador.vida-=1
                         x=Explosion([jugador.rect.x-64, jugador.rect.y-64], imagenesExplosionAzul, [7,3])
                         explosiones.add(x)
                         enemigos.remove(e)
