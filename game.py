@@ -67,7 +67,6 @@ if __name__ == '__main__':
         if j.vida<=0:
             muerte=True
             break
-
         instanteFinal = datetime.now()
         tiempo = instanteFinal - instanteInicial # Devuelve un objeto timedelta
         segundos = tiempo.seconds
@@ -319,6 +318,10 @@ if __name__ == '__main__':
 
     if muerte:
         while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
             texto="Game Over"
             textoPuntaje=titulos.render(texto, 1, Util.NEGRO)
             pantalla.blit(textoPuntaje,[300,300])
