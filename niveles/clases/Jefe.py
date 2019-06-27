@@ -1,7 +1,7 @@
 import pygame
 import random
 from Util import *
-from clases.Bala import *
+from niveles.clases.Bala import *
 
 class Jefe(pygame.sprite.Sprite):
     

@@ -2,7 +2,7 @@ import pygame
 import random
 from datetime import datetime
 from Util import *
-from clases.Bala import *
+from niveles.clases.Bala import *
 
 class Enemigo(pygame.sprite.Sprite):
     

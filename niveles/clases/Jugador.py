@@ -1,6 +1,6 @@
 import pygame
 from Util import *
-from clases.Bala import *
+from niveles.clases.Bala import *
 class Jugador(pygame.sprite.Sprite):
     
     def __init__(self, pos, mat_i):
