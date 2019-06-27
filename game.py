@@ -7,6 +7,7 @@ from clases.Jugador import *
 from clases.Bala import *
 from clases.Enemigo import *
 from clases.Explosion import *
+from clases.Jefe import *
 
 if __name__ == '__main__':
     pygame.init()
@@ -34,17 +35,25 @@ if __name__ == '__main__':
     img_balas_enemigo=pygame.image.load('images/balas.png')
     imagenesBalasEnemigo=Util.cut(img_balas_enemigo, 9, 2, 128, 128)
 
+    #configuracion del jefe
+    img_jefe=pygame.image.load('images/boss.png')
+    imagenesjefe=Util.cut(img_jefe, 9, 20, 96, 96)
+
     #grupos
     jugadores=pygame.sprite.Group()
     balas=pygame.sprite.Group()
     enemigos=pygame.sprite.Group()
     explosiones=pygame.sprite.Group()
     balas_enemigas=pygame.sprite.Group()
+    jefes=pygame.sprite.Group()
 
     j=Jugador(Util.CENTRO,imagenesJugador)
     jugadores.add(j)
     fin=False
     reloj=pygame.time.Clock()
+
+    jefe = Jefe(Util.CENTRO, imagenesjefe)
+    jefes.add(jefe)
 
     vuelo=0
     desplazamiento = [0,0]
@@ -64,8 +73,7 @@ if __name__ == '__main__':
         for e in explosiones:
             if(e.animacion==e.lim_animacion):
                 explosiones.remove(e)
-
-
+      
         posibilidad_enemigo=random.randint(0,100)
 
         #print(posibilidad_enemigo)
@@ -84,7 +92,6 @@ if __name__ == '__main__':
                 e.incremento_caminar=3
                 e.incremento_correr=3
             enemigos.add(e)
-
         #Disparo
         """
         if j.disparando:
@@ -107,8 +114,29 @@ if __name__ == '__main__':
             else:
                 e.correr=False
 
+        #el jefe ataca cuando está a determinada distancia del jugador
+        for je in jefes:
+            if pygame.sprite.collide_circle_ratio(0.5)(j,je):
+                je.atacar=True
+            else:
+                je.atacar=False
+
+        jefe.comportamientoJefe(j.getPosition())
+        print(jefe.daño_ataque)
 
         #COLISIONES BALAS-ENEMIGOS
+        for b in balas:
+            ls_col = pygame.sprite.spritecollide(b, jefes, False)
+            for be in ls_col:
+                if be.vida>0:
+                    be.vida-=be.daño_bala
+                else:
+                    enemigos.remove(be)
+                
+                balas.remove(b)
+
+
+        #COLISION BALAS CON JEFE
         for b in balas:
             ls_col = pygame.sprite.spritecollide(b, enemigos, False)
             for be in ls_col:
@@ -129,6 +157,17 @@ if __name__ == '__main__':
                     enemigos.remove(be)
                 
                 balas.remove(b)
+
+
+        #COLISION JEFE
+        for je in jefes:
+            ls_col = pygame.sprite.spritecollide(je, jugadores, False)
+            for ju in ls_col:
+                if ju.vida-je.daño_ataque>0:
+                    ju.vida-=je.daño_ataque
+                else:
+                    ju.vida = 0
+       
 
 
         #COLISIONES EXPLOSION-JUGADOR
@@ -168,22 +207,24 @@ if __name__ == '__main__':
         player_position=[]
 
         
-        for j in jugadores:
-            player_position=j.getPosition()
+        for je in jugadores:
+            player_position=je.getPosition()
+        
 
 
         balas.update()
+        jefes.update()
         balas_enemigas.update()
         jugadores.update()
         enemigos.update(player_position, balas_enemigas, imagenesBalasEnemigo)
         explosiones.update()
-        pantalla.fill(Util.BLANCO)
+        pantalla.fill(Util.NEGRO)
 
 
         #se muestran los puntajes
         
-        texto="Vida: "+str(j.vida)
-        textoPuntaje=fuente.render(texto, 1, Util.NEGRO)
+        texto="Vida: "+str(jefe.vida)
+        textoPuntaje=fuente.render(texto, 1, Util.BLANCO)
         pantalla.blit(textoPuntaje,[100,100])
         
         '''
@@ -192,6 +233,7 @@ if __name__ == '__main__':
         '''
 
         jugadores.draw(pantalla)
+        jefes.draw(pantalla)
         balas.draw(pantalla)
         balas_enemigas.draw(pantalla)
         enemigos.draw(pantalla)
