@@ -118,6 +118,18 @@ if __name__ == '__main__':
 
         #COLISIONES BALAS-ENEMIGOS
         for b in balas:
+            ls_col = pygame.sprite.spritecollide(b, jefes, False)
+            for be in ls_col:
+                if be.vida>0:
+                    be.vida-=be.daño_bala
+                else:
+                    enemigos.remove(be)
+                
+                balas.remove(b)
+
+
+        #COLISION BALAS CON JEFE
+        for b in balas:
             ls_col = pygame.sprite.spritecollide(b, enemigos, False)
             for be in ls_col:
                 if be.vida>0:
@@ -193,7 +205,7 @@ if __name__ == '__main__':
 
         #se muestran los puntajes
         
-        texto="Vida: "+str(j.vida)
+        texto="Vida: "+str(jefe.vida)
         textoPuntaje=fuente.render(texto, 1, Util.BLANCO)
         pantalla.blit(textoPuntaje,[100,100])
         
