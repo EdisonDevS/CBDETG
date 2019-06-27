@@ -61,7 +61,7 @@ if __name__ == '__main__':
     fin=False
     reloj=pygame.time.Clock()
 
-    jefe = Jefe(Util.CENTRO, imagenesjefe)
+    jefe = Jefe([400,500], imagenesjefe)
     jefes.add(jefe)
 
     vuelo=0
@@ -81,7 +81,7 @@ if __name__ == '__main__':
         instanteFinal = datetime.now()
         tiempo = instanteFinal - instanteInicial # Devuelve un objeto timedelta
         segundos = tiempo.seconds
-
+        '''
         #oleadas de enemigos
         if segundos<20:
             posibilidad_enemigo=random.randint(0,100)
@@ -163,7 +163,7 @@ if __name__ == '__main__':
                     e.incremento_correr=3
                 enemigos.add(e)
 
-
+        '''
         eventos=pygame.event.get()
 
         for event in eventos:
@@ -216,22 +216,31 @@ if __name__ == '__main__':
             else:
                 je.atacar=False
 
-        jefe.comportamientoJefe(j.getPosition())
-        print(jefe.daño_ataque)
+        if not jefe.muriendo:
+            jefe.comportamientoJefe(j.getPosition())
+        else:
+            if jefe.accion == 5:
+                jefes.remove(jefe)
 
-        #COLISIONES BALAS-ENEMIGOS
+        
+        #COLISION BALAS CON JEFE
         for b in balas:
             ls_col = pygame.sprite.spritecollide(b, jefes, False)
             for be in ls_col:
-                if be.vida>0:
-                    be.vida-=be.daño_bala
-                else:
-                    enemigos.remove(be)
+                if not be.muriendo:
+                    if be.vida-be.daño_bala>0:
+                        be.vida-=be.daño_bala
+                    else:
+                        be.animacion = 9
+                        be.accion = 0
+                        be.muriendo = True
+                        be.vely = 0
+                        be.velx = 0
                 
                 balas.remove(b)
 
 
-        #COLISION BALAS CON JEFE
+        #COLISIONES BALAS-ENEMIGOS
         for b in balas:
             ls_col = pygame.sprite.spritecollide(b, enemigos, False)
             for be in ls_col:
