@@ -1,5 +1,6 @@
 import pygame
 import random
+from datetime import datetime
 from pygame.locals import *
 import sys
 from Util import *
@@ -8,6 +9,7 @@ from clases.Bala import *
 from clases.Enemigo import *
 from clases.Explosion import *
 from clases.Jefe import *
+from clases.Botiquin import *
 
 if __name__ == '__main__':
     pygame.init()
@@ -35,9 +37,15 @@ if __name__ == '__main__':
     img_balas_enemigo=pygame.image.load('images/balas.png')
     imagenesBalasEnemigo=Util.cut(img_balas_enemigo, 9, 2, 128, 128)
 
+
     #configuracion del jefe
     img_jefe=pygame.image.load('images/boss.png')
     imagenesjefe=Util.cut(img_jefe, 9, 20, 96, 96)
+
+    #configuracion de los botiquines
+    img_botiquin=pygame.image.load('images/botiquin.png')
+    imagenesBotiquin=Util.cut(img_botiquin, 1, 1, 512, 512)
+
 
     #grupos
     jugadores=pygame.sprite.Group()
@@ -46,6 +54,7 @@ if __name__ == '__main__':
     explosiones=pygame.sprite.Group()
     balas_enemigas=pygame.sprite.Group()
     jefes=pygame.sprite.Group()
+    botiquines=pygame.sprite.Group()
 
     j=Jugador(Util.CENTRO,imagenesJugador)
     jugadores.add(j)
@@ -58,9 +67,103 @@ if __name__ == '__main__':
     vuelo=0
     desplazamiento = [0,0]
     fuente=pygame.font.Font(None, 20)
+    titulos=pygame.font.Font(None, 70)
     puntaje=0
 
+    muerte=False
+
+    instanteInicial = datetime.now()
+
     while not fin:
+        if j.vida<=0:
+            muerte=True
+            break
+        instanteFinal = datetime.now()
+        tiempo = instanteFinal - instanteInicial # Devuelve un objeto timedelta
+        segundos = tiempo.seconds
+
+        #oleadas de enemigos
+        if segundos<20:
+            posibilidad_enemigo=random.randint(0,100)
+
+            #print(posibilidad_enemigo)
+
+            if posibilidad_enemigo in [100,50,0]:
+                x=j.rect.x
+                y=j.rect.y
+                #se garantiza que el enemigo no salga a menos de 12px del jugador
+                while(abs(x-j.rect.x)<200 or abs(y-j.rect.y)<200):
+                    x=random.randint(0,Util.ANCHO)
+                    y=random.randint(0,Util.ALTO)
+                coordenadas=[x, y]
+                e=Enemigo(coordenadas, imagenesEnemigo)
+                e.tipo_enemigo=2*8
+                if(e.tipo_enemigo==16):
+                    e.incremento_caminar=3
+                    e.incremento_correr=3
+                enemigos.add(e)
+
+        elif segundos>25 and segundos<45:
+            posibilidad_enemigo=random.randint(0,100)
+
+            #print(posibilidad_enemigo)
+
+            if posibilidad_enemigo in [100,50,0]:
+                x=j.rect.x
+                y=j.rect.y
+                #se garantiza que el enemigo no salga a menos de 12px del jugador
+                while(abs(x-j.rect.x)<200 or abs(y-j.rect.y)<200):
+                    x=random.randint(0,Util.ANCHO)
+                    y=random.randint(0,Util.ALTO)
+                coordenadas=[x, y]
+                e=Enemigo(coordenadas, imagenesEnemigo)
+                e.tipo_enemigo=random.randint(2,3)*8
+                if(e.tipo_enemigo==16):
+                    e.incremento_caminar=3
+                    e.incremento_correr=3
+                enemigos.add(e)
+
+        elif segundos>50 and segundos<70:
+            posibilidad_enemigo=random.randint(0,100)
+
+            #print(posibilidad_enemigo)
+
+            if posibilidad_enemigo in [100,50,0]:
+                x=j.rect.x
+                y=j.rect.y
+                #se garantiza que el enemigo no salga a menos de 12px del jugador
+                while(abs(x-j.rect.x)<200 or abs(y-j.rect.y)<200):
+                    x=random.randint(0,Util.ANCHO)
+                    y=random.randint(0,Util.ALTO)
+                coordenadas=[x, y]
+                e=Enemigo(coordenadas, imagenesEnemigo)
+                e.tipo_enemigo=random.randint(0,3)*8
+                if(e.tipo_enemigo==16):
+                    e.incremento_caminar=3
+                    e.incremento_correr=3
+                enemigos.add(e)
+
+        elif segundos>75 and segundos<95:
+            posibilidad_enemigo=random.randint(0,100)
+
+            #print(posibilidad_enemigo)
+
+            if posibilidad_enemigo in [100,50,0]:
+                x=j.rect.x
+                y=j.rect.y
+                #se garantiza que el enemigo no salga a menos de 12px del jugador
+                while(abs(x-j.rect.x)<200 or abs(y-j.rect.y)<200):
+                    x=random.randint(0,Util.ANCHO)
+                    y=random.randint(0,Util.ALTO)
+                coordenadas=[x, y]
+                e=Enemigo(coordenadas, imagenesEnemigo)
+                e.tipo_enemigo=random.randint(1,3)*8
+                if(e.tipo_enemigo==16):
+                    e.incremento_caminar=3
+                    e.incremento_correr=3
+                enemigos.add(e)
+
+
         eventos=pygame.event.get()
 
         for event in eventos:
@@ -73,6 +176,7 @@ if __name__ == '__main__':
         for e in explosiones:
             if(e.animacion==e.lim_animacion):
                 explosiones.remove(e)
+
       
         posibilidad_enemigo=random.randint(0,100)
 
@@ -92,15 +196,6 @@ if __name__ == '__main__':
                 e.incremento_caminar=3
                 e.incremento_correr=3
             enemigos.add(e)
-        #Disparo
-        """
-        if j.disparando:
-            j.disparos += 1
-            if j.disparos >= j.cadencia:
-                j.disparos = 0
-                b=Bala([j.rect.x, j.rect.y], pygame.mouse.get_pos(), imagenesJugador)
-                balas.add(b)
-        """
 
         #elimina la bala de memoria cuando sale de la pantalla
         for b in balas:
@@ -145,7 +240,10 @@ if __name__ == '__main__':
                 else:
                     #la muerte del enemigo depende del tipo
                     if(be.tipo_enemigo==0):
-                        None
+                        posibilidad_botiquin=random.randint(0,1)
+                        if posibilidad_botiquin==1:
+                            b=Botiquin([be.rect.x,be.rect.y], imagenesBotiquin)
+                            botiquines.add(b)
                     elif(be.tipo_enemigo==8):
                         None
                     elif(be.tipo_enemigo==16):
@@ -183,11 +281,18 @@ if __name__ == '__main__':
             ls_col = pygame.sprite.spritecollide(e, jugadores, False)
             for jugador in ls_col:
                 if(jugador.vida > 0):
-                    jugador.vida-=1
-                    enemigos.remove(e)
-                    x=Explosion([jugador.rect.x-64, jugador.rect.y-64], imagenesExplosionAzul, [7,3])
-                    explosiones.add(x)
-
+                    if e.tipo_enemigo==0:
+                        None
+                    elif e.tipo_enemigo==24:
+                        jugador.vida-=1
+                        x=Explosion([jugador.rect.x-64, jugador.rect.y-64], imagenesExplosionRojo, [7,5])
+                        explosiones.add(x)
+                        enemigos.remove(e)
+                    elif e.tipo_enemigo==16:
+                        jugador.vida-=1
+                        x=Explosion([jugador.rect.x-64, jugador.rect.y-64], imagenesExplosionAzul, [7,3])
+                        explosiones.add(x)
+                        enemigos.remove(e)
 
 
         #COLISIONES BALAS ENEMIGAS - JUGADOR
@@ -197,6 +302,16 @@ if __name__ == '__main__':
                 if(jugador.vida > 0):
                     jugador.vida-=10
                     balas_enemigas.remove(b)
+
+
+        #COLISIONES JUGADOR - BOTIQUIN
+        for b in botiquines:
+            ls_col = pygame.sprite.spritecollide(b, jugadores, False)
+            for jugador in ls_col:
+                if(jugador.vida > 0):
+                    jugador.vida+=40
+                    botiquines.remove(b)
+
 
         '''
         inicio = [j.rect.x,j.rect.y]
@@ -218,14 +333,41 @@ if __name__ == '__main__':
         jugadores.update()
         enemigos.update(player_position, balas_enemigas, imagenesBalasEnemigo)
         explosiones.update()
-        pantalla.fill(Util.NEGRO)
+        pantalla.fill(Util.BLANCO)
 
 
         #se muestran los puntajes
         
-        texto="Vida: "+str(jefe.vida)
-        textoPuntaje=fuente.render(texto, 1, Util.BLANCO)
-        pantalla.blit(textoPuntaje,[100,100])
+
+        texto="Vida del jefe: "+str(jefe.vida)
+        textoPuntaje=fuente.render(texto, 1, Util.NEGRO)
+        pantalla.blit(textoPuntaje,[400,20])
+
+        texto="Vida: "+str(j.vida)
+        textoPuntaje=fuente.render(texto, 1, Util.NEGRO)
+        pantalla.blit(textoPuntaje,[100,20])
+
+
+        texto="Tiempo: "+str(segundos)
+        textoPuntaje=fuente.render(texto, 1, Util.NEGRO)
+        pantalla.blit(textoPuntaje,[300,20])
+
+        if(segundos>20 and segundos<25):
+            texto="Segunda oleada: "+str(25-segundos)
+            textoPuntaje=titulos.render(texto, 1, Util.NEGRO)
+            pantalla.blit(textoPuntaje,[100,300])
+
+        if(segundos>45 and segundos<50):
+            texto="Tercera oleada: "+str(50-segundos)
+            textoPuntaje=titulos.render(texto, 1, Util.NEGRO)
+            pantalla.blit(textoPuntaje,[100,300])
+
+
+        if(segundos>70 and segundos<75):
+            texto="Cuarta oleada: "+str(75-segundos)
+            textoPuntaje=titulos.render(texto, 1, Util.NEGRO)
+            pantalla.blit(textoPuntaje,[100,300])
+
         
         '''
         pygame.draw.line(pantalla, Util.ROJO, [int(j.rect.x+j.rect.width/2), int(j.rect.y+j.rect.height/2)], desplazamiento, 1)
@@ -238,5 +380,20 @@ if __name__ == '__main__':
         balas_enemigas.draw(pantalla)
         enemigos.draw(pantalla)
         explosiones.draw(pantalla)
+        botiquines.draw(pantalla)
         pygame.display.flip()
         reloj.tick(20)
+
+
+    if muerte:
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+            texto="Game Over"
+            textoPuntaje=titulos.render(texto, 1, Util.NEGRO)
+            pantalla.blit(textoPuntaje,[300,300])
+            pygame.display.flip()
+            reloj.tick(20)
+

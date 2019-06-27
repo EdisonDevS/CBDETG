@@ -1,5 +1,6 @@
 import pygame
 import random
+from datetime import datetime
 from Util import *
 from clases.Bala import *
 
@@ -32,8 +33,26 @@ class Enemigo(pygame.sprite.Sprite):
         self.incremento_correr=0
         self.incremento_caminar=0
 
+        #hora de creacion
+        self.creacion=datetime.now()
+        self.x=0
+        self.y=0
+
+
 
     def update(self, player_position, balas_enemgas, img_balas):
+        transcurrido=datetime.now()-self.creacion
+        segundos=transcurrido.seconds
+
+        if(segundos%5==0):
+            self.x=random.randint(0,Util.ANCHO)
+            self.y=random.randint(0,Util.ALTO)
+        
+        if(self.tipo_enemigo==0):
+            player_position=[self.x,self.y]
+
+
+            
         self.disparar(balas_enemgas, player_position, img_balas)
 
         self.image=pygame.transform.scale2x(self.matriz[self.accion][self.animacion+self.tipo_enemigo])
