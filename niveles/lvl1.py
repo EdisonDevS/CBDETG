@@ -48,7 +48,7 @@ class lvl1:
         botiquines=pygame.sprite.Group()
         bloques=pygame.sprite.Group()
 
-        bloques = Util.mapear('niveles/Mapas/mapa2.map')
+        bloques = Util.mapear('niveles/Mapas/mapa1.map')
 
         #jugador
         j=Jugador(Util.CENTRO,imagenesJugador)
@@ -285,6 +285,7 @@ class lvl1:
             explosiones.update()
             pantalla.fill(Util.FONDO)
 
+            bloques.draw(pantalla)
 
             #pantalla.blit(self.fondo,[0,0])
             #se muestran los puntajes
@@ -319,7 +320,7 @@ class lvl1:
             pygame.draw.circle(pantalla, Util.NEGRO, [int(j.rect.x+j.rect.width/2), int(j.rect.y+j.rect.height/2)], 100, 1)
             '''
             
-            bloques.draw(pantalla)
+            
             jugadores.draw(pantalla)            
             balas.draw(pantalla)
             balas_enemigas.draw(pantalla)

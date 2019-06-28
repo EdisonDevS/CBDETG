@@ -241,6 +241,7 @@ class lvl2:
             explosiones.update()
             pantalla.fill(Util.FONDO)
 
+            bloques.draw(pantalla)
 
             #se muestran los puntajes
             texto="Vida: "+str(j.vida)
@@ -255,29 +256,13 @@ class lvl2:
             textoPuntaje=fuente.render(texto, 1, Util.BLANCO)
             pantalla.blit(textoPuntaje,[300,20])
 
-            if(segundos>20 and segundos<25):
-                texto="Segunda oleada: "+str(25-segundos)
-                textoPuntaje=titulos.render(texto, 1, Util.BLANCO)
-                pantalla.blit(textoPuntaje,[100,300])
-
-            if(segundos>45 and segundos<50):
-                texto="Tercera oleada: "+str(50-segundos)
-                textoPuntaje=titulos.render(texto, 1, Util.BLANCO)
-                pantalla.blit(textoPuntaje,[100,300])
-
-
-            if(segundos>70 and segundos<75):
-                texto="Cuarta oleada: "+str(75-segundos)
-                textoPuntaje=titulos.render(texto, 1, Util.BLANCO)
-                pantalla.blit(textoPuntaje,[100,300])
-
 
             '''
             pygame.draw.line(pantalla, Util.ROJO, [int(j.rect.x+j.rect.width/2), int(j.rect.y+j.rect.height/2)], desplazamiento, 1)
             pygame.draw.circle(pantalla, Util.NEGRO, [int(j.rect.x+j.rect.width/2), int(j.rect.y+j.rect.height/2)], 100, 1)
             '''
 
-            bloques.draw(pantalla)
+            
             jugadores.draw(pantalla)
             jefes.draw(pantalla)
             balas.draw(pantalla)
