@@ -162,10 +162,9 @@ class lvl2:
 					else:
 					#la muerte del enemigo depende del tipo
 						if(be.tipo_enemigo==0):
-							posibilidad_botiquin=random.randint(0,1)
-							if posibilidad_botiquin==1:
-								b=Botiquin([be.rect.x,be.rect.y], imagenesBotiquin)
-								botiquines.add(b)
+							posibilidad_Botiquin=random.randint(0,1)
+							b=Botiquin([be.rect.x,be.rect.y], imagenesBotiquin, posibilidad_Botiquin)
+							botiquines.add(b)
 						elif(be.tipo_enemigo==8):
 							None
 						elif(be.tipo_enemigo==16):
@@ -215,12 +214,25 @@ class lvl2:
 					balas_enemigas.remove(b)
 
 
+			#COLISIONES PAREDES
+			for jugador in jugadores:
+				ls_col = pygame.sprite.spritecollide(jugador,  bloques, False)
+				for e in ls_col:
+					if jugador.inmune:
+						None
+					else:
+						j.vida-=1
+
+
 			#COLISIONES JUGADOR - BOTIQUIN
 			for b in botiquines:
 				ls_col = pygame.sprite.spritecollide(b, jugadores, False)
 				for jugador in ls_col:
-					if(jugador.vida > 0):
+					if b.tipo_ayuda==0:
 						jugador.vida+=40
+					else:
+						jugador.inmune=True
+						jugador.inicio_inmunidad=datetime.now()
 					botiquines.remove(b)
 
 
@@ -258,6 +270,15 @@ class lvl2:
 			texto="Tiempo: "+str(segundos)
 			textoPuntaje=fuente.render(texto, 1, Util.BLANCO)
 			pantalla.blit(textoPuntaje,[300,20])
+
+			if j.inmune:
+				texto="Inmunidad/Magma: Activada"
+				textoPuntaje=fuente.render(texto, 1, Util.BLANCO)
+				pantalla.blit(textoPuntaje,[500,20])
+			else:
+				texto="Inmunidad/Magma: Desactida"
+				textoPuntaje=fuente.render(texto, 1, Util.BLANCO)
+				pantalla.blit(textoPuntaje,[500,20])
 
 
 			'''

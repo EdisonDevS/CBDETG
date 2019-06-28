@@ -1,4 +1,5 @@
 import pygame
+from datetime import datetime
 from Util import *
 from niveles.clases.Bala import *
 class Jugador(pygame.sprite.Sprite):
@@ -18,14 +19,20 @@ class Jugador(pygame.sprite.Sprite):
         #stats
         self.velx = 0
         self.vely = 0
-        self.vida = 100000
+        self.vida = 1000
         self.cadencia = 5
         self.disparos = 0
         self.escudo = 0
         self.inmune = False
-        self.disparando = False
+        self.disparando = True
+        self.inicio_inmunidad=datetime.now()
 
     def update(self):
+        transcurrido_inmunidad=datetime.now()-self.inicio_inmunidad
+
+        if transcurrido_inmunidad.seconds > 5:
+            self.inmune=False
+
         self.dash()
         self.rect.x+=self.velx
         self.rect.y+=self.vely

@@ -32,7 +32,7 @@ class lvl1:
 		imagenesBalasEnemigo=Util.cut(img_balas_enemigo, 9, 2, 128, 128)
 
 		#configuracion de los Botiquines
-		img_Botiquin=pygame.image.load('niveles/images/Botiquin.png')
+		img_Botiquin=pygame.image.load('niveles/images/botiquin.png')
 		imagenesBotiquin=Util.cut(img_Botiquin, 2, 1, 32, 24)
 
 		self.pantalla=pantalla
@@ -45,7 +45,7 @@ class lvl1:
 		enemigos=pygame.sprite.Group()
 		explosiones=pygame.sprite.Group()
 		balas_enemigas=pygame.sprite.Group()
-		Botiquines=pygame.sprite.Group()
+		botiquines=pygame.sprite.Group()
 		bloques=pygame.sprite.Group()
 
 		bloques = Util.mapear('niveles/Mapas/mapa1.map')
@@ -162,9 +162,6 @@ class lvl1:
 						e.incremento_correr=3
 					enemigos.add(e)
 
-
-
-			
 			eventos=pygame.event.get()
 
 			for event in eventos:
@@ -201,7 +198,7 @@ class lvl1:
 						if(be.tipo_enemigo==0):
 							posibilidad_Botiquin=random.randint(0,1)
 							b=Botiquin([be.rect.x,be.rect.y], imagenesBotiquin, posibilidad_Botiquin)
-							Botiquines.add(b)
+							botiquines.add(b)
 						
 						elif(be.tipo_enemigo==8):
 							None
@@ -253,21 +250,25 @@ class lvl1:
 
 
 			#COLISIONES JUGADOR - Botiquin
-			for b in Botiquines:
+			for b in botiquines:
 				ls_col = pygame.sprite.spritecollide(b, jugadores, False)
 				for jugador in ls_col:
-					if(jugador.vida > 0):
+					if b.tipo_ayuda==0:
 						jugador.vida+=40
-						Botiquines.remove(b)
+					else:
+						jugador.inmune=True
+						jugador.inicio_inmunidad=datetime.now()
+					botiquines.remove(b)
 
 
 			#COlISIONES PAREDES
 			for jugador in jugadores:
 				ls_col = pygame.sprite.spritecollide(jugador,  bloques, False)
 				for e in ls_col:
-					j.vida-=1
-
-
+					if jugador.inmune:
+						None
+					else:
+						j.vida-=1
 			'''
 			inicio = [j.rect.x,j.rect.y]
 			end = pygame.mouse.get_pos()
@@ -301,6 +302,15 @@ class lvl1:
 			textoPuntaje=fuente.render(texto, 1, Util.BLANCO)
 			pantalla.blit(textoPuntaje,[300,20])
 
+			if j.inmune:
+				texto="Inmunidad/Magma: Activada"
+				textoPuntaje=fuente.render(texto, 1, Util.BLANCO)
+				pantalla.blit(textoPuntaje,[500,20])
+			else:
+				texto="Inmunidad/Magma: Desactida"
+				textoPuntaje=fuente.render(texto, 1, Util.BLANCO)
+				pantalla.blit(textoPuntaje,[500,20])
+
 			if(segundos>20 and segundos<25):
 				texto="Segunda oleada: "+str(25-segundos)
 				textoPuntaje=titulos.render(texto, 1, Util.BLANCO)
@@ -329,7 +339,7 @@ class lvl1:
 			balas_enemigas.draw(pantalla)
 			enemigos.draw(pantalla)
 			explosiones.draw(pantalla)
-			Botiquines.draw(pantalla)
+			botiquines.draw(pantalla)
 			pygame.display.flip()
 			reloj.tick(20)
 
