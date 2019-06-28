@@ -229,9 +229,7 @@ class lvl2:
             '''
             player_position=[]
 
-
-            for je in jugadores:
-                player_position=je.getPosition()
+            player_position=je.getPosition()
 
 
 
