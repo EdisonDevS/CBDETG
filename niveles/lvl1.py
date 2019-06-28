@@ -395,7 +395,7 @@ class lvl1:
 						pos=pygame.mouse.get_pos()
 						if (pos[0]>600 and pos[0]<900) and (pos[1]>500 and pos[1]<570):
 							self.nivel_aprobado=True
-						elif (pos[0]>600 and pos[0]<900) and (pos[1]>600 and pos[1]<670):
+						elif (pos[0]>700 and pos[0]<900) and (pos[1]>600 and pos[1]<670):
 							pygame.quit()
 							sys.exit()
 
@@ -405,9 +405,9 @@ class lvl1:
 
 			self.pantalla.fill(Util.BLANCO)
 
-			texto="Fleicitaciones, has completado el nivel"
+			texto="Nivel completado"
 			textoPuntaje=titulos.render(texto, 1, Util.NEGRO)
-			self.pantalla.blit(textoPuntaje,[100,300])
+			self.pantalla.blit(textoPuntaje,[600,300])
 
 			texto="Siguiente nivel"
 			textoPuntaje=titulos.render(texto, 1, Util.NEGRO)
@@ -415,7 +415,7 @@ class lvl1:
 
 			texto="Salir"
 			textoPuntaje=titulos.render(texto, 1, Util.NEGRO)
-			self.pantalla.blit(textoPuntaje,[600,600])
+			self.pantalla.blit(textoPuntaje,[700,600])
 
 			pygame.display.flip()
 			reloj.tick(20)
