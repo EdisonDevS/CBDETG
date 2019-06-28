@@ -32,8 +32,8 @@ class lvl1:
 		imagenesBalasEnemigo=Util.cut(img_balas_enemigo, 9, 2, 128, 128)
 
 		#configuracion de los Botiquines
-		img_Botiquin=pygame.image.load('niveles/images/botiquin.png')
-		imagenesBotiquin=Util.cut(img_Botiquin, 2, 1, 32, 24)
+		img_botiquin=pygame.image.load('niveles/images/botiquin.png')
+		imagenesBotiquin=Util.cut(img_botiquin, 2, 1, 32, 24)
 
 		self.pantalla=pantalla
 		self.nivel_aprobado = False
@@ -67,7 +67,7 @@ class lvl1:
 		while not fin:
 
 			if j.vida>100:
-				j.vida-=1
+				j.vida-=0.1
 
 			if j.vida<=0:
 				self.muerte()
@@ -268,7 +268,7 @@ class lvl1:
 					if jugador.inmune:
 						None
 					else:
-						j.vida-=1
+						j.vida-=0.5
 			'''
 			inicio = [j.rect.x,j.rect.y]
 			end = pygame.mouse.get_pos()
@@ -293,7 +293,7 @@ class lvl1:
 
 			#pantalla.blit(self.fondo,[0,0])
 			#se muestran los puntajes
-			texto="Vida: "+str(j.vida)
+			texto="Vida: "+str(int(j.vida))
 			textoPuntaje=fuente.render(texto, 1, Util.BLANCO)
 			pantalla.blit(textoPuntaje,[100,20])
 
@@ -307,7 +307,7 @@ class lvl1:
 				textoPuntaje=fuente.render(texto, 1, Util.BLANCO)
 				pantalla.blit(textoPuntaje,[500,20])
 			else:
-				texto="Inmunidad/Magma: Desactida"
+				texto="Inmunidad/Magma: Desactivada"
 				textoPuntaje=fuente.render(texto, 1, Util.BLANCO)
 				pantalla.blit(textoPuntaje,[500,20])
 
@@ -345,6 +345,7 @@ class lvl1:
 
 
 	def muerte(self):
+		fondo = pygame.transform.scale2x( pygame.image.load('niveles/images/Fondo.png'))
 		#fuentes de texto
 		fuente=pygame.font.Font(None, 20)
 		titulos=pygame.font.Font(None, 70)
@@ -360,9 +361,9 @@ class lvl1:
 				if event.type == pygame.MOUSEBUTTONDOWN:
 					if event.button==1:
 						pos=pygame.mouse.get_pos()
-						if (pos[0]>600 and pos[0]<900) and (pos[1]>500 and pos[1]<570):
+						if (pos[0]>450 and pos[0]<900) and (pos[1]>400 and pos[1]<470):
 							repetir=True
-						elif (pos[0]>600 and pos[0]<900) and (pos[1]>600 and pos[1]<670):
+						elif (pos[0]>600 and pos[0]<900) and (pos[1]>500 and pos[1]<570):
 							pygame.quit()
 							sys.exit()
 
@@ -370,25 +371,27 @@ class lvl1:
 			if repetir:
 				break
 
-			self.pantalla.fill(Util.BLANCO)
+			self.pantalla.blit(fondo,[0,0])
+			#self.pantalla.fill(Util.BLANCO)
 
 			texto="Game Over"
-			textoPuntaje=titulos.render(texto, 1, Util.NEGRO)
-			self.pantalla.blit(textoPuntaje,[600,300])
+			textoPuntaje=titulos.render(texto, 1, Util.AMARILLO)
+			self.pantalla.blit(textoPuntaje,[520,200])
 
 			texto="Volver a intentar"
-			textoPuntaje=titulos.render(texto, 1, Util.NEGRO)
-			self.pantalla.blit(textoPuntaje,[600,500])
+			textoPuntaje=titulos.render(texto, 1, Util.BLANCO)
+			self.pantalla.blit(textoPuntaje,[450,400])
 
 			texto="Salir"
-			textoPuntaje=titulos.render(texto, 1, Util.NEGRO)
-			self.pantalla.blit(textoPuntaje,[600,600])
+			textoPuntaje=titulos.render(texto, 1, Util.BLANCO)
+			self.pantalla.blit(textoPuntaje,[600,500])
 
 			pygame.display.flip()
 			reloj.tick(20)
 
 
 	def nivel_finalizado(self):
+		fondo = pygame.transform.scale2x( pygame.image.load('niveles/images/Fondo.png'))
 		#fuentes de texto
 		fuente=pygame.font.Font(None, 20)
 		titulos=pygame.font.Font(None, 70)
@@ -403,9 +406,9 @@ class lvl1:
 				if event.type == pygame.MOUSEBUTTONDOWN:
 					if event.button==1:
 						pos=pygame.mouse.get_pos()
-						if (pos[0]>600 and pos[0]<900) and (pos[1]>500 and pos[1]<570):
+						if (pos[0]>480 and pos[0]<900) and (pos[1]>400 and pos[1]<470):
 							self.nivel_aprobado=True
-						elif (pos[0]>700 and pos[0]<900) and (pos[1]>600 and pos[1]<670):
+						elif (pos[0]>600 and pos[0]<900) and (pos[1]>500 and pos[1]<570):
 							pygame.quit()
 							sys.exit()
 
@@ -413,19 +416,20 @@ class lvl1:
 			if self.nivel_aprobado:
 				break
 
-			self.pantalla.fill(Util.BLANCO)
+			self.pantalla.blit(fondo,[0,0])
+			#self.pantalla.fill(Util.BLANCO)
 
 			texto="Nivel completado"
-			textoPuntaje=titulos.render(texto, 1, Util.NEGRO)
-			self.pantalla.blit(textoPuntaje,[600,300])
+			textoPuntaje=titulos.render(texto, 1, Util.AMARILLO)
+			self.pantalla.blit(textoPuntaje,[480,200])
 
 			texto="Siguiente nivel"
-			textoPuntaje=titulos.render(texto, 1, Util.NEGRO)
-			self.pantalla.blit(textoPuntaje,[600,500])
+			textoPuntaje=titulos.render(texto, 1, Util.BLANCO)
+			self.pantalla.blit(textoPuntaje,[500,400])
 
 			texto="Salir"
-			textoPuntaje=titulos.render(texto, 1, Util.NEGRO)
-			self.pantalla.blit(textoPuntaje,[700,600])
+			textoPuntaje=titulos.render(texto, 1, Util.BLANCO)
+			self.pantalla.blit(textoPuntaje,[600,500])
 
 			pygame.display.flip()
 			reloj.tick(20)

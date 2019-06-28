@@ -23,7 +23,7 @@ class Jugador(pygame.sprite.Sprite):
         self.cadencia = 5
         self.disparos = 0
         self.escudo = 0
-        self.inmune = False
+        self.inmune = True
         self.disparando = True
         self.inicio_inmunidad=datetime.now()
 
