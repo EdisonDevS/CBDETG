@@ -26,6 +26,8 @@ class Enemigo(pygame.sprite.Sprite):
         self.velx = 1
         self.vely = 1
         self.vida = 100
+        self.sonido = pygame.mixer.Sound('niveles/sonidos/dinos.ogg')
+        self.sonido.play()
         self.cadencia = 30
         self.escudo = 0
         self.inmune = False

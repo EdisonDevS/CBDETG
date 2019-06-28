@@ -19,6 +19,7 @@ class Jugador(pygame.sprite.Sprite):
         #stats
         self.velx = 0
         self.vely = 0
+        self.sonido = pygame.mixer.Sound('niveles/sonidos/fireball.ogg')
         self.vida = 1000
         self.cadencia = 5
         self.disparos = 0
@@ -104,4 +105,5 @@ class Jugador(pygame.sprite.Sprite):
                             self.animacion = 1
                 if event.button==1:
                     b=Bala([self.rect.x, self.rect.y], pygame.mouse.get_pos(), self.matriz)
+                    self.sonido.play()
                     balas.add(b)
