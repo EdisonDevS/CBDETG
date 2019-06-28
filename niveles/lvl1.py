@@ -55,7 +55,7 @@ class lvl1:
         jugadores.add(j)
 
         #variables necesarias
-        fin=Falses
+        fin=False
         reloj=pygame.time.Clock()
         instanteInicial = datetime.now()
 

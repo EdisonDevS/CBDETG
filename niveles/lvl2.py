@@ -68,7 +68,7 @@ class lvl2:
         instanteInicial = datetime.now()
 
         #fuentes de texto
-        fuente=pygame.font.Font(None, 20)
+        fuente=pygame.font.Font(None, 30)
         titulos=pygame.font.Font(None, 70)
 
         #juego
@@ -229,7 +229,7 @@ class lvl2:
             '''
             player_position=[]
 
-            player_position=je.getPosition()
+            player_position=j.getPosition()
 
 
 
@@ -239,36 +239,36 @@ class lvl2:
             jugadores.update()
             enemigos.update(player_position, balas_enemigas, imagenesBalasEnemigo)
             explosiones.update()
-            pantalla.fill(Util.BLANCO)
+            pantalla.fill(Util.FONDO)
 
 
             #se muestran los puntajes
             texto="Vida: "+str(j.vida)
-            textoPuntaje=fuente.render(texto, 1, Util.NEGRO)
+            textoPuntaje=fuente.render(texto, 1, Util.BLANCO)
             pantalla.blit(textoPuntaje,[100,20])
 
             texto="Vida del jefe: "+str(jefe.vida)
-            textoPuntaje=fuente.render(texto, 1, Util.NEGRO)
+            textoPuntaje=fuente.render(texto, 1, Util.BLANCO)
             pantalla.blit(textoPuntaje,[400,20])
 
             texto="Tiempo: "+str(segundos)
-            textoPuntaje=fuente.render(texto, 1, Util.NEGRO)
+            textoPuntaje=fuente.render(texto, 1, Util.BLANCO)
             pantalla.blit(textoPuntaje,[300,20])
 
             if(segundos>20 and segundos<25):
                 texto="Segunda oleada: "+str(25-segundos)
-                textoPuntaje=titulos.render(texto, 1, Util.NEGRO)
+                textoPuntaje=titulos.render(texto, 1, Util.BLANCO)
                 pantalla.blit(textoPuntaje,[100,300])
 
             if(segundos>45 and segundos<50):
                 texto="Tercera oleada: "+str(50-segundos)
-                textoPuntaje=titulos.render(texto, 1, Util.NEGRO)
+                textoPuntaje=titulos.render(texto, 1, Util.BLANCO)
                 pantalla.blit(textoPuntaje,[100,300])
 
 
             if(segundos>70 and segundos<75):
                 texto="Cuarta oleada: "+str(75-segundos)
-                textoPuntaje=titulos.render(texto, 1, Util.NEGRO)
+                textoPuntaje=titulos.render(texto, 1, Util.BLANCO)
                 pantalla.blit(textoPuntaje,[100,300])
 
 
