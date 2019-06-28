@@ -20,7 +20,7 @@ class Enemigo(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = pos[0]
         self.rect.y = pos[1]
-
+#
         #stats
         self.daño_bala=25
         self.velx = 1
