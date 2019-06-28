@@ -20,6 +20,7 @@ class Jugador(pygame.sprite.Sprite):
         self.velx = 0
         self.vely = 0
         self.sonido = pygame.mixer.Sound('niveles/sonidos/fireball.ogg')
+        self.burn = pygame.mixer.Sound('niveles/sonidos/burn.ogg')
         self.vida = 1000
         self.cadencia = 5
         self.disparos = 0

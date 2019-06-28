@@ -20,6 +20,8 @@ class Jefe(pygame.sprite.Sprite):
         self.centroSprite = [self.rect.x+self.rect.width/2,self.rect.y+self.rect.height/2]
 
         #stats
+        self.sonido = pygame.mixer.Sound('niveles/sonidos/toro.ogg')
+        self.sonido.play()
         self.daño_ataque = 0
         self.cool_down = 0
         self.velx = 0
@@ -145,8 +147,11 @@ class Jefe(pygame.sprite.Sprite):
             self.vely = 0
             if not self.atacando:
                 if posibilidad_ataque in [1,2]:
+                    self.sonido.play()
                     self.ataqueRotatorio(pos_jugador)
                 if posibilidad_ataque in [3,4,5]:
+                    self.sonido.play()
                     self.ataquePesado(pos_jugador)
                 if posibilidad_ataque in [6,7,8,9,10]:
+                    self.sonido.play()
                     self.ataqueLiviano(pos_jugador)

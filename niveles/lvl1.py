@@ -265,6 +265,7 @@ class lvl1:
 			for jugador in jugadores:
 				ls_col = pygame.sprite.spritecollide(jugador,  bloques, False)
 				for e in ls_col:
+					jugador.burn.play()
 					if jugador.inmune:
 						None
 					else:
