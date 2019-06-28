@@ -61,19 +61,15 @@ class Jugador(pygame.sprite.Sprite):
                 self.accion=0
                 if event.key == pygame.K_a or event.key == pygame.K_LEFT:
                     self.velx=-5
-                    self.vely=0
                     self.animacion = 8
                 if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
                     self.velx=5
-                    self.vely=0
                     self.animacion = 10
                 if event.key == pygame.K_w or event.key == pygame.K_UP:
                     self.vely=-5
-                    self.velx=0
                     self.animacion = 18
                 if event.key == pygame.K_s or event.key == pygame.K_DOWN:
                     self.vely=5
-                    self.velx=0
                     self.animacion = 9
             if event.type==pygame.KEYUP:
                 self.accion = 0

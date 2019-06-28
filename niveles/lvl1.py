@@ -48,7 +48,7 @@ class lvl1:
         botiquines=pygame.sprite.Group()
         bloques=pygame.sprite.Group()
 
-        bloques = Util.mapear('niveles/Mapas/Mapa1.map')
+        bloques = Util.mapear('niveles/Mapas/mapa1.map')
 
         #jugador
         j=Jugador(Util.CENTRO,imagenesJugador)

@@ -52,7 +52,7 @@ class lvl2:
         balas_enemigas=pygame.sprite.Group()
         botiquines=pygame.sprite.Group()
         bloques=pygame.sprite.Group()
-        bloques = Util.mapear('niveles/Mapas/Mapa2.map')
+        bloques = Util.mapear('niveles/Mapas/mapa2.map')
         
         #jugador
         j=Jugador(Util.CENTRO,imagenesJugador)
