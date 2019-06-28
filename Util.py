@@ -26,8 +26,8 @@ class Util:
     BOMBA = [30,30]
 
     #pantalla
-    ANCHO = 1366
-    ALTO = 680
+    ANCHO = 1344
+    ALTO = 640
     TAMAÑOPANTALLA = [ANCHO, ALTO]
     CENTROX = ANCHO // 2
     CENTROY = ALTO // 2
@@ -64,7 +64,7 @@ class Util:
         mapi = pygame.image.load('niveles/images/magma.png')
         bloques = pygame.sprite.Group()
         filas = 0
-        for col in range (9):
+        for col in range (10):
             for c in ls_mapa[col]:
                 if(c != '.'):
                     bloque = Bloque(mapi, [filas*64,col*64])
