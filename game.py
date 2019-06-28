@@ -18,6 +18,9 @@ if __name__ == '__main__':
 
     fin=False
 
+    musica = pygame.mixer.Sound('niveles/sonidos/musica.ogg')
+    musica.play()
+
     while not fin:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
