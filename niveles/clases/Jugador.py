@@ -18,7 +18,7 @@ class Jugador(pygame.sprite.Sprite):
         #stats
         self.velx = 0
         self.vely = 0
-        self.vida = 100
+        self.vida = 100000
         self.cadencia = 5
         self.disparos = 0
         self.escudo = 0

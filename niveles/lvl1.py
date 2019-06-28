@@ -261,43 +261,42 @@ class lvl1:
             #COlISIONES PAREDES
             for jugador in jugadores:
                 for bl in bloques:
-                    ls_col = pygame.sprite.spritecollide(jugador, bloques, False)
+                    ls_col = pygame.sprite.spritecollide(jugador,  bloques, False)
                     for e in ls_col:
-                        if jugador.rect.right > e.rect.left:
-                            if jugador.velx > 0:
-                                jugador.rect.right = e.rect.left
-                                jugador.velx = 0
-                            elif jugador.velx < 0:
-                                jugador.rect.left = e.rect.right
-                                jugador.velx = 0
+                        if e.tangible:
+                            if jugador.velx != 0:
+                                jugador.rect.centerx -= e.rect.h/4
+                                jugador.rect.centery -= 1
 
-                        if jugador.rect.bottom > e.rect.top:
-                            if jugador.vely > 0:
-                                jugador.rect.bottom = e.rect.top
-                                jugador.vely = 0
-                            elif jugador.vely < 0:
-                                jugador.rect.top = e.rect.bottom
-                                jugador.vely = 0
+            for jugador in jugadores:
+                for bl in bloques:
+                    ls_col = pygame.sprite.spritecollide(jugador,  bloques, False)
+                    for e in ls_col:
+                        if e.tangible:
+                            if jugador.vely != 0:
+                                jugador.rect.centery -= e.rect.w/4
+                                jugador.rect.centerx -= 1
+
+            #################
+            for enemigo in enemigos:
+                for bl in bloques:
+                    ls_col = pygame.sprite.spritecollide(enemigo, bloques, False)
+                    for e in ls_col:
+                        if e.tangible:
+                            if enemigo.velx > 0 :
+                                enemigo.rect.right = e.rect.left
+                            else:
+                                enemigo.rect.left = e.rect.right
 
             for enemigo in enemigos:
                 for bl in bloques:
                     ls_col = pygame.sprite.spritecollide(enemigo, bloques, False)
                     for e in ls_col:
-                        if enemigo.rect.right > e.rect.left:
-                            if enemigo.velx > 0:
-                                enemigo.rect.right = e.rect.left
-                                enemigo.velx = 0
-                            elif enemigo.velx < 0:
-                                enemigo.rect.left = e.rect.right
-                                enemigo.velx = 0
-
-                        if enemigo.rect.bottom > e.rect.top:
-                            if enemigo.vely > 0:
+                        if e.tangible:
+                            if enemigo.vely > 0 :
                                 enemigo.rect.bottom = e.rect.top
-                                enemigo.vely = 0
-                            elif enemigo.vely < 0:
+                            else:
                                 enemigo.rect.top = e.rect.bottom
-                                enemigo.vely = 0
 
 
             '''

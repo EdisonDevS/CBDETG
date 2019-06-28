@@ -12,41 +12,41 @@ mapa=.....................
      .....................
 
 [(]
-tipo = cesped
 ux = 0
 uy = 0
+tangible =True
 
 [-]
-tipo = cesped
 ux = 1
 uy = 0
+tangible =True
 
 [)]
-tipo = cesped
 ux = 2
 uy = 0
+tangible =True
 
 [_]
-tipo = cesped
 ux = 3
 uy = 0
+tangible =True
 
 [\]
-tipo = cesped
 ux = 4
 uy = 0
+tangible =True
 
 [/]
-tipo = cesped
 ux = 5
 uy = 0
+tangible =True
 
 [$]
-tipo = cesped
 ux = 6
 uy = 0
+tangible =False
 
 [#]
-tipo = cesped
 ux = 7
 uy = 0
+tangible =False

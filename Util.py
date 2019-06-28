@@ -70,7 +70,7 @@ class Util:
                             print(int(mapa.get(c,'ux')),int(mapa.get(c,'uy')))
                             Map = imgs[int(mapa.get(c,'ux'))][int(mapa.get(c,'uy'))]
                             Map = pygame.transform.scale2x(pygame.transform.scale2x(Map))
-                            bloque = Bloque(Map, [filas*64,col*64])
+                            bloque = Bloque(Map, [filas*64,col*64],mapa.get(c,'tangible') == "True")
                             bloques.add(bloque)
                         filas += 1
             filas = 0
