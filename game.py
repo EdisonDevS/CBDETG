@@ -14,6 +14,8 @@ if __name__ == '__main__':
     titulos=pygame.font.Font(None, 70)
     reloj=pygame.time.Clock()
 
+    fondo = pygame.transform.scale2x( pygame.image.load('niveles/images/Fondo.png'))
+
     fin=False
 
     while not fin:
@@ -25,17 +27,19 @@ if __name__ == '__main__':
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button==1:
                     pos=pygame.mouse.get_pos()
-                    if (pos[0]>600 and pos[0]<900) and (pos[1]>500 and pos[1]<570):
+                    if (pos[0]>500 and pos[0]<1000) and (pos[1]>300 and pos[1]<370):
                         j=lvl1(pantalla)
                         if j.nivel_aprobado:
                             j=lvl2(pantalla)
 
+        pantalla.blit(fondo,[0,0])
 
-        pantalla.fill(Util.BLANCO)
 
-        texto="Empezar"
-        textoPuntaje=titulos.render(texto, 1, Util.NEGRO)
-        pantalla.blit(textoPuntaje,[600,500])
+        #pantalla.fill(Util.BLANCO)
+
+        texto="Iniciar Juego"
+        textoPuntaje=titulos.render(texto, 1, Util.BLANCO)
+        pantalla.blit(textoPuntaje,[500,300])
 
         pygame.display.flip()
         reloj.tick(20)
