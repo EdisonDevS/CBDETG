@@ -33,7 +33,7 @@ class lvl1:
 
 		#configuracion de los botiquines
 		img_botiquin=pygame.image.load('niveles/images/botiquin.png')
-		imagenesBotiquin=Util.cut(img_botiquin, 1, 1, 512, 512)
+		imagenesBotiquin=Util.cut(img_botiquin, 1, 1, 32, 24)
 
 		self.pantalla=pantalla
 		self.nivel_aprobado = False

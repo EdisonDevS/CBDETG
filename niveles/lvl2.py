@@ -34,7 +34,7 @@ class lvl2:
 
 		#configuracion de los botiquines
 		img_botiquin=pygame.image.load('niveles/images/botiquin.png')
-		imagenesBotiquin=Util.cut(img_botiquin, 1, 1, 512, 512)
+		imagenesBotiquin=Util.cut(img_botiquin, 1, 1, 32, 24)
 
 		#configuracion del jefe
 		img_jefe=pygame.image.load('niveles/images/boss.png')
