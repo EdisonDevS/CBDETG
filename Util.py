@@ -8,6 +8,7 @@ from niveles.clases.Bloque import *
 class Util:
     #colores
     BLANCO=[255,255,255]
+    FONDO=[61,37,59]
     VERDE=[0,255,0]
     ROJO=[255,0,0]
     AZUL=[0,255,255]
