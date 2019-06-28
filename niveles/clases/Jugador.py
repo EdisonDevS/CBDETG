@@ -38,6 +38,20 @@ class Jugador(pygame.sprite.Sprite):
         self.rect.y+=self.vely
         self.image=pygame.transform.scale2x(self.matriz[self.accion][self.animacion])
 
+        if self.rect.x < 0:
+            self.velx = 0
+            self.rect.x = 0
+        if self.rect.x > Util.ANCHO-self.rect.w:
+            self.velx = 0
+            self.rect.x = Util.ANCHO-self.rect.w
+
+        if self.rect.y < 0:
+            self.vely = 0
+            self.rect.y = 0
+        if self.rect.y > Util.ALTO-self.rect.h:
+            self.vely = 0
+            self.rect.y = Util.ALTO-self.rect.h
+
         if self.accion < self.limite[self.animacion]-1:
             self.accion+=1
         else:
