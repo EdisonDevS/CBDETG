@@ -2,10 +2,13 @@ import pygame
 import math
 import random
 import time
+import configparser
+from niveles.clases.Bloque import *
 
 class Util:
     #colores
     BLANCO=[255,255,255]
+    FONDO=[61,37,59]
     VERDE=[0,255,0]
     ROJO=[255,0,0]
     AZUL=[0,255,255]
@@ -23,8 +26,8 @@ class Util:
     BOMBA = [30,30]
 
     #pantalla
-    ANCHO = 1366
-    ALTO = 680
+    ANCHO = 1344
+    ALTO = 640
     TAMAÑOPANTALLA = [ANCHO, ALTO]
     CENTROX = ANCHO // 2
     CENTROY = ALTO // 2
@@ -52,3 +55,21 @@ class Util:
         x = math.cos(ang)
         y = math.sin(ang)
         return ([x,y])
+
+    def mapear(ruta):
+        mapa = configparser.ConfigParser()
+        mapa.read(ruta)
+        cad_map = mapa.get('info','mapa')
+        ls_mapa = cad_map.split('\n')
+        mapi = pygame.image.load('niveles/images/magma.png')
+        bloques = pygame.sprite.Group()
+        filas = 0
+        for col in range (10):
+            for c in ls_mapa[col]:
+                if(c != '.'):
+                    bloque = Bloque(mapi, [filas*64,col*64])
+                    bloques.add(bloque)
+                filas += 1
+            filas = 0
+
+        return bloques

@@ -20,12 +20,14 @@ class Enemigo(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = pos[0]
         self.rect.y = pos[1]
-
+#
         #stats
         self.daño_bala=25
         self.velx = 1
         self.vely = 1
         self.vida = 100
+        self.sonido = pygame.mixer.Sound('niveles/sonidos/dinos.ogg')
+        self.sonido.play()
         self.cadencia = 30
         self.escudo = 0
         self.inmune = False

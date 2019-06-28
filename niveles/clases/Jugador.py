@@ -1,4 +1,5 @@
 import pygame
+from datetime import datetime
 from Util import *
 from niveles.clases.Bala import *
 class Jugador(pygame.sprite.Sprite):
@@ -18,18 +19,40 @@ class Jugador(pygame.sprite.Sprite):
         #stats
         self.velx = 0
         self.vely = 0
-        self.vida = 100
+        self.sonido = pygame.mixer.Sound('niveles/sonidos/fireball.ogg')
+        self.burn = pygame.mixer.Sound('niveles/sonidos/burn.ogg')
+        self.vida = 1000
         self.cadencia = 5
         self.disparos = 0
         self.escudo = 0
-        self.inmune = False
-        self.disparando = False
+        self.inmune = True
+        self.disparando = True
+        self.inicio_inmunidad=datetime.now()
 
     def update(self):
+        transcurrido_inmunidad=datetime.now()-self.inicio_inmunidad
+
+        if transcurrido_inmunidad.seconds > 5:
+            self.inmune=False
+
         self.dash()
         self.rect.x+=self.velx
         self.rect.y+=self.vely
         self.image=pygame.transform.scale2x(self.matriz[self.accion][self.animacion])
+
+        if self.rect.x < 0:
+            self.velx = 0
+            self.rect.x = 0
+        if self.rect.x > Util.ANCHO-self.rect.w:
+            self.velx = 0
+            self.rect.x = Util.ANCHO-self.rect.w
+
+        if self.rect.y < 0:
+            self.vely = 0
+            self.rect.y = 0
+        if self.rect.y > Util.ALTO-self.rect.h:
+            self.vely = 0
+            self.rect.y = Util.ALTO-self.rect.h
 
         if self.accion < self.limite[self.animacion]-1:
             self.accion+=1
@@ -83,4 +106,5 @@ class Jugador(pygame.sprite.Sprite):
                             self.animacion = 1
                 if event.button==1:
                     b=Bala([self.rect.x, self.rect.y], pygame.mouse.get_pos(), self.matriz)
+                    self.sonido.play()
                     balas.add(b)
