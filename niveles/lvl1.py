@@ -37,7 +37,7 @@ class lvl1:
 
         self.pantalla=pantalla
         self.nivel_aprobado = False
-        self.fondo = pygame.transform.scale2x( pygame.image.load('niveles/images/Fondo.png'))
+        #self.fondo = pygame.transform.scale2x( pygame.image.load('niveles/images/Fondo.png'))
 
         #grupos
         jugadores=pygame.sprite.Group()
@@ -55,12 +55,12 @@ class lvl1:
         jugadores.add(j)
 
         #variables necesarias
-        fin=False
+        fin=Falses
         reloj=pygame.time.Clock()
         instanteInicial = datetime.now()
 
         #fuentes de texto
-        fuente=pygame.font.Font(None, 20)
+        fuente=pygame.font.Font(None, 30)
         titulos=pygame.font.Font(None, 70)
 
         #juego
@@ -74,7 +74,7 @@ class lvl1:
             tiempo = instanteFinal - instanteInicial # Devuelve un objeto timedelta
             segundos = tiempo.seconds
 
-            if segundos>95:
+            if segundos>95 and len(enemigos)==0:
                 self.nivel_finalizado()
                 break
             
@@ -262,16 +262,7 @@ class lvl1:
             for jugador in jugadores:
                 ls_col = pygame.sprite.spritecollide(jugador,  bloques, False)
                 for e in ls_col:
-                    if jugador.velx != 0:
-                        jugador.rect.centerx -= e.rect.h/4
-                        jugador.rect.centery -= 1
-
-            for jugador in jugadores:
-                ls_col = pygame.sprite.spritecollide(jugador,  bloques, False)
-                for e in ls_col:
-                    if jugador.vely != 0:
-                        jugador.rect.centery -= e.rect.w/4
-                        jugador.rect.centerx -= 1
+                    j.vida-=1
 
 
             '''
@@ -292,34 +283,34 @@ class lvl1:
             jugadores.update()
             enemigos.update(player_position, balas_enemigas, imagenesBalasEnemigo)
             explosiones.update()
-            pantalla.fill(Util.BLANCO)
+            pantalla.fill(Util.FONDO)
 
 
-            pantalla.blit(self.fondo,[0,0])
+            #pantalla.blit(self.fondo,[0,0])
             #se muestran los puntajes
             texto="Vida: "+str(j.vida)
-            textoPuntaje=fuente.render(texto, 1, Util.NEGRO)
+            textoPuntaje=fuente.render(texto, 1, Util.BLANCO)
             pantalla.blit(textoPuntaje,[100,20])
 
 
             texto="Tiempo: "+str(segundos)
-            textoPuntaje=fuente.render(texto, 1, Util.NEGRO)
+            textoPuntaje=fuente.render(texto, 1, Util.BLANCO)
             pantalla.blit(textoPuntaje,[300,20])
 
             if(segundos>20 and segundos<25):
                 texto="Segunda oleada: "+str(25-segundos)
-                textoPuntaje=titulos.render(texto, 1, Util.NEGRO)
+                textoPuntaje=titulos.render(texto, 1, Util.BLANCO)
                 pantalla.blit(textoPuntaje,[100,300])
 
             if(segundos>45 and segundos<50):
                 texto="Tercera oleada: "+str(50-segundos)
-                textoPuntaje=titulos.render(texto, 1, Util.NEGRO)
+                textoPuntaje=titulos.render(texto, 1, Util.BLANCO)
                 pantalla.blit(textoPuntaje,[100,300])
 
 
             if(segundos>70 and segundos<75):
                 texto="Cuarta oleada: "+str(75-segundos)
-                textoPuntaje=titulos.render(texto, 1, Util.NEGRO)
+                textoPuntaje=titulos.render(texto, 1, Util.BLANCO)
                 pantalla.blit(textoPuntaje,[100,300])
 
             
