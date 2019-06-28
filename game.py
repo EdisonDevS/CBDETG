@@ -25,7 +25,7 @@ if __name__ == '__main__':
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button==1:
                     pos=pygame.mouse.get_pos()
-                    if (pos[0]>600 and pos[0]<700) and (pos[1]>600 and pos[1]<670):
+                    if (pos[0]>600 and pos[0]<900) and (pos[1]>500 and pos[1]<570):
                         j=lvl1(pantalla)
                         if j.nivel_aprobado:
                             j=lvl2(pantalla)
@@ -35,7 +35,7 @@ if __name__ == '__main__':
 
         texto="Empezar"
         textoPuntaje=titulos.render(texto, 1, Util.NEGRO)
-        pantalla.blit(textoPuntaje,[600,600])
+        pantalla.blit(textoPuntaje,[600,500])
 
         pygame.display.flip()
         reloj.tick(20)
