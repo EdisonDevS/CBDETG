@@ -42,6 +42,7 @@ class lvl2:
 
 		self.pantalla=pantalla
 		self.nivel_aprobado=False
+		self.fondo = pygame.transform.scale( pygame.image.load('niveles/images/Fondo.png'), Util.TAMAÑOPANTALLA)
 
 		#grupos
 		jugadores=pygame.sprite.Group()
@@ -283,7 +284,7 @@ class lvl2:
 			enemigos.update(player_position, balas_enemigas, imagenesBalasEnemigo)
 			explosiones.update()
 			pantalla.fill(Util.FONDO)
-
+			pantalla.blit(self.fondo,[0,0])
 			bloques.draw(pantalla)
 
 			#se muestran los puntajes
@@ -291,22 +292,24 @@ class lvl2:
 			textoPuntaje=fuente.render(texto, 1, Util.BLANCO)
 			pantalla.blit(textoPuntaje,[100,20])
 
-			texto="Vida del jefe: "+str(jefe.vida)
-			textoPuntaje=fuente.render(texto, 1, Util.BLANCO)
-			pantalla.blit(textoPuntaje,[400,20])
-
 			texto="Tiempo: "+str(segundos)
 			textoPuntaje=fuente.render(texto, 1, Util.BLANCO)
 			pantalla.blit(textoPuntaje,[300,20])
 
+			texto="Vida del jefe: "+str(jefe.vida)
+			textoPuntaje=fuente.render(texto, 1, Util.BLANCO)
+			pantalla.blit(textoPuntaje,[500,20])
+
+			
+
 			if j.inmune:
 				texto="Inmunidad/Magma: Activada"
 				textoPuntaje=fuente.render(texto, 1, Util.BLANCO)
-				pantalla.blit(textoPuntaje,[600,20])
+				pantalla.blit(textoPuntaje,[800,20])
 			else:
 				texto="Inmunidad/Magma: Desactivada"
 				textoPuntaje=fuente.render(texto, 1, Util.BLANCO)
-				pantalla.blit(textoPuntaje,[600,20])
+				pantalla.blit(textoPuntaje,[800,20])
 
 
 			'''

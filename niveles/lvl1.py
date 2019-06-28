@@ -37,7 +37,7 @@ class lvl1:
 
 		self.pantalla=pantalla
 		self.nivel_aprobado = False
-		#self.fondo = pygame.transform.scale2x( pygame.image.load('niveles/images/Fondo.png'))
+		self.fondo = pygame.transform.scale( pygame.image.load('niveles/images/Fondo.png'), Util.TAMAÑOPANTALLA)
 
 		#grupos
 		jugadores=pygame.sprite.Group()
@@ -289,10 +289,10 @@ class lvl1:
 			enemigos.update(player_position, balas_enemigas, imagenesBalasEnemigo)
 			explosiones.update()
 			pantalla.fill(Util.FONDO)
-
+			pantalla.blit(self.fondo,[0,0])
 			bloques.draw(pantalla)
 
-			#pantalla.blit(self.fondo,[0,0])
+			
 			#se muestran los puntajes
 			texto="Vida: "+str(int(j.vida))
 			textoPuntaje=fuente.render(texto, 1, Util.BLANCO)
