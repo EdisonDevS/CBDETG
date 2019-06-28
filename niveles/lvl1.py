@@ -48,7 +48,7 @@ class lvl1:
         botiquines=pygame.sprite.Group()
         bloques=pygame.sprite.Group()
 
-        bloques = Util.mapear('niveles/Mapas/mapa1.map')
+        #bloques = Util.mapear('niveles/Mapas/mapa1.map')
 
         #jugador
         j=Jugador(Util.CENTRO,imagenesJugador)
@@ -260,43 +260,35 @@ class lvl1:
 
             #COlISIONES PAREDES
             for jugador in jugadores:
-                for bl in bloques:
-                    ls_col = pygame.sprite.spritecollide(jugador,  bloques, False)
-                    for e in ls_col:
-                        if e.tangible:
-                            if jugador.velx != 0:
-                                jugador.rect.centerx -= e.rect.h/4
-                                jugador.rect.centery -= 1
+                ls_col = pygame.sprite.spritecollide(jugador,  bloques, False)
+                for e in ls_col:
+                    if jugador.velx != 0:
+                        jugador.rect.centerx -= e.rect.h/4
+                        jugador.rect.centery -= 1
 
             for jugador in jugadores:
-                for bl in bloques:
-                    ls_col = pygame.sprite.spritecollide(jugador,  bloques, False)
-                    for e in ls_col:
-                        if e.tangible:
-                            if jugador.vely != 0:
-                                jugador.rect.centery -= e.rect.w/4
-                                jugador.rect.centerx -= 1
+                ls_col = pygame.sprite.spritecollide(jugador,  bloques, False)
+                for e in ls_col:
+                    if jugador.vely != 0:
+                        jugador.rect.centery -= e.rect.w/4
+                        jugador.rect.centerx -= 1
 
             #################
             for enemigo in enemigos:
-                for bl in bloques:
-                    ls_col = pygame.sprite.spritecollide(enemigo, bloques, False)
-                    for e in ls_col:
-                        if e.tangible:
-                            if enemigo.velx > 0 :
-                                enemigo.rect.right = e.rect.left
-                            else:
-                                enemigo.rect.left = e.rect.right
+                ls_col = pygame.sprite.spritecollide(enemigo, bloques, False)
+                for e in ls_col:
+                    if enemigo.velx > 0 :
+                        enemigo.rect.right = e.rect.left
+                    else:
+                        enemigo.rect.left = e.rect.right
 
             for enemigo in enemigos:
-                for bl in bloques:
-                    ls_col = pygame.sprite.spritecollide(enemigo, bloques, False)
-                    for e in ls_col:
-                        if e.tangible:
-                            if enemigo.vely > 0 :
-                                enemigo.rect.bottom = e.rect.top
-                            else:
-                                enemigo.rect.top = e.rect.bottom
+                ls_col = pygame.sprite.spritecollide(enemigo, bloques, False)
+                for e in ls_col:
+                    if enemigo.vely > 0 :
+                        enemigo.rect.bottom = e.rect.top
+                    else:
+                        enemigo.rect.top = e.rect.bottom
 
 
             '''
@@ -308,8 +300,7 @@ class lvl1:
             player_position=[]
 
             
-            for je in jugadores:
-                player_position=je.getPosition()
+            player_position=j.getPosition()
             
 
 
