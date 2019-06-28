@@ -273,23 +273,6 @@ class lvl1:
                         jugador.rect.centery -= e.rect.w/4
                         jugador.rect.centerx -= 1
 
-            #################
-            for enemigo in enemigos:
-                ls_col = pygame.sprite.spritecollide(enemigo, bloques, False)
-                for e in ls_col:
-                    if enemigo.velx > 0 :
-                        enemigo.rect.right = e.rect.left
-                    else:
-                        enemigo.rect.left = e.rect.right
-
-            for enemigo in enemigos:
-                ls_col = pygame.sprite.spritecollide(enemigo, bloques, False)
-                for e in ls_col:
-                    if enemigo.vely > 0 :
-                        enemigo.rect.bottom = e.rect.top
-                    else:
-                        enemigo.rect.top = e.rect.bottom
-
 
             '''
             inicio = [j.rect.x,j.rect.y]
