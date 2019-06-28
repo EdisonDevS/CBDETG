@@ -31,9 +31,9 @@ class lvl1:
 		img_balas_enemigo=pygame.image.load('niveles/images/balas.png')
 		imagenesBalasEnemigo=Util.cut(img_balas_enemigo, 9, 2, 128, 128)
 
-		#configuracion de los botiquines
-		img_botiquin=pygame.image.load('niveles/images/botiquin.png')
-		imagenesBotiquin=Util.cut(img_botiquin, 1, 1, 32, 24)
+		#configuracion de los Botiquines
+		img_Botiquin=pygame.image.load('niveles/images/Botiquin.png')
+		imagenesBotiquin=Util.cut(img_Botiquin, 2, 1, 32, 24)
 
 		self.pantalla=pantalla
 		self.nivel_aprobado = False
@@ -45,7 +45,7 @@ class lvl1:
 		enemigos=pygame.sprite.Group()
 		explosiones=pygame.sprite.Group()
 		balas_enemigas=pygame.sprite.Group()
-		botiquines=pygame.sprite.Group()
+		Botiquines=pygame.sprite.Group()
 		bloques=pygame.sprite.Group()
 
 		bloques = Util.mapear('niveles/Mapas/mapa1.map')
@@ -199,10 +199,10 @@ class lvl1:
 					else:
 						#la muerte del enemigo depende del tipo
 						if(be.tipo_enemigo==0):
-							posibilidad_botiquin=random.randint(0,1)
-							if posibilidad_botiquin==1:
-								b=Botiquin([be.rect.x,be.rect.y], imagenesBotiquin)
-								botiquines.add(b)
+							posibilidad_Botiquin=random.randint(0,1)
+							b=Botiquin([be.rect.x,be.rect.y], imagenesBotiquin, posibilidad_Botiquin)
+							Botiquines.add(b)
+						
 						elif(be.tipo_enemigo==8):
 							None
 						elif(be.tipo_enemigo==16):
@@ -252,13 +252,13 @@ class lvl1:
 						balas_enemigas.remove(b)
 
 
-			#COLISIONES JUGADOR - BOTIQUIN
-			for b in botiquines:
+			#COLISIONES JUGADOR - Botiquin
+			for b in Botiquines:
 				ls_col = pygame.sprite.spritecollide(b, jugadores, False)
 				for jugador in ls_col:
 					if(jugador.vida > 0):
 						jugador.vida+=40
-						botiquines.remove(b)
+						Botiquines.remove(b)
 
 
 			#COlISIONES PAREDES
@@ -329,7 +329,7 @@ class lvl1:
 			balas_enemigas.draw(pantalla)
 			enemigos.draw(pantalla)
 			explosiones.draw(pantalla)
-			botiquines.draw(pantalla)
+			Botiquines.draw(pantalla)
 			pygame.display.flip()
 			reloj.tick(20)
 
