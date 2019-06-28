@@ -97,8 +97,8 @@ class Jefe(pygame.sprite.Sprite):
 
     def run(self,pos_jugador):
         desplazamiento = Util.angular(self.centroSprite, pos_jugador)
-        self.velx = 5*desplazamiento[0]
-        self.vely = 5*desplazamiento[1]
+        self.velx = 7*desplazamiento[0]
+        self.vely = 7*desplazamiento[1]
         if self.accion == 0:
             if desplazamiento[0] >= 0:
                 self.animacion = 1
