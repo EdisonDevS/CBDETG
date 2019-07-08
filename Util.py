@@ -7,11 +7,6 @@ from niveles.clases.Bloque import *
 from Genesis import *
 
 class Util:
-    #mapa
-    MAPSIZE = [5, 5]
-    MAXROOMSIZE = [10, 21]
-    MINROOMSIZE = [10, 10]
-
     #colores
     BLANCO=[255,255,255]
     FONDO=[61,37,59]
