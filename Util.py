@@ -4,8 +4,14 @@ import random
 import time
 import configparser
 from niveles.clases.Bloque import *
+from Genesis import *
 
 class Util:
+    #mapa
+    MAPSIZE = [5, 5]
+    MAXROOMSIZE = [10, 21]
+    MINROOMSIZE = [10, 10]
+
     #colores
     BLANCO=[255,255,255]
     FONDO=[61,37,59]
@@ -57,16 +63,14 @@ class Util:
         return ([x,y])
 
     def mapear(ruta):
-        mapa = configparser.ConfigParser()
-        mapa.read(ruta)
-        cad_map = mapa.get('info','mapa')
-        ls_mapa = cad_map.split('\n')
+        mapeo=Genesis()
+        mapa = mapeo.createRoom()
         mapi = pygame.image.load('niveles/images/magma.png')
         bloques = pygame.sprite.Group()
         filas = 0
         for col in range (10):
-            for c in ls_mapa[col]:
-                if(c != '.'):
+            for c in mapa[col]:
+                if(c != 0.):
                     bloque = Bloque(mapi, [filas*64,col*64])
                     bloques.add(bloque)
                 filas += 1
