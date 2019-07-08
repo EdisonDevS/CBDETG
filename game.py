@@ -5,6 +5,7 @@ import sys
 from Util import *
 from niveles.lvl1 import *
 from niveles.lvl2 import *
+from Genesis import *
 
 if __name__ == '__main__':
     pygame.init()
@@ -31,7 +32,8 @@ if __name__ == '__main__':
                 if event.button==1:
                     pos=pygame.mouse.get_pos()
                     if (pos[0]>500 and pos[0]<1000) and (pos[1]>300 and pos[1]<370):
-                        j=lvl1(pantalla)
+                        map=Genesis()
+                        j=lvl1(pantalla, map.generateMap())
                         if j.nivel_aprobado:
                             j=lvl2(pantalla)
 

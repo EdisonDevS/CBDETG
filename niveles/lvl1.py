@@ -10,7 +10,7 @@ from niveles.clases.Explosion import *
 from niveles.clases.Botiquin import *
 
 class lvl1:
-	def __init__(self, pantalla):
+	def __init__(self, pantalla, mapa):
 		#configuracion del jugador
 		img_juagador= pygame.image.load('niveles/images/liche.png')
 		imagenesJugador=Util.cut(img_juagador, 9, 21, 29, 33)
@@ -38,6 +38,8 @@ class lvl1:
 		self.pantalla=pantalla
 		self.nivel_aprobado = False
 		self.fondo = pygame.transform.scale( pygame.image.load('niveles/images/Fondo.png'), Util.TAMAÑOPANTALLA)
+		self.habitacionActual=[2,2]
+		self.mapa = mapa
 
 		#grupos
 		jugadores=pygame.sprite.Group()
@@ -46,12 +48,11 @@ class lvl1:
 		explosiones=pygame.sprite.Group()
 		balas_enemigas=pygame.sprite.Group()
 		botiquines=pygame.sprite.Group()
-		bloques=pygame.sprite.Group()
-
-		bloques = Util.mapear('niveles/Mapas/mapa1.map')
+		
+		bloques = Util.mapear(self.habitacionActual, self.mapa)
 
 		#jugador
-		j=Jugador(Util.CENTRO,imagenesJugador)
+		j=Jugador(Util.CENTRO,imagenesJugador, self.habitacionActual)
 		jugadores.add(j)
 
 		#variables necesarias
@@ -65,6 +66,7 @@ class lvl1:
 
 		#juego
 		while not fin:
+			bloques=Util.mapear(j.habitacionActual, self.mapa)
 
 			if j.vida>100:
 				j.vida-=0.1
@@ -285,11 +287,12 @@ class lvl1:
 
 			balas.update()
 			balas_enemigas.update()
-			jugadores.update()
+			jugadores.update(bloques)
 			enemigos.update(player_position, balas_enemigas, imagenesBalasEnemigo)
 			explosiones.update()
 			pantalla.fill(Util.FONDO)
 			pantalla.blit(self.fondo,[0,0])
+			#print(bloques)
 			bloques.draw(pantalla)
 
 			
@@ -302,6 +305,27 @@ class lvl1:
 			texto="Tiempo: "+str(segundos)
 			textoPuntaje=fuente.render(texto, 1, Util.BLANCO)
 			pantalla.blit(textoPuntaje,[300,20])
+
+
+			nivel=0
+			lateral=0
+			for i in range(5):
+				for k in range(5):
+					if j.habitaciones[i][k] == 0:
+						pygame.draw.rect(pantalla, Util.AZUL, (1095+lateral, 70+nivel, 20, 20), 1)
+
+					elif j.habitaciones[i][k] == 1:
+						pygame.draw.rect(pantalla, Util.ROJO, pygame.Rect((1095+lateral, 70+nivel, 20, 20)), 0)
+
+					elif j.habitaciones[i][k] == 2:
+						pygame.draw.rect(pantalla, Util.AZUL, pygame.Rect((1095+lateral, 70+nivel, 20, 20)), 0)
+
+					lateral += 40		
+
+				nivel+=40
+				lateral=0
+
+
 
 			if j.inmune:
 				texto="Inmunidad/Magma: Activada"

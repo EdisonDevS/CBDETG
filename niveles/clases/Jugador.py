@@ -4,7 +4,7 @@ from Util import *
 from niveles.clases.Bala import *
 class Jugador(pygame.sprite.Sprite):
     
-    def __init__(self, pos, mat_i):
+    def __init__(self, pos, mat_i, habitacion):
         pygame.sprite.Sprite.__init__(self)
         #control imagen
         self.accion = 0
@@ -15,6 +15,18 @@ class Jugador(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = pos[0]
         self.rect.y = pos[1]
+
+        #habitaciones
+        self.habitacionActual = habitacion
+        self.habitaciones=[
+                        [0,0,0,0,0],
+                        [0,0,0,0,0],
+                        [0,0,0,0,0],
+                        [0,0,0,0,0],
+                        [0,0,0,0,0]
+                        ]
+
+        self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=1
 
         #stats
         self.velx = 0
@@ -29,7 +41,8 @@ class Jugador(pygame.sprite.Sprite):
         self.disparando = True
         self.inicio_inmunidad=datetime.now()
 
-    def update(self):
+
+    def update(self, bloques):
         transcurrido_inmunidad=datetime.now()-self.inicio_inmunidad
 
         if transcurrido_inmunidad.seconds > 5:
@@ -40,19 +53,54 @@ class Jugador(pygame.sprite.Sprite):
         self.rect.y+=self.vely
         self.image=pygame.transform.scale2x(self.matriz[self.accion][self.animacion])
 
+        #se hace el cambio de habitación
         if self.rect.x < 0:
-            self.velx = 0
-            self.rect.x = 0
-        if self.rect.x > Util.ANCHO-self.rect.w:
-            self.velx = 0
+            if self.habitacionActual[1]==0:
+                self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=2
+                self.habitacionActual[1]=4
+                self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=1
+            else:
+                self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=2
+                self.habitacionActual[1] = self.habitacionActual[1]-1
+                self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=1
+            self.velx = -3
             self.rect.x = Util.ANCHO-self.rect.w
 
+        if self.rect.x > Util.ANCHO-self.rect.w:
+            if self.habitacionActual[1]==4:
+                self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=2
+                self.habitacionActual[1]=0
+                self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=1
+            else:
+                self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=2
+                self.habitacionActual[1] = self.habitacionActual[1]+1
+                self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=1
+            self.velx = 3
+            self.rect.x = 0
+
         if self.rect.y < 0:
-            self.vely = 0
-            self.rect.y = 0
-        if self.rect.y > Util.ALTO-self.rect.h:
-            self.vely = 0
+            if self.habitacionActual[0]==0:
+                self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=2
+                self.habitacionActual[0]=4
+                self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=1
+            else:
+                self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=2
+                self.habitacionActual[0] = self.habitacionActual[0]-1
+                self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=1
+            self.vely = -3
             self.rect.y = Util.ALTO-self.rect.h
+
+        if self.rect.y > Util.ALTO-self.rect.h:
+            if self.habitacionActual[0]==4:
+                self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=2
+                self.habitacionActual[0]=0
+                self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=1
+            else:
+                self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=2
+                self.habitacionActual[0] = self.habitacionActual[0]+1
+                self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=1
+            self.vely = 3
+            self.rect.y = 0
 
         if self.accion < self.limite[self.animacion]-1:
             self.accion+=1
@@ -64,6 +112,9 @@ class Jugador(pygame.sprite.Sprite):
                 self.animacion = 13
             if self.animacion == 1:
                 self.animacion = 0
+
+        
+
     
     def dash(self):
         if self.animacion == 1 and self.accion == 7:

@@ -7,7 +7,7 @@ class Genesis:
 		#mapa
 		self.MAPSIZE = [5, 5]
 		self.MAXROOMSIZE = [10, 21]
-		self.MINROOMSIZE = [10, 10]
+		self.MINROOMSIZE = [10, 21]
 
 
 
@@ -38,7 +38,7 @@ class Genesis:
 
 		self.fillRoom(room)
 
-		self.printRoom(room)
+		#self.printRoom(room)
 		
 		return room
 

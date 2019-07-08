@@ -57,9 +57,10 @@ class Util:
         y = math.sin(ang)
         return ([x,y])
 
-    def mapear(ruta):
-        mapeo=Genesis()
-        mapa = mapeo.createRoom()
+
+    def mapear(habitacion, map):
+        mapa=map[habitacion[0]][habitacion[1]]
+        #print(mapa)
         mapi = pygame.image.load('niveles/images/magma.png')
         bloques = pygame.sprite.Group()
         filas = 0
