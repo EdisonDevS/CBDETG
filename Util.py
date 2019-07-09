@@ -85,6 +85,24 @@ class Util:
                 if(c == 6):
                     bloque = Bloque(matrizMapa[2][0], [filas*64,col*64])
                     bloques.add(bloque)
+                if(c == 7):
+                    bloque = Bloque(matrizMapa[4][2], [filas*64,col*64])
+                    bloques.add(bloque)
+                if(c == 8):
+                    bloque = Bloque(matrizMapa[5][2], [filas*64,col*64])
+                    bloques.add(bloque)
+                if(c == 9):
+                    bloque = Bloque(matrizMapa[0][4], [filas*64,col*64])
+                    bloques.add(bloque)
+                if(c == 10):
+                    bloque = Bloque(matrizMapa[1][5], [filas*64,col*64])
+                    bloques.add(bloque)
+                if(c == 11):
+                    bloque = Bloque(matrizMapa[4][1], [filas*64,col*64])
+                    bloques.add(bloque)
+                if(c == 12):
+                    bloque = Bloque(matrizMapa[4][0], [filas*64,col*64])
+                    bloques.add(bloque)
                 filas += 1
             filas = 0
 
