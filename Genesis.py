@@ -10,7 +10,6 @@ class Genesis:
 		self.MINROOMSIZE = [10, 21]
 
 
-
 	def generateMap(self):
 		for i in range(self.MAPSIZE[0]):
 			row=[]
@@ -24,7 +23,6 @@ class Genesis:
 		return self.map
 
 
-
 	def createRoom(self):
 		#Construccion de las dimensiones que tendrá la nueva habitacion
 		xDimension=random.randint(self.MINROOMSIZE[0],self.MAXROOMSIZE[0])
@@ -36,42 +34,51 @@ class Genesis:
 		#se crea el array de numpy de acuerdo a las especificaciones
 		room=np.zeros(roomDimensions)
 
-		self.fillRoom(room)
+		roomType = self.roomTypeSelector()
 
-		#self.printRoom(room)
+		self.fillRoom(room, roomType)
+
+		self.printRoom(room)
 		
 		return room
 
 
+	def fillRoom(self, room, roomType):
+		self.putFloor(room, roomType[0])
+		self.solidPatternDesigner(room, roomType[1])
+		self.putWalls(room, roomType[2])
 
-	def fillRoom(self, room):
-		self.solidPatternDesigner(room)
-		self.putWalls(room)
+
+	def putFloor(self, room, roomType):
+		floor = np.random.choice(roomType[0], p=roomType[1], size=(10, 21))
+
+		for j in range(10):
+			for k in range(21):
+				room[j][k] = floor[j][k]
 
 
 
-	def putWalls(self, room):
+	def putWalls(self, room, roomType):
 		dimensions=room.shape
 
 		#se pone la pared superior
 		for i in range(dimensions[1]):
-			room[0][i] = 1
+			room[0][i] = np.random.choice(roomType[0], p=roomType[1], size=(1,1))[0]
 
 		#se pone la pared inferior
 		for i in range(dimensions[1]):
-			room[dimensions[0] - 1][i] = 1
+			room[dimensions[0] - 1][i] = np.random.choice(roomType[0], p=roomType[1], size=(1,1))[0]
 
 		#se pone la pared lateral izquierda
 		for i in range(dimensions[0]):
-			room[i][0] = 1
+			room[i][0] = np.random.choice(roomType[0], p=roomType[1], size=(1,1))[0]
 
 		#se pone la pared lateral derecha		
 		for i in range(dimensions[0]):
-			room[i][dimensions[1] - 1] = 1
+			room[i][dimensions[1] - 1] = np.random.choice(roomType[0], p=roomType[1], size=(1,1))[0]
 
 
-
-	def solidPatternDesigner(self, room):
+	def solidPatternDesigner(self, room, roomType):
 		solidPatterns=0
 		#se escoge la cantidad de patrones de bloques solidos a partir de el tamaño
 		#de la mazmorra
@@ -84,12 +91,11 @@ class Genesis:
 		elif room.shape[1] <= 21:
 			solidPatterns = 3
 
-
 		increment = 0
 		col = 2
 
 		for i in range(solidPatterns):
-			shape = self.solidShapeRandomizer()
+			shape = self.solidShapeRandomizer(roomType)
 
 			row = random.randint(2,4)
 			col += increment
@@ -104,10 +110,27 @@ class Genesis:
 			increment = 5
 
 
+	def roomTypeSelector(self):
+		"""
+		[
+			([piso],[p piso]),
+			([obstaculos], [p obstaculos]),
+			([paredes], [p paredes])
+		]
+		"""
+		return random.choice(
+			[
+				[
+					([1,2],[0.8, 0.2]),
+					([3,4,1,2], [0.3,0.2,0.3,0.2]),
+					([5,6], [0.8, 0.2])
+				]
+			]
+			)
 
-	def solidShapeRandomizer(self):
-		return np.random.choice([0, 2], p=[0.5, 0.5], size=(4, 4))
 
+	def solidShapeRandomizer(self, roomType):
+		return np.random.choice(roomType[0], p=roomType[1], size=(4, 4))
 
 
 	def printRoom(self, room):

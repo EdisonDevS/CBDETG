@@ -61,13 +61,29 @@ class Util:
     def mapear(habitacion, map):
         mapa=map[habitacion[0]][habitacion[1]]
         #print(mapa)
-        mapi = pygame.image.load('niveles/images/magma.png')
+        mapi = pygame.image.load('niveles/images/mapa.png')
+        matrizMapa=Util.cut(mapi, 6, 6, 64, 64)
         bloques = pygame.sprite.Group()
         filas = 0
         for col in range (10):
             for c in mapa[col]:
-                if(c != 0.):
-                    bloque = Bloque(mapi, [filas*64,col*64])
+                if(c == 1):
+                    bloque = Bloque(matrizMapa[2][2], [filas*64,col*64])
+                    bloques.add(bloque)
+                if(c == 2):
+                    bloque = Bloque(matrizMapa[3][2], [filas*64,col*64])
+                    bloques.add(bloque)
+                if(c == 3):
+                    bloque = Bloque(matrizMapa[4][4], [filas*64,col*64])
+                    bloques.add(bloque)
+                if(c == 4):
+                    bloque = Bloque(matrizMapa[4][5], [filas*64,col*64])
+                    bloques.add(bloque)
+                if(c == 5):
+                    bloque = Bloque(matrizMapa[2][1], [filas*64,col*64])
+                    bloques.add(bloque)
+                if(c == 6):
+                    bloque = Bloque(matrizMapa[2][0], [filas*64,col*64])
                     bloques.add(bloque)
                 filas += 1
             filas = 0
