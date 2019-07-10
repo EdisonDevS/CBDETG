@@ -49,7 +49,14 @@ class lvl1:
 		balas_enemigas=pygame.sprite.Group()
 		botiquines=pygame.sprite.Group()
 		
-		bloques = Util.mapear(self.habitacionActual, self.mapa)
+		mapita = Util.mapear(self.habitacionActual, self.mapa)
+
+		bloques = mapita[0]
+		piso = mapita[1]
+		magma = mapita[2]
+		agua = mapita[3]
+		pasto = mapita[4]
+		puertas = mapita[5]
 
 		#jugador
 		j=Jugador(Util.CENTRO,imagenesJugador, self.habitacionActual)
@@ -66,7 +73,14 @@ class lvl1:
 
 		#juego
 		while not fin:
-			bloques=Util.mapear(j.habitacionActual, self.mapa)
+			mapita = Util.mapear(self.habitacionActual, self.mapa)
+
+			bloques = mapita[0]
+			piso = mapita[1]
+			magma = mapita[2]
+			agua = mapita[3]
+			pasto = mapita[4]
+			puertas = mapita[5]
 
 			if j.vida>100:
 				j.vida-=0.1
@@ -75,6 +89,7 @@ class lvl1:
 				self.muerte()
 				break
 
+			"""
 			instanteFinal = datetime.now()
 			tiempo = instanteFinal - instanteInicial # Devuelve un objeto timedelta
 			segundos = tiempo.seconds
@@ -163,6 +178,8 @@ class lvl1:
 						e.incremento_caminar=3
 						e.incremento_correr=3
 					enemigos.add(e)
+			"""
+
 
 			eventos=pygame.event.get()
 
@@ -264,6 +281,7 @@ class lvl1:
 
 
 			#COlISIONES PAREDES
+			"""
 			for jugador in jugadores:
 				ls_col = pygame.sprite.spritecollide(jugador,  bloques, False)
 				for e in ls_col:
@@ -272,6 +290,38 @@ class lvl1:
 						None
 					else:
 						j.vida-=0.5
+			"""
+			for jugador in jugadores:
+				ls_col = pygame.sprite.spritecollide(jugador,  bloques, False)
+				for e in ls_col:
+					print(""+str(jugador.rect.top) + " " + str(e.rect.bottom))
+					if ((jugador.velx == 0 and jugador.vely > 0) and (jugador.rect.bottom <= e.rect.top+10)):
+						jugador.rect.bottom = e.rect.top
+					elif ((jugador.velx < 0 and jugador.vely > 0) and (jugador.rect.bottom <= e.rect.top+10)):
+						jugador.rect.bottom = e.rect.top
+					elif ((jugador.velx < 0 and jugador.vely > 0) and (jugador.rect.left >= e.rect.right-10)):
+						jugador.rect.left = e.rect.right
+					elif ((jugador.velx < 0 and jugador.vely == 0) and (jugador.rect.left >= e.rect.right-10)):
+						jugador.rect.left = e.rect.right
+					elif ((jugador.velx < 0 and jugador.vely < 0) and (jugador.rect.left >= e.rect.right-10)):
+						jugador.rect.left = e.rect.right
+					elif ((jugador.velx < 0 and jugador.vely < 0) and (jugador.rect.top >= e.rect.bottom-10)):
+						jugador.rect.top = e.rect.bottom
+					elif ((jugador.velx == 0 and jugador.vely < 0) and (jugador.rect.top >= e.rect.bottom-10)):
+						jugador.rect.top = e.rect.bottom
+					elif ((jugador.velx > 0 and jugador.vely < 0) and (jugador.rect.top >= e.rect.bottom-10)):
+						jugador.rect.top = e.rect.bottom
+					elif ((jugador.velx > 0 and jugador.vely < 0) and (jugador.rect.right <= e.rect.left+10)):
+						jugador.rect.right = e.rect.left
+					elif ((jugador.velx > 0 and jugador.vely == 0) and (jugador.rect.right <= e.rect.left+10)):
+						jugador.rect.right = e.rect.left
+					elif ((jugador.velx > 0 and jugador.vely > 0) and (jugador.rect.right <= e.rect.left+10)):
+						jugador.rect.right = e.rect.left
+					elif ((jugador.velx > 0 and jugador.vely > 0) and (jugador.rect.bottom <= e.rect.top+10)):
+						jugador.rect.bottom = e.rect.top
+					
+					
+
 			'''
 			inicio = [j.rect.x,j.rect.y]
 			end = pygame.mouse.get_pos()
@@ -293,7 +343,12 @@ class lvl1:
 			pantalla.fill(Util.FONDO)
 			pantalla.blit(self.fondo,[0,0])
 			#print(bloques)
+			piso.draw(pantalla)
+			magma.draw(pantalla)
+			agua.draw(pantalla)
+			pasto.draw(pantalla)
 			bloques.draw(pantalla)
+			puertas.draw(pantalla)
 
 			
 			#se muestran los puntajes
@@ -302,9 +357,9 @@ class lvl1:
 			pantalla.blit(textoPuntaje,[100,20])
 
 
-			texto="Tiempo: "+str(segundos)
+			"""texto="Tiempo: "+str(segundos)
 			textoPuntaje=fuente.render(texto, 1, Util.BLANCO)
-			pantalla.blit(textoPuntaje,[300,20])
+			pantalla.blit(textoPuntaje,[300,20])"""
 
 
 			nivel=0
@@ -336,6 +391,7 @@ class lvl1:
 				textoPuntaje=fuente.render(texto, 1, Util.BLANCO)
 				pantalla.blit(textoPuntaje,[500,20])
 
+			"""
 			if(segundos>20 and segundos<25):
 				texto="Segunda oleada: "+str(25-segundos)
 				textoPuntaje=titulos.render(texto, 1, Util.BLANCO)
@@ -352,7 +408,7 @@ class lvl1:
 				textoPuntaje=titulos.render(texto, 1, Util.BLANCO)
 				pantalla.blit(textoPuntaje,[100,300])
 
-			
+			"""
 			'''
 			pygame.draw.line(pantalla, Util.ROJO, [int(j.rect.x+j.rect.width/2), int(j.rect.y+j.rect.height/2)], desplazamiento, 1)
 			pygame.draw.circle(pantalla, Util.NEGRO, [int(j.rect.x+j.rect.width/2), int(j.rect.y+j.rect.height/2)], 100, 1)

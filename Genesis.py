@@ -77,6 +77,13 @@ class Genesis:
 		for i in range(dimensions[0]):
 			room[i][dimensions[1] - 1] = np.random.choice(roomType[0], p=roomType[1], size=(1,1))[0]
 
+		#se ponen las puertas
+		room[0][17]=-1
+		room[3][0]=-2
+		room[6][dimensions[1] - 1] = -3
+		room[dimensions[0] - 1][4] = -4
+		
+
 
 	def solidPatternDesigner(self, room, roomType):
 		solidPatterns=0
@@ -114,7 +121,7 @@ class Genesis:
 		"""
 		[
 			([piso],[p piso]),
-			([obstaculos], [p obstaculos]),
+			(([obstaculo primario], [muros]), [p obstaculos]),
 			([paredes], [p paredes])
 		]
 		"""
@@ -122,20 +129,26 @@ class Genesis:
 			[
 				[
 					([1,2],[0.8, 0.2]),
-					([3,4,1,2], [0.3,0.2,0.3,0.2]),
+					(([3,4,1,2], [17,18,1,2]), [0.3,0.2,0.3,0.2]),
 					([5,6], [0.8, 0.2])
 				],
 				[
 					([7,8],[0.8, 0.2]),
-					([9,10,7,8], [0.3,0.2,0.3,0.2]),
+					(([9,10,7,8], [5,6,7,8]), [0.3,0.2,0.3,0.2]),
 					([11,12], [0.8, 0.2])
+				],
+				[
+					([13,14],[0.8, 0.2]),
+					(([15,16,13,14], [11,12,13,14]), [0.3,0.2,0.3,0.2]),
+					([17,18], [0.8, 0.2])
 				]
 			]
 			)
 
 
 	def solidShapeRandomizer(self, roomType):
-		return np.random.choice(roomType[0], p=roomType[1], size=(4, 4))
+		bloques=random.choice(roomType[0])
+		return np.random.choice(bloques, p=roomType[1], size=(4, 4))
 
 
 	def printRoom(self, room):

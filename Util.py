@@ -62,23 +62,30 @@ class Util:
         mapa=map[habitacion[0]][habitacion[1]]
         #print(mapa)
         mapi = pygame.image.load('niveles/images/mapa.png')
-        matrizMapa=Util.cut(mapi, 6, 6, 64, 64)
+        puer = pygame.image.load('niveles/images/puertas.png')
+        puerta = Util.cut(puer, 2, 2, 64, 64)
+        matrizMapa = Util.cut(mapi, 6, 6, 64, 64)
         bloques = pygame.sprite.Group()
+        piso = pygame.sprite.Group()
+        magma = pygame.sprite.Group()
+        agua = pygame.sprite.Group()
+        pasto = pygame.sprite.Group()
+        puertas = pygame.sprite.Group()
         filas = 0
         for col in range (10):
             for c in mapa[col]:
                 if(c == 1):
                     bloque = Bloque(matrizMapa[2][2], [filas*64,col*64])
-                    bloques.add(bloque)
+                    piso.add(bloque)
                 if(c == 2):
                     bloque = Bloque(matrizMapa[3][2], [filas*64,col*64])
-                    bloques.add(bloque)
+                    piso.add(bloque)
                 if(c == 3):
                     bloque = Bloque(matrizMapa[4][4], [filas*64,col*64])
-                    bloques.add(bloque)
+                    magma.add(bloque)
                 if(c == 4):
                     bloque = Bloque(matrizMapa[4][5], [filas*64,col*64])
-                    bloques.add(bloque)
+                    magma.add(bloque)
                 if(c == 5):
                     bloque = Bloque(matrizMapa[2][1], [filas*64,col*64])
                     bloques.add(bloque)
@@ -87,23 +94,53 @@ class Util:
                     bloques.add(bloque)
                 if(c == 7):
                     bloque = Bloque(matrizMapa[4][2], [filas*64,col*64])
-                    bloques.add(bloque)
+                    piso.add(bloque)
                 if(c == 8):
                     bloque = Bloque(matrizMapa[5][2], [filas*64,col*64])
-                    bloques.add(bloque)
+                    piso.add(bloque)
                 if(c == 9):
                     bloque = Bloque(matrizMapa[0][4], [filas*64,col*64])
-                    bloques.add(bloque)
+                    agua.add(bloque)
                 if(c == 10):
                     bloque = Bloque(matrizMapa[1][5], [filas*64,col*64])
-                    bloques.add(bloque)
+                    agua.add(bloque)
                 if(c == 11):
                     bloque = Bloque(matrizMapa[4][1], [filas*64,col*64])
                     bloques.add(bloque)
                 if(c == 12):
                     bloque = Bloque(matrizMapa[4][0], [filas*64,col*64])
                     bloques.add(bloque)
+                if(c == 13):
+                    bloque = Bloque(matrizMapa[0][2], [filas*64,col*64])
+                    piso.add(bloque)
+                if(c == 14):
+                    bloque = Bloque(matrizMapa[1][2], [filas*64,col*64])
+                    piso.add(bloque)
+                if(c == 15):
+                    bloque = Bloque(matrizMapa[2][4], [filas*64,col*64])
+                    pasto.add(bloque)
+                if(c == 16):
+                    bloque = Bloque(matrizMapa[3][5], [filas*64,col*64])
+                    pasto.add(bloque)
+                if(c == 17):
+                    bloque = Bloque(matrizMapa[1][1], [filas*64,col*64])
+                    bloques.add(bloque)
+                if(c == 18):
+                    bloque = Bloque(matrizMapa[1][0], [filas*64,col*64])
+                    bloques.add(bloque)
+                if(c == -1):
+                    bloque = Bloque(puerta[0][0], [filas*64,col*64])
+                    puertas.add(bloque)
+                if(c == -2):
+                    bloque = Bloque(puerta[0][1], [filas*64,col*64])
+                    puertas.add(bloque)
+                if(c == -3):
+                    bloque = Bloque(puerta[1][1], [filas*64,col*64])
+                    puertas.add(bloque)
+                if(c == -4):
+                    bloque = Bloque(puerta[1][0], [filas*64,col*64])
+                    puertas.add(bloque)
                 filas += 1
             filas = 0
 
-        return bloques
+        return (bloques, piso, magma, agua, pasto, puertas)

@@ -33,7 +33,7 @@ class Jugador(pygame.sprite.Sprite):
         self.vely = 0
         self.sonido = pygame.mixer.Sound('niveles/sonidos/fireball.ogg')
         self.burn = pygame.mixer.Sound('niveles/sonidos/burn.ogg')
-        self.vida = 100000
+        self.vida = 100
         self.cadencia = 5
         self.disparos = 0
         self.escudo = 0
@@ -65,6 +65,7 @@ class Jugador(pygame.sprite.Sprite):
                 self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=1
             self.velx = -3
             self.rect.x = Util.ANCHO-self.rect.w
+            self.rect.y = 6*64
 
         if self.rect.x > Util.ANCHO-self.rect.w:
             if self.habitacionActual[1]==4:
@@ -77,6 +78,7 @@ class Jugador(pygame.sprite.Sprite):
                 self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=1
             self.velx = 3
             self.rect.x = 0
+            self.rect.y = 3*64
 
         if self.rect.y < 0:
             if self.habitacionActual[0]==0:
@@ -89,6 +91,7 @@ class Jugador(pygame.sprite.Sprite):
                 self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=1
             self.vely = -3
             self.rect.y = Util.ALTO-self.rect.h
+            self.rect.x = 4*64
 
         if self.rect.y > Util.ALTO-self.rect.h:
             if self.habitacionActual[0]==4:
@@ -101,6 +104,7 @@ class Jugador(pygame.sprite.Sprite):
                 self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=1
             self.vely = 3
             self.rect.y = 0
+            self.rect.x = 17*64
 
         if self.accion < self.limite[self.animacion]-1:
             self.accion+=1
