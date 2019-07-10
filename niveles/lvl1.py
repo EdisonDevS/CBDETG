@@ -295,13 +295,13 @@ class lvl1:
 				ls_col = pygame.sprite.spritecollide(jugador,  bloques, False)
 				for e in ls_col:
 					print(""+str(jugador.rect.top) + " " + str(e.rect.bottom))
-					if ((jugador.velx == 0 and jugador.vely > 0) and (jugador.rect.bottom <= e.rect.top+10) and (len(ls_col)==2) and ((ls_col[0].rect.bottom==ls_col[1].rect.top) or (ls_col[1].rect.bottom==ls_col[0].rect.top))):
+					if ((jugador.velx == 0 and jugador.vely > 0) and (jugador.rect.bottom <= e.rect.top+10) and (len(ls_col)==2) and ((ls_col[0].rect.right==ls_col[1].rect.right) and ((ls_col[0].rect.bottom==ls_col[1].rect.top) or (ls_col[1].rect.bottom==ls_col[0].rect.top)))):
 						jugador.rect.y+=5
-					elif ((jugador.velx == 0 and jugador.vely < 0) and (jugador.rect.top >= e.rect.bottom-10) and (len(ls_col)==2) and ((ls_col[0].rect.bottom==ls_col[1].rect.top) or (ls_col[1].rect.bottom==ls_col[0].rect.top))):
+					elif ((jugador.velx == 0 and jugador.vely < 0) and (jugador.rect.top >= e.rect.bottom-10) and (len(ls_col)==2) and ((ls_col[0].rect.right==ls_col[1].rect.right) and ((ls_col[0].rect.bottom==ls_col[1].rect.top) or (ls_col[1].rect.bottom==ls_col[0].rect.top)))):
 						jugador.rect.y-=5
-					elif ((jugador.velx < 0 and jugador.vely == 0) and (jugador.rect.left >= e.rect.right-10) and (len(ls_col)==2) and ((ls_col[0].rect.left==ls_col[1].rect.right) or (ls_col[1].rect.left==ls_col[0].rect.right))):
+					elif ((jugador.velx < 0 and jugador.vely == 0) and (jugador.rect.left >= e.rect.right-10) and (len(ls_col)==2) and ((ls_col[0].rect.top==ls_col[1].rect.top) and ((ls_col[0].rect.left==ls_col[1].rect.right) or (ls_col[1].rect.left==ls_col[0].rect.right)))):
 						jugador.rect.x-=5
-					elif ((jugador.velx > 0 and jugador.vely == 0) and (jugador.rect.right <= e.rect.left+10) and (len(ls_col)==2) and ((ls_col[0].rect.left==ls_col[1].rect.right) or (ls_col[1].rect.left==ls_col[0].rect.right))):
+					elif ((jugador.velx > 0 and jugador.vely == 0) and (jugador.rect.right <= e.rect.left+10) and (len(ls_col)==2) and ((ls_col[0].rect.top==ls_col[1].rect.top) and ((ls_col[0].rect.left==ls_col[1].rect.right) or (ls_col[1].rect.left==ls_col[0].rect.right)))):
 						jugador.rect.x+=5
 					elif ((jugador.velx == 0 and jugador.vely > 0) and (jugador.rect.bottom <= e.rect.top+10)):
 						jugador.rect.bottom = e.rect.top
