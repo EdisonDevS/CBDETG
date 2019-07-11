@@ -64,7 +64,7 @@ class Util:
         mapi = pygame.image.load('niveles/images/mapa.png')
         puer = pygame.image.load('niveles/images/puertas.png')
         puerta = Util.cut(puer, 2, 2, 64, 64)
-        matrizMapa = Util.cut(mapi, 6, 6, 64, 64)
+        matrizMapa = Util.cut(mapi, 8, 6, 64, 64)
         bloques = pygame.sprite.Group()
         piso = pygame.sprite.Group()
         magma = pygame.sprite.Group()
@@ -74,6 +74,7 @@ class Util:
         filas = 0
         for col in range (10):
             for c in mapa[col]:
+                #azul
                 if(c == 1):
                     bloque = Bloque(matrizMapa[2][2], [filas*64,col*64])
                     piso.add(bloque)
@@ -92,6 +93,7 @@ class Util:
                 if(c == 6):
                     bloque = Bloque(matrizMapa[2][0], [filas*64,col*64])
                     bloques.add(bloque)
+                #oscuro
                 if(c == 7):
                     bloque = Bloque(matrizMapa[4][2], [filas*64,col*64])
                     piso.add(bloque)
@@ -110,6 +112,7 @@ class Util:
                 if(c == 12):
                     bloque = Bloque(matrizMapa[4][0], [filas*64,col*64])
                     bloques.add(bloque)
+                #arenisca
                 if(c == 13):
                     bloque = Bloque(matrizMapa[0][2], [filas*64,col*64])
                     piso.add(bloque)
@@ -128,6 +131,7 @@ class Util:
                 if(c == 18):
                     bloque = Bloque(matrizMapa[1][0], [filas*64,col*64])
                     bloques.add(bloque)
+                #puertas
                 if(c == -1):
                     bloque = Bloque(puerta[0][0], [filas*64,col*64])
                     puertas.add(bloque)
@@ -140,6 +144,28 @@ class Util:
                 if(c == -4):
                     bloque = Bloque(puerta[1][0], [filas*64,col*64])
                     puertas.add(bloque)
+                #nieve
+                if(c == 19):
+                    bloque = Bloque(matrizMapa[6][3], [filas*64,col*64])
+                    piso.add(bloque)
+                if(c == 20):
+                    bloque = Bloque(matrizMapa[6][2], [filas*64,col*64])
+                    piso.add(bloque)
+                if(c == 21):
+                    bloque = Bloque(matrizMapa[6][4], [filas*64,col*64])
+                    agua.add(bloque)
+                if(c == 22):
+                    bloque = Bloque(matrizMapa[6][1], [filas*64,col*64])
+                    bloques.add(bloque)
+                if(c == 23):
+                    bloque = Bloque(matrizMapa[6][0], [filas*64,col*64])
+                    bloques.add(bloque)
+                if(c == 24):
+                    bloque = Bloque(matrizMapa[6][5], [filas*64,col*64])
+                    bloques.add(bloque)
+                if(c == 25):
+                    bloque = Bloque(matrizMapa[7][5], [filas*64,col*64])
+                    bloques.add(bloque)
                 filas += 1
             filas = 0
 
