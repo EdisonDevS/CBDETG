@@ -372,20 +372,21 @@ class lvl1:
 
 			nivel=0
 			lateral=0
+
 			for i in range(5):
 				for k in range(5):
 					if j.habitaciones[i][k] == 0:
-						pygame.draw.rect(pantalla, Util.AZUL, (1095+lateral, 70+nivel, 20, 20), 1)
+						pygame.draw.rect(pantalla, Util.VERDE, (1185+lateral, 475+nivel, 10, 10), 1)
 
 					elif j.habitaciones[i][k] == 1:
-						pygame.draw.rect(pantalla, Util.ROJO, pygame.Rect((1095+lateral, 70+nivel, 20, 20)), 0)
+						pygame.draw.rect(pantalla, Util.ROJO, pygame.Rect((1185+lateral, 475+nivel, 10, 10)), 0)
 
 					elif j.habitaciones[i][k] == 2:
-						pygame.draw.rect(pantalla, Util.AZUL, pygame.Rect((1095+lateral, 70+nivel, 20, 20)), 0)
+						pygame.draw.rect(pantalla, Util.VERDE, pygame.Rect((1185+lateral, 475+nivel, 10, 10)), 0)
+      
+					lateral += 20
 
-					lateral += 40		
-
-				nivel+=40
+				nivel+=20
 				lateral=0
 
 
