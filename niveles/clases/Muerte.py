@@ -37,10 +37,10 @@ class Muerte(pygame.sprite.Sprite):
         
         if player_position[0] < self.rect.x:
             self.direccion = 0
-        elif player_position[0] > self.rect.x:
+        #elif player_position[0] > self.rect.x:
+        if player_position[0] > self.rect.x:
             self.direccion = 1
-
-        #self.image = pygame.transform.scale2x(self.m[self.accion][self.col])
+        
         self.image = pygame.transform.scale2x(self.m[self.col][self.accion])
 
         if self.col < self.lim[self.accion]:
@@ -48,14 +48,15 @@ class Muerte(pygame.sprite.Sprite):
             
         else:
             self.col = 0
-            #Para que despues de cada accion vuelva a estar en Idle
-            
+            #Para que despues de cada accion vuelva a estar en Idle            
             if self.accion != 0 and self.direccion == 0:
                 self.accion = 0
-            elif self.accion != 1 and self.direccion == 1:
+            #elif self.accion != 1 and self.direccion == 1:
+            if self.accion != 1 and self.direccion == 1:    
                 self.accion = 1
             
     #El siguiente metodo solo es para texteo
+    '''
     def eventos(self, evento):
         for event in evento:
             if event.type==pygame.KEYDOWN:
@@ -65,5 +66,5 @@ class Muerte(pygame.sprite.Sprite):
             if event.type==pygame.KEYUP:
                 self.velx=0
                 self.vely=0     
-
+    '''
 

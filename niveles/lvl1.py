@@ -82,6 +82,11 @@ class lvl1:
 
 		#juego
 		while not fin:
+			'''
+			if pygame.mixer.music.get_endevent:
+				print ("Holaaaaa")
+				pygame.mixer.music.play()			
+			'''		
 			mapita = Util.mapear(self.habitacionActual, self.mapa)
 
 			bloques = mapita[0]
@@ -237,7 +242,7 @@ class lvl1:
 					fin=True
 			#eventos del jugador
 			j.eventos(balas, eventos)
-			m.eventos(eventos)
+			#m.eventos(eventos)
 			#actualizacion de explosiones
 			for e in explosiones:
 				if(e.animacion==e.lim_animacion):
