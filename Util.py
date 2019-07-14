@@ -35,7 +35,7 @@ class Util:
     CENTRO = [CENTROX,CENTROY]
 
     #barra de Vida
-    ANCHOVIDA = 300
+    ANCHOVIDA = 213
     ALTOVIDA = 30
     TAMAÑOVIDA = [ANCHOVIDA, ALTOVIDA]
 
