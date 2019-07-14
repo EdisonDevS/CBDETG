@@ -34,6 +34,11 @@ class Util:
     CENTROY = ALTO // 2
     CENTRO = [CENTROX,CENTROY]
 
+    #barra de Vida
+    ANCHOVIDA = 300
+    ALTOVIDA = 30
+    TAMAÑOVIDA = [ANCHOVIDA, ALTOVIDA]
+
     def cut(img, columnas, filas, ancho, alto):
         imagenes  = []
         for i in range(columnas):
