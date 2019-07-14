@@ -8,6 +8,7 @@ from niveles.clases.Bala import *
 from niveles.clases.Enemigo import *
 from niveles.clases.Explosion import *
 from niveles.clases.Botiquin import *
+from niveles.clases.Hud import *
 
 class lvl1:
 	def __init__(self, pantalla, mapa):
@@ -35,6 +36,8 @@ class lvl1:
 		img_botiquin=pygame.image.load('niveles/images/botiquin.png')
 		imagenesBotiquin=Util.cut(img_botiquin, 2, 1, 32, 24)
 
+		HUD=Hud(pantalla)
+
 		self.pantalla=pantalla
 		self.nivel_aprobado = False
 		self.fondo = pygame.transform.scale( pygame.image.load('niveles/images/Fondo.png'), Util.TAMAÑOPANTALLA)
@@ -58,7 +61,7 @@ class lvl1:
 		pasto = mapita[4]
 		puertas = mapita[5]
 
-		#jugador
+			#jugador
 		j=Jugador(Util.CENTRO,imagenesJugador, self.habitacionActual)
 		jugadores.add(j)
 
@@ -89,7 +92,7 @@ class lvl1:
 				self.muerte()
 				break
 
-			"""
+
 			instanteFinal = datetime.now()
 			tiempo = instanteFinal - instanteInicial # Devuelve un objeto timedelta
 			segundos = tiempo.seconds
@@ -104,27 +107,35 @@ class lvl1:
 
 				#print(posibilidad_enemigo)
 
-				if posibilidad_enemigo in [100,50,0]:
+				if posibilidad_enemigo in [100,50,25,0]:
 					x=j.rect.x
 					y=j.rect.y
-					#se garantiza que el enemigo no salga a menos de 12px del jugador
+					#se garantiza que el enemigo no salga a menos de 200px del jugador
 					while(abs(x-j.rect.x)<200 or abs(y-j.rect.y)<200):
 						x=random.randint(0,Util.ANCHO)
 						y=random.randint(0,Util.ALTO)
 					coordenadas=[x, y]
-					e=Enemigo(coordenadas, imagenesEnemigo)
-					e.tipo_enemigo=2*8
-					if(e.tipo_enemigo==16):
-						e.incremento_caminar=3
-						e.incremento_correr=3
-					enemigos.add(e)
+					#se garantiza que el enemigo no aparezca sobre un muro
+					crear=False
+					for b in bloques:
+						if ((coordenadas[0] > b.rect.left and coordenadas[0] < b.rect.right) and (coordenadas[1] > b.rect.top and coordenadas[1] < b.rect.bottom)):
+							None
+						else:
+							crear=True
+
+					if crear:
+						e=Enemigo(coordenadas, imagenesEnemigo)
+						e.tipo_enemigo=2*8
+						if(e.tipo_enemigo==16):
+							e.incremento_caminar=3
+							e.incremento_correr=3
+						enemigos.add(e)
 
 			elif segundos>25 and segundos<45:
 				posibilidad_enemigo=random.randint(0,100)
 
 				#print(posibilidad_enemigo)
-
-				if posibilidad_enemigo in [100,50,0]:
+				if posibilidad_enemigo in [100,50,25,0]:
 					x=j.rect.x
 					y=j.rect.y
 					#se garantiza que el enemigo no salga a menos de 12px del jugador
@@ -132,19 +143,28 @@ class lvl1:
 						x=random.randint(0,Util.ANCHO)
 						y=random.randint(0,Util.ALTO)
 					coordenadas=[x, y]
-					e=Enemigo(coordenadas, imagenesEnemigo)
-					e.tipo_enemigo=random.randint(2,3)*8
-					if(e.tipo_enemigo==16):
-						e.incremento_caminar=3
-						e.incremento_correr=3
-					enemigos.add(e)
+					#se garantiza que el enemigo no aparezca sobre un muro
+					crear=False
+					for b in bloques:
+						if ((coordenadas[0] > b.rect.left and coordenadas[0] < b.rect.right) and (coordenadas[1] > b.rect.top and coordenadas[1] < b.rect.bottom)):
+							None
+						else:
+							crear=True
+
+					if crear:
+						e=Enemigo(coordenadas, imagenesEnemigo)
+						e.tipo_enemigo=random.randint(2,3)*8
+						if(e.tipo_enemigo==16):
+							e.incremento_caminar=3
+							e.incremento_correr=3
+						enemigos.add(e)
 
 			elif segundos>50 and segundos<70:
 				posibilidad_enemigo=random.randint(0,100)
 
 				#print(posibilidad_enemigo)
 
-				if posibilidad_enemigo in [100,50,0]:
+				if posibilidad_enemigo in [100,50,25,0]:
 					x=j.rect.x
 					y=j.rect.y
 					#se garantiza que el enemigo no salga a menos de 12px del jugador
@@ -152,19 +172,28 @@ class lvl1:
 						x=random.randint(0,Util.ANCHO)
 						y=random.randint(0,Util.ALTO)
 					coordenadas=[x, y]
-					e=Enemigo(coordenadas, imagenesEnemigo)
-					e.tipo_enemigo=random.randint(0,3)*8
-					if(e.tipo_enemigo==16):
-						e.incremento_caminar=3
-						e.incremento_correr=3
-					enemigos.add(e)
+					#se garantiza que el enemigo no aparezca sobre un muro
+					crear=False
+					for b in bloques:
+						if ((coordenadas[0] > b.rect.left and coordenadas[0] < b.rect.right) and (coordenadas[1] > b.rect.top and coordenadas[1] < b.rect.bottom)):
+							None
+						else:
+							crear=True
+
+					if crear:
+						e=Enemigo(coordenadas, imagenesEnemigo)
+						e.tipo_enemigo=random.randint(0,3)*8
+						if(e.tipo_enemigo==16):
+							e.incremento_caminar=3
+							e.incremento_correr=3
+						enemigos.add(e)
 
 			elif segundos>75 and segundos<95:
 				posibilidad_enemigo=random.randint(0,100)
 
 				#print(posibilidad_enemigo)
 
-				if posibilidad_enemigo in [100,50,0]:
+				if posibilidad_enemigo in [100,50,25,0]:
 					x=j.rect.x
 					y=j.rect.y
 					#se garantiza que el enemigo no salga a menos de 12px del jugador
@@ -172,13 +201,22 @@ class lvl1:
 						x=random.randint(0,Util.ANCHO)
 						y=random.randint(0,Util.ALTO)
 					coordenadas=[x, y]
-					e=Enemigo(coordenadas, imagenesEnemigo)
-					e.tipo_enemigo=random.randint(1,3)*8
-					if(e.tipo_enemigo==16):
-						e.incremento_caminar=3
-						e.incremento_correr=3
-					enemigos.add(e)
-			"""
+					#se garantiza que el enemigo no aparezca sobre un muro
+					crear=False
+					for b in bloques:
+						if ((coordenadas[0] > b.rect.left and coordenadas[0] < b.rect.right) and (coordenadas[1] > b.rect.top and coordenadas[1] < b.rect.bottom)):
+							None
+						else:
+							crear=True
+
+					if crear:
+						e=Enemigo(coordenadas, imagenesEnemigo)
+						e.tipo_enemigo=random.randint(1,3)*8
+						if(e.tipo_enemigo==16):
+							e.incremento_caminar=3
+							e.incremento_correr=3
+						enemigos.add(e)
+
 
 
 			eventos=pygame.event.get()
@@ -280,17 +318,17 @@ class lvl1:
 					botiquines.remove(b)
 
 
-			#COlISIONES PAREDES
-			"""
+			#COlISIONES MAGMA
 			for jugador in jugadores:
-				ls_col = pygame.sprite.spritecollide(jugador,  bloques, False)
+				ls_col = pygame.sprite.spritecollide(jugador,  magma, False)
 				for e in ls_col:
 					jugador.burn.play()
 					if jugador.inmune:
 						None
 					else:
 						j.vida-=0.5
-			"""
+
+
 			for jugador in jugadores:
 				ls_col = pygame.sprite.spritecollide(jugador,  bloques, False)
 				for e in ls_col:
@@ -360,9 +398,7 @@ class lvl1:
 
 
 			#se muestran los puntajes
-			texto="Vida: "+str(int(j.vida))
-			textoPuntaje=fuente.render(texto, 1, Util.BLANCO)
-			pantalla.blit(textoPuntaje,[100,20])
+
 
 
 			"""texto="Tiempo: "+str(segundos)
@@ -370,35 +406,6 @@ class lvl1:
 			pantalla.blit(textoPuntaje,[300,20])"""
 
 
-			nivel=0
-			lateral=0
-
-			for i in range(5):
-				for k in range(5):
-					if j.habitaciones[i][k] == 0:
-						pygame.draw.rect(pantalla, Util.VERDE, (1185+lateral, 475+nivel, 10, 10), 1)
-
-					elif j.habitaciones[i][k] == 1:
-						pygame.draw.rect(pantalla, Util.ROJO, pygame.Rect((1185+lateral, 475+nivel, 10, 10)), 0)
-
-					elif j.habitaciones[i][k] == 2:
-						pygame.draw.rect(pantalla, Util.VERDE, pygame.Rect((1185+lateral, 475+nivel, 10, 10)), 0)
-
-					lateral += 20
-
-				nivel+=20
-				lateral=0
-
-
-
-			if j.inmune:
-				texto="Inmunidad/Magma: Activada"
-				textoPuntaje=fuente.render(texto, 1, Util.BLANCO)
-				pantalla.blit(textoPuntaje,[500,20])
-			else:
-				texto="Inmunidad/Magma: Desactivada"
-				textoPuntaje=fuente.render(texto, 1, Util.BLANCO)
-				pantalla.blit(textoPuntaje,[500,20])
 
 			"""
 			if(segundos>20 and segundos<25):
@@ -422,8 +429,9 @@ class lvl1:
 			pygame.draw.line(pantalla, Util.ROJO, [int(j.rect.x+j.rect.width/2), int(j.rect.y+j.rect.height/2)], desplazamiento, 1)
 			pygame.draw.circle(pantalla, Util.NEGRO, [int(j.rect.x+j.rect.width/2), int(j.rect.y+j.rect.height/2)], 100, 1)
 			'''
-
-
+			
+			#cargando elementos del HUD
+			HUD.update(j.vida, j.tiempo_inmunidad, j.habitaciones)
 			jugadores.draw(pantalla)
 			balas.draw(pantalla)
 			balas_enemigas.draw(pantalla)
