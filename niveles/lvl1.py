@@ -48,7 +48,7 @@ class lvl1:
 		explosiones=pygame.sprite.Group()
 		balas_enemigas=pygame.sprite.Group()
 		botiquines=pygame.sprite.Group()
-		
+
 		mapita = Util.mapear(self.habitacionActual, self.mapa)
 
 		bloques = mapita[0]
@@ -89,7 +89,7 @@ class lvl1:
 				self.muerte()
 				break
 
-			"""
+
 			instanteFinal = datetime.now()
 			tiempo = instanteFinal - instanteInicial # Devuelve un objeto timedelta
 			segundos = tiempo.seconds
@@ -97,7 +97,7 @@ class lvl1:
 			if segundos>95 and len(enemigos)==0:
 				self.nivel_finalizado()
 				break
-			
+
 			#oleadas de enemigos
 			if segundos<20:
 				posibilidad_enemigo=random.randint(0,100)
@@ -178,7 +178,7 @@ class lvl1:
 						e.incremento_caminar=3
 						e.incremento_correr=3
 					enemigos.add(e)
-			"""
+
 
 
 			eventos=pygame.event.get()
@@ -218,7 +218,7 @@ class lvl1:
 							posibilidad_Botiquin=random.randint(0,1)
 							b=Botiquin([be.rect.x,be.rect.y], imagenesBotiquin, posibilidad_Botiquin)
 							botiquines.add(b)
-						
+
 						elif(be.tipo_enemigo==8):
 							None
 						elif(be.tipo_enemigo==16):
@@ -228,9 +228,9 @@ class lvl1:
 							explosiones.add(e)
 
 						enemigos.remove(be)
-					
+
 					balas.remove(b)
-		   
+
 
 			#COLISIONES EXPLOSION-JUGADOR
 			for e in explosiones:
@@ -327,8 +327,8 @@ class lvl1:
 						jugador.rect.right = e.rect.left
 					elif ((jugador.velx > 0 and jugador.vely > 0) and (jugador.rect.bottom <= e.rect.top+10)):
 						jugador.rect.bottom = e.rect.top
-					
-					
+
+
 
 			'''
 			inicio = [j.rect.x,j.rect.y]
@@ -338,9 +338,9 @@ class lvl1:
 			'''
 			player_position=[]
 
-			
+
 			player_position=j.getPosition()
-			
+
 
 
 			balas.update()
@@ -358,9 +358,9 @@ class lvl1:
 			bloques.draw(pantalla)
 			puertas.draw(pantalla)
 
-			
+
 			#se muestran los puntajes
-			texto="Vida: "+str(int(j.vida))
+			texto="Vida: "
 			textoPuntaje=fuente.render(texto, 1, Util.BLANCO)
 			pantalla.blit(textoPuntaje,[100,20])
 
@@ -383,12 +383,19 @@ class lvl1:
 
 					elif j.habitaciones[i][k] == 2:
 						pygame.draw.rect(pantalla, Util.VERDE, pygame.Rect((1185+lateral, 475+nivel, 10, 10)), 0)
-      
+
 					lateral += 20
 
 				nivel+=20
 				lateral=0
 
+			#barra de Vida
+			#300: tamaño en pixeles de la barra de vida (se modifica para el sprite bonito de Serna)
+			tam_vida=(j.vida*300)//100
+			color_verde=(j.vida*250)//100
+
+			pygame.draw.rect(pantalla, Util.VERDE, (150, 15, 300, 30), 1)
+			pygame.draw.rect(pantalla, [255-color_verde, color_verde, 0], pygame.Rect((150, 15, tam_vida, 30)), 0)
 
 
 			if j.inmune:
@@ -422,9 +429,9 @@ class lvl1:
 			pygame.draw.line(pantalla, Util.ROJO, [int(j.rect.x+j.rect.width/2), int(j.rect.y+j.rect.height/2)], desplazamiento, 1)
 			pygame.draw.circle(pantalla, Util.NEGRO, [int(j.rect.x+j.rect.width/2), int(j.rect.y+j.rect.height/2)], 100, 1)
 			'''
-			
-			
-			jugadores.draw(pantalla)            
+
+
+			jugadores.draw(pantalla)
 			balas.draw(pantalla)
 			balas_enemigas.draw(pantalla)
 			enemigos.draw(pantalla)
