@@ -48,7 +48,7 @@ class lvl1:
 		explosiones=pygame.sprite.Group()
 		balas_enemigas=pygame.sprite.Group()
 		botiquines=pygame.sprite.Group()
-		
+
 		mapita = Util.mapear(self.habitacionActual, self.mapa)
 
 		bloques = mapita[0]
@@ -97,7 +97,7 @@ class lvl1:
 			if segundos>95 and len(enemigos)==0:
 				self.nivel_finalizado()
 				break
-			
+
 			#oleadas de enemigos
 			if segundos<20:
 				posibilidad_enemigo=random.randint(0,100)
@@ -218,7 +218,7 @@ class lvl1:
 							posibilidad_Botiquin=random.randint(0,1)
 							b=Botiquin([be.rect.x,be.rect.y], imagenesBotiquin, posibilidad_Botiquin)
 							botiquines.add(b)
-						
+
 						elif(be.tipo_enemigo==8):
 							None
 						elif(be.tipo_enemigo==16):
@@ -228,9 +228,9 @@ class lvl1:
 							explosiones.add(e)
 
 						enemigos.remove(be)
-					
+
 					balas.remove(b)
-		   
+
 
 			#COLISIONES EXPLOSION-JUGADOR
 			for e in explosiones:
@@ -302,9 +302,9 @@ class lvl1:
 					elif ((jugador.velx < 0 and jugador.vely == 0) and (jugador.rect.left >= e.rect.right-10) and (len(ls_col)==2) and ((ls_col[0].rect.top==ls_col[1].rect.top) and ((ls_col[0].rect.left==ls_col[1].rect.right) or (ls_col[1].rect.left==ls_col[0].rect.right)))):
 						jugador.rect.x-=5
 					elif ((jugador.velx > 0 and jugador.vely == 0) and (jugador.rect.right <= e.rect.left+10) and (len(ls_col)==2) and ((ls_col[0].rect.top==ls_col[1].rect.top) and ((ls_col[0].rect.left==ls_col[1].rect.right) or (ls_col[1].rect.left==ls_col[0].rect.right)))):
-						jugador.rect.x+=5
+						jugador.rect.x+=5					
 					elif ((jugador.velx == 0 and jugador.vely > 0) and (jugador.rect.bottom <= e.rect.top+10)):
-						jugador.rect.bottom = e.rect.top
+						jugador.rect.bottom = e.rect.top					
 					elif ((jugador.velx < 0 and jugador.vely > 0) and (jugador.rect.bottom <= e.rect.top+10)):
 						jugador.rect.bottom = e.rect.top
 					elif ((jugador.velx < 0 and jugador.vely > 0) and (jugador.rect.left >= e.rect.right-10)):
@@ -312,11 +312,11 @@ class lvl1:
 					elif ((jugador.velx < 0 and jugador.vely == 0) and (jugador.rect.left >= e.rect.right-10)):
 						jugador.rect.left = e.rect.right
 					elif ((jugador.velx < 0 and jugador.vely < 0) and (jugador.rect.left >= e.rect.right-10)):
-						jugador.rect.left = e.rect.right
+						jugador.rect.left = e.rect.right					
 					elif ((jugador.velx < 0 and jugador.vely < 0) and (jugador.rect.top >= e.rect.bottom-10)):
-						jugador.rect.top = e.rect.bottom
+						jugador.rect.top = e.rect.bottom					
 					elif ((jugador.velx == 0 and jugador.vely < 0) and (jugador.rect.top >= e.rect.bottom-10)):
-						jugador.rect.top = e.rect.bottom
+						jugador.rect.top = e.rect.bottom					
 					elif ((jugador.velx > 0 and jugador.vely < 0) and (jugador.rect.top >= e.rect.bottom-10)):
 						jugador.rect.top = e.rect.bottom
 					elif ((jugador.velx > 0 and jugador.vely < 0) and (jugador.rect.right <= e.rect.left+10)):
@@ -327,8 +327,8 @@ class lvl1:
 						jugador.rect.right = e.rect.left
 					elif ((jugador.velx > 0 and jugador.vely > 0) and (jugador.rect.bottom <= e.rect.top+10)):
 						jugador.rect.bottom = e.rect.top
-					
-					
+
+
 
 			'''
 			inicio = [j.rect.x,j.rect.y]
@@ -338,9 +338,9 @@ class lvl1:
 			'''
 			player_position=[]
 
-			
+
 			player_position=j.getPosition()
-			
+
 
 
 			balas.update()
@@ -358,7 +358,7 @@ class lvl1:
 			bloques.draw(pantalla)
 			puertas.draw(pantalla)
 
-			
+
 			#se muestran los puntajes
 			texto="Vida: "+str(int(j.vida))
 			textoPuntaje=fuente.render(texto, 1, Util.BLANCO)
@@ -383,7 +383,7 @@ class lvl1:
 
 					elif j.habitaciones[i][k] == 2:
 						pygame.draw.rect(pantalla, Util.VERDE, pygame.Rect((1185+lateral, 475+nivel, 10, 10)), 0)
-      
+
 					lateral += 20
 
 				nivel+=20
@@ -422,9 +422,9 @@ class lvl1:
 			pygame.draw.line(pantalla, Util.ROJO, [int(j.rect.x+j.rect.width/2), int(j.rect.y+j.rect.height/2)], desplazamiento, 1)
 			pygame.draw.circle(pantalla, Util.NEGRO, [int(j.rect.x+j.rect.width/2), int(j.rect.y+j.rect.height/2)], 100, 1)
 			'''
-			
-			
-			jugadores.draw(pantalla)            
+
+
+			jugadores.draw(pantalla)
 			balas.draw(pantalla)
 			balas_enemigas.draw(pantalla)
 			enemigos.draw(pantalla)
