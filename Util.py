@@ -38,6 +38,20 @@ class Util:
     ANCHOVIDA = 213
     ALTOVIDA = 30
     TAMAÑOVIDA = [ANCHOVIDA, ALTOVIDA]
+    POSICIONBARRAVIDA=[135,16]
+
+    #barra de Inmunidad
+    ANCHOINMUNE = 108
+    ALTOINMUNE = 30
+    TAMAÑOINMUNE = [ANCHOINMUNE, ALTOINMUNE]
+    POSICIONBARRAINMUNE=[445,16]
+    INMUNIDAD=5
+
+    #minimapa
+    ANCHOHABITACION=16
+    ALTOHABITACION=16
+    XMINIMAPA = 1120
+    YMINIMAPA = 80
 
     def cut(img, columnas, filas, ancho, alto):
         imagenes  = []
@@ -88,10 +102,10 @@ class Util:
                     piso.add(bloque)
                 if(c == 3):
                     bloque = Bloque(matrizMapa[4][4], [filas*64,col*64])
-                    magma.add(bloque)
+                    agua.add(bloque)
                 if(c == 4):
                     bloque = Bloque(matrizMapa[4][5], [filas*64,col*64])
-                    magma.add(bloque)
+                    agua.add(bloque)
                 if(c == 5):
                     bloque = Bloque(matrizMapa[2][1], [filas*64,col*64])
                     bloques.add(bloque)
@@ -107,10 +121,10 @@ class Util:
                     piso.add(bloque)
                 if(c == 9):
                     bloque = Bloque(matrizMapa[0][4], [filas*64,col*64])
-                    agua.add(bloque)
+                    magma.add(bloque)
                 if(c == 10):
                     bloque = Bloque(matrizMapa[1][5], [filas*64,col*64])
-                    agua.add(bloque)
+                    magma.add(bloque)
                 if(c == 11):
                     bloque = Bloque(matrizMapa[4][1], [filas*64,col*64])
                     bloques.add(bloque)

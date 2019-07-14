@@ -3,7 +3,7 @@ from datetime import datetime
 from Util import *
 from niveles.clases.Bala import *
 class Jugador(pygame.sprite.Sprite):
-    
+
     def __init__(self, pos, mat_i, habitacion):
         pygame.sprite.Sprite.__init__(self)
         #control imagen
@@ -38,14 +38,16 @@ class Jugador(pygame.sprite.Sprite):
         self.disparos = 0
         self.escudo = 0
         self.inmune = True
+        self.tiempo_inmunidad = 5
         self.disparando = True
         self.inicio_inmunidad=datetime.now()
 
 
     def update(self, bloques):
         transcurrido_inmunidad=datetime.now()-self.inicio_inmunidad
+        self.tiempo_inmunidad = 5-transcurrido_inmunidad.seconds
 
-        if transcurrido_inmunidad.seconds > 5:
+        if transcurrido_inmunidad.seconds >= Util.INMUNIDAD:
             self.inmune=False
 
         self.dash()
@@ -117,9 +119,9 @@ class Jugador(pygame.sprite.Sprite):
             if self.animacion == 1:
                 self.animacion = 0
 
-        
 
-    
+
+
     def dash(self):
         if self.animacion == 1 and self.accion == 7:
             inicio = [self.rect.x+self.rect.width/2,self.rect.y+self.rect.height/2]
