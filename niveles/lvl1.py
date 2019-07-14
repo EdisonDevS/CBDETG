@@ -96,11 +96,11 @@ class lvl1:
 			instanteFinal = datetime.now()
 			tiempo = instanteFinal - instanteInicial # Devuelve un objeto timedelta
 			segundos = tiempo.seconds
-
+			'''
 			if segundos>95 and len(enemigos)==0:
 				self.nivel_finalizado()
 				break
-
+			
 			#oleadas de enemigos
 			if segundos<20:
 				posibilidad_enemigo=random.randint(0,100)
@@ -218,7 +218,7 @@ class lvl1:
 						enemigos.add(e)
 
 
-
+			'''
 			eventos=pygame.event.get()
 
 			for event in eventos:
