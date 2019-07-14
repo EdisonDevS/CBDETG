@@ -35,6 +35,8 @@ class Hud(pygame.sprite.Sprite):
             self.pantalla.blit(textoPuntaje,[500,20])
 
 
+
+        #minimapa
         nivel=0
         lateral=0
 
