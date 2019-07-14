@@ -391,11 +391,11 @@ class lvl1:
 
 			#barra de Vida
 			#300: tamaño en pixeles de la barra de vida (se modifica para el sprite bonito de Serna)
-			tam_vida=(j.vida*300)//100
+			tam_vida=(j.vida*Util.ANCHOVIDA)//100
 			color_verde=(j.vida*250)//100
 
-			pygame.draw.rect(pantalla, Util.VERDE, (150, 15, 300, 30), 1)
-			pygame.draw.rect(pantalla, [255-color_verde, color_verde, 0], pygame.Rect((150, 15, tam_vida, 30)), 0)
+			pygame.draw.rect(pantalla, Util.VERDE, (150, 15, Util.ANCHOVIDA, Util.ALTOVIDA), 1)
+			pygame.draw.rect(pantalla, [255-color_verde, color_verde, 0], pygame.Rect((150, 15, tam_vida, Util.ALTOVIDA)), 0)
 
 
 			if j.inmune:
