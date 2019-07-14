@@ -9,6 +9,7 @@ from niveles.clases.Enemigo import *
 from niveles.clases.Explosion import *
 from niveles.clases.Botiquin import *
 from niveles.clases.Hud import *
+from niveles.clases.Muerte import *
 
 class lvl1:
 	def __init__(self, pantalla, mapa):
@@ -55,7 +56,7 @@ class lvl1:
 		explosiones=pygame.sprite.Group()
 		balas_enemigas=pygame.sprite.Group()
 		botiquines=pygame.sprite.Group()
-		muertes = pygame.sprite.Group()
+		mrsMuertes = pygame.sprite.Group()
 
 		mapita = Util.mapear(self.habitacionActual, self.mapa)
 
@@ -69,7 +70,7 @@ class lvl1:
 		#jugador
 		j=Jugador(Util.CENTRO,imagenesJugador, self.habitacionActual)
 		jugadores.add(j)
-
+		m = Muerte(Util.CENTRO, imagenesMuerte)
 		#variables necesarias
 		fin=False
 		reloj=pygame.time.Clock()
@@ -103,7 +104,9 @@ class lvl1:
 			segundos = tiempo.seconds
 			
 			if segundos < 20:
-				pass
+				#m = Muerte(Util.CENTRO, imagenesMuerte)
+				mrsMuertes.add(m)
+
 			'''
 			if segundos>95 and len(enemigos)==0:
 				self.nivel_finalizado()
@@ -234,7 +237,7 @@ class lvl1:
 					fin=True
 			#eventos del jugador
 			j.eventos(balas, eventos)
-
+			m.eventos(eventos)
 			#actualizacion de explosiones
 			for e in explosiones:
 				if(e.animacion==e.lim_animacion):
@@ -393,6 +396,7 @@ class lvl1:
 			balas_enemigas.update()
 			jugadores.update(bloques)
 			enemigos.update(player_position, balas_enemigas, imagenesBalasEnemigo)
+			mrsMuertes.update(player_position)
 			explosiones.update()
 			pantalla.fill(Util.FONDO)
 			pantalla.blit(self.fondo,[0,0])
@@ -441,11 +445,12 @@ class lvl1:
 			#cargando elementos del HUD
 			HUD.update(j.vida, j.tiempo_inmunidad, j.habitaciones)
 			jugadores.draw(pantalla)
+			mrsMuertes.draw(pantalla)
 			balas.draw(pantalla)
 			balas_enemigas.draw(pantalla)
 			enemigos.draw(pantalla)
 			explosiones.draw(pantalla)
-			botiquines.draw(pantalla)
+			botiquines.draw(pantalla)			
 			pygame.display.flip()
 			reloj.tick(20)
 
