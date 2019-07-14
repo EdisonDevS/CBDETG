@@ -8,6 +8,7 @@ from niveles.clases.Bala import *
 from niveles.clases.Enemigo import *
 from niveles.clases.Explosion import *
 from niveles.clases.Botiquin import *
+from niveles.clases.Hud import *
 
 class lvl1:
 	def __init__(self, pantalla, mapa):
@@ -35,6 +36,8 @@ class lvl1:
 		img_botiquin=pygame.image.load('niveles/images/botiquin.png')
 		imagenesBotiquin=Util.cut(img_botiquin, 2, 1, 32, 24)
 
+		HUD=Hud(pantalla)
+
 		self.pantalla=pantalla
 		self.nivel_aprobado = False
 		self.fondo = pygame.transform.scale( pygame.image.load('niveles/images/Fondo.png'), Util.TAMAÑOPANTALLA)
@@ -58,7 +61,7 @@ class lvl1:
 		pasto = mapita[4]
 		puertas = mapita[5]
 
-		#jugador
+			#jugador
 		j=Jugador(Util.CENTRO,imagenesJugador, self.habitacionActual)
 		jugadores.add(j)
 
@@ -360,9 +363,7 @@ class lvl1:
 
 
 			#se muestran los puntajes
-			texto="Vida: "
-			textoPuntaje=fuente.render(texto, 1, Util.BLANCO)
-			pantalla.blit(textoPuntaje,[100,20])
+
 
 
 			"""texto="Tiempo: "+str(segundos)
@@ -370,42 +371,6 @@ class lvl1:
 			pantalla.blit(textoPuntaje,[300,20])"""
 
 
-			nivel=0
-			lateral=0
-
-			for i in range(5):
-				for k in range(5):
-					if j.habitaciones[i][k] == 0:
-						pygame.draw.rect(pantalla, Util.VERDE, (1185+lateral, 475+nivel, 10, 10), 1)
-
-					elif j.habitaciones[i][k] == 1:
-						pygame.draw.rect(pantalla, Util.ROJO, pygame.Rect((1185+lateral, 475+nivel, 10, 10)), 0)
-
-					elif j.habitaciones[i][k] == 2:
-						pygame.draw.rect(pantalla, Util.VERDE, pygame.Rect((1185+lateral, 475+nivel, 10, 10)), 0)
-
-					lateral += 20
-
-				nivel+=20
-				lateral=0
-
-			#barra de Vida
-			#300: tamaño en pixeles de la barra de vida (se modifica para el sprite bonito de Serna)
-			tam_vida=(j.vida*Util.ANCHOVIDA)//100
-			color_verde=(j.vida*250)//100
-
-			pygame.draw.rect(pantalla, Util.VERDE, (150, 15, Util.ANCHOVIDA, Util.ALTOVIDA), 1)
-			pygame.draw.rect(pantalla, [255-color_verde, color_verde, 0], pygame.Rect((150, 15, tam_vida, Util.ALTOVIDA)), 0)
-
-
-			if j.inmune:
-				texto="Inmunidad/Magma: Activada"
-				textoPuntaje=fuente.render(texto, 1, Util.BLANCO)
-				pantalla.blit(textoPuntaje,[500,20])
-			else:
-				texto="Inmunidad/Magma: Desactivada"
-				textoPuntaje=fuente.render(texto, 1, Util.BLANCO)
-				pantalla.blit(textoPuntaje,[500,20])
 
 			"""
 			if(segundos>20 and segundos<25):
@@ -430,7 +395,8 @@ class lvl1:
 			pygame.draw.circle(pantalla, Util.NEGRO, [int(j.rect.x+j.rect.width/2), int(j.rect.y+j.rect.height/2)], 100, 1)
 			'''
 
-
+			#cargando elementos del HUD
+			HUD.update(j.vida, j.inmune, j.habitaciones)
 			jugadores.draw(pantalla)
 			balas.draw(pantalla)
 			balas_enemigas.draw(pantalla)
