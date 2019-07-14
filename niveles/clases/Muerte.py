@@ -3,9 +3,9 @@ import random
 from datetime import datetime
 from Util import *
 
-class Golem(pygame.sprite.Sprite):
+class Muerte(pygame.sprite.Sprite):
     '''
-    Clase Golem
+    Clase Muerte
     '''
     #mat_i = matriz recorte imagen
     def __init__(self, pos, mat_i):
@@ -39,7 +39,7 @@ class Golem(pygame.sprite.Sprite):
             self.direccion = 0
         elif player_position > self.rect.x:
             self.direccion = 1
-                    
+
         self.image = self.m[self.accion][self.col]
 
         if self.col < self.lim[self.accion]:

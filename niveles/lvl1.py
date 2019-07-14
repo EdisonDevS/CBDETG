@@ -36,6 +36,10 @@ class lvl1:
 		img_botiquin=pygame.image.load('niveles/images/botiquin.png')
 		imagenesBotiquin=Util.cut(img_botiquin, 2, 1, 32, 24)
 
+		#configuracion de Mrs Muerte
+		img_muerte = pygame.image.load('niveles/images/DeathV2.png')
+		imagenesMuerte = Util.cut(img_muerte, 16, 6, 48, 78)
+
 		HUD=Hud(pantalla)
 
 		self.pantalla=pantalla
@@ -51,6 +55,7 @@ class lvl1:
 		explosiones=pygame.sprite.Group()
 		balas_enemigas=pygame.sprite.Group()
 		botiquines=pygame.sprite.Group()
+		muertes = pygame.sprite.Group()
 
 		mapita = Util.mapear(self.habitacionActual, self.mapa)
 
@@ -61,7 +66,7 @@ class lvl1:
 		pasto = mapita[4]
 		puertas = mapita[5]
 
-			#jugador
+		#jugador
 		j=Jugador(Util.CENTRO,imagenesJugador, self.habitacionActual)
 		jugadores.add(j)
 
@@ -96,6 +101,9 @@ class lvl1:
 			instanteFinal = datetime.now()
 			tiempo = instanteFinal - instanteInicial # Devuelve un objeto timedelta
 			segundos = tiempo.seconds
+			
+			if segundos < 20:
+				pass
 			'''
 			if segundos>95 and len(enemigos)==0:
 				self.nivel_finalizado()
