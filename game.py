@@ -21,7 +21,7 @@ if __name__ == '__main__':
 
     #musica = pygame.mixer.Sound('niveles/sonidos/musica.ogg')
     m = pygame.mixer.music.load('niveles/sonidos/musica.ogg')
-    pygame.mixer.music.play(-1)    
+    pygame.mixer.music.play(-1)
 
     while not fin:
         for event in pygame.event.get():
