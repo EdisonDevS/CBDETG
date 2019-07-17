@@ -85,8 +85,8 @@ class lvl1:
 			'''
 			if pygame.mixer.music.get_endevent:
 				print ("Holaaaaa")
-				pygame.mixer.music.play()			
-			'''		
+				pygame.mixer.music.play()
+			'''
 			mapita = Util.mapear(self.habitacionActual, self.mapa)
 
 			bloques = mapita[0]
@@ -107,16 +107,15 @@ class lvl1:
 			instanteFinal = datetime.now()
 			tiempo = instanteFinal - instanteInicial # Devuelve un objeto timedelta
 			segundos = tiempo.seconds
-			
+
 			if segundos < 20:
 				#m = Muerte(Util.CENTRO, imagenesMuerte)
 				mrsMuertes.add(m)
 
-			'''
 			if segundos>95 and len(enemigos)==0:
 				self.nivel_finalizado()
 				break
-			
+
 			#oleadas de enemigos
 			if segundos<20:
 				posibilidad_enemigo=random.randint(0,100)
@@ -128,8 +127,8 @@ class lvl1:
 					y=j.rect.y
 					#se garantiza que el enemigo no salga a menos de 200px del jugador
 					while(abs(x-j.rect.x)<200 or abs(y-j.rect.y)<200):
-						x=random.randint(0,Util.ANCHO)
-						y=random.randint(0,Util.ALTO)
+						x=random.randint(64,Util.ANCHO-88)
+						y=random.randint(64,Util.ALTO-88)
 					coordenadas=[x, y]
 					#se garantiza que el enemigo no aparezca sobre un muro
 					crear=False
@@ -156,8 +155,8 @@ class lvl1:
 					y=j.rect.y
 					#se garantiza que el enemigo no salga a menos de 12px del jugador
 					while(abs(x-j.rect.x)<200 or abs(y-j.rect.y)<200):
-						x=random.randint(0,Util.ANCHO)
-						y=random.randint(0,Util.ALTO)
+						x=random.randint(64,Util.ANCHO-88)
+						y=random.randint(64,Util.ALTO-88)
 					coordenadas=[x, y]
 					#se garantiza que el enemigo no aparezca sobre un muro
 					crear=False
@@ -185,8 +184,8 @@ class lvl1:
 					y=j.rect.y
 					#se garantiza que el enemigo no salga a menos de 12px del jugador
 					while(abs(x-j.rect.x)<200 or abs(y-j.rect.y)<200):
-						x=random.randint(0,Util.ANCHO)
-						y=random.randint(0,Util.ALTO)
+						x=random.randint(64,Util.ANCHO-88)
+						y=random.randint(64,Util.ALTO-88)
 					coordenadas=[x, y]
 					#se garantiza que el enemigo no aparezca sobre un muro
 					crear=False
@@ -214,8 +213,8 @@ class lvl1:
 					y=j.rect.y
 					#se garantiza que el enemigo no salga a menos de 12px del jugador
 					while(abs(x-j.rect.x)<200 or abs(y-j.rect.y)<200):
-						x=random.randint(0,Util.ANCHO)
-						y=random.randint(0,Util.ALTO)
+						x=random.randint(64,Util.ANCHO-88)
+						y=random.randint(64,Util.ALTO-88)
 					coordenadas=[x, y]
 					#se garantiza que el enemigo no aparezca sobre un muro
 					crear=False
@@ -233,8 +232,6 @@ class lvl1:
 							e.incremento_correr=3
 						enemigos.add(e)
 
-
-			'''
 			eventos=pygame.event.get()
 
 			for event in eventos:
@@ -344,7 +341,7 @@ class lvl1:
 					else:
 						j.vida-=0.5
 
-
+			#colisiones del jugador con los muros
 			for jugador in jugadores:
 				ls_col = pygame.sprite.spritecollide(jugador,  bloques, False)
 				for e in ls_col:
@@ -356,9 +353,9 @@ class lvl1:
 					elif ((jugador.velx < 0 and jugador.vely == 0) and (jugador.rect.left >= e.rect.right-10) and (len(ls_col)==2) and ((ls_col[0].rect.top==ls_col[1].rect.top) and ((ls_col[0].rect.left==ls_col[1].rect.right) or (ls_col[1].rect.left==ls_col[0].rect.right)))):
 						jugador.rect.x-=5
 					elif ((jugador.velx > 0 and jugador.vely == 0) and (jugador.rect.right <= e.rect.left+10) and (len(ls_col)==2) and ((ls_col[0].rect.top==ls_col[1].rect.top) and ((ls_col[0].rect.left==ls_col[1].rect.right) or (ls_col[1].rect.left==ls_col[0].rect.right)))):
-						jugador.rect.x+=5					
+						jugador.rect.x+=5
 					elif ((jugador.velx == 0 and jugador.vely > 0) and (jugador.rect.bottom <= e.rect.top+10)):
-						jugador.rect.bottom = e.rect.top					
+						jugador.rect.bottom = e.rect.top
 					elif ((jugador.velx < 0 and jugador.vely > 0) and (jugador.rect.bottom <= e.rect.top+10)):
 						jugador.rect.bottom = e.rect.top
 					elif ((jugador.velx < 0 and jugador.vely > 0) and (jugador.rect.left >= e.rect.right-10)):
@@ -366,11 +363,11 @@ class lvl1:
 					elif ((jugador.velx < 0 and jugador.vely == 0) and (jugador.rect.left >= e.rect.right-10)):
 						jugador.rect.left = e.rect.right
 					elif ((jugador.velx < 0 and jugador.vely < 0) and (jugador.rect.left >= e.rect.right-10)):
-						jugador.rect.left = e.rect.right					
+						jugador.rect.left = e.rect.right
 					elif ((jugador.velx < 0 and jugador.vely < 0) and (jugador.rect.top >= e.rect.bottom-10)):
-						jugador.rect.top = e.rect.bottom					
+						jugador.rect.top = e.rect.bottom
 					elif ((jugador.velx == 0 and jugador.vely < 0) and (jugador.rect.top >= e.rect.bottom-10)):
-						jugador.rect.top = e.rect.bottom					
+						jugador.rect.top = e.rect.bottom
 					elif ((jugador.velx > 0 and jugador.vely < 0) and (jugador.rect.top >= e.rect.bottom-10)):
 						jugador.rect.top = e.rect.bottom
 					elif ((jugador.velx > 0 and jugador.vely < 0) and (jugador.rect.right <= e.rect.left+10)):
@@ -381,6 +378,46 @@ class lvl1:
 						jugador.rect.right = e.rect.left
 					elif ((jugador.velx > 0 and jugador.vely > 0) and (jugador.rect.bottom <= e.rect.top+10)):
 						jugador.rect.bottom = e.rect.top
+
+
+			#colisiones de los dinosaurios con los murus
+			for dinosaurio in enemigos:
+				ls_col = pygame.sprite.spritecollide(dinosaurio,  bloques, False)
+				for e in ls_col:
+					print(""+str(dinosaurio.rect.top) + " " + str(e.rect.bottom))
+					if ((dinosaurio.velx == 0 and dinosaurio.vely > 0) and (dinosaurio.rect.bottom <= e.rect.top+10) and (len(ls_col)==2) and ((ls_col[0].rect.right==ls_col[1].rect.right) and ((ls_col[0].rect.bottom==ls_col[1].rect.top) or (ls_col[1].rect.bottom==ls_col[0].rect.top)))):
+						dinosaurio.rect.y+=5
+					elif ((dinosaurio.velx == 0 and dinosaurio.vely < 0) and (dinosaurio.rect.top >= e.rect.bottom-10) and (len(ls_col)==2) and ((ls_col[0].rect.right==ls_col[1].rect.right) and ((ls_col[0].rect.bottom==ls_col[1].rect.top) or (ls_col[1].rect.bottom==ls_col[0].rect.top)))):
+						dinosaurio.rect.y-=5
+					elif ((dinosaurio.velx < 0 and dinosaurio.vely == 0) and (dinosaurio.rect.left >= e.rect.right-10) and (len(ls_col)==2) and ((ls_col[0].rect.top==ls_col[1].rect.top) and ((ls_col[0].rect.left==ls_col[1].rect.right) or (ls_col[1].rect.left==ls_col[0].rect.right)))):
+						dinosaurio.rect.x-=5
+					elif ((dinosaurio.velx > 0 and dinosaurio.vely == 0) and (dinosaurio.rect.right <= e.rect.left+10) and (len(ls_col)==2) and ((ls_col[0].rect.top==ls_col[1].rect.top) and ((ls_col[0].rect.left==ls_col[1].rect.right) or (ls_col[1].rect.left==ls_col[0].rect.right)))):
+						dinosaurio.rect.x+=5
+					elif ((dinosaurio.velx > 0 and dinosaurio.vely > 0) and (dinosaurio.rect.bottom <= e.rect.top+10)):
+						dinosaurio.rect.bottom = e.rect.top
+					elif ((dinosaurio.velx == 0 and dinosaurio.vely > 0) and (dinosaurio.rect.bottom <= e.rect.top+10)):
+						dinosaurio.rect.bottom = e.rect.top
+					elif ((dinosaurio.velx < 0 and dinosaurio.vely > 0) and (dinosaurio.rect.bottom <= e.rect.top+10)):
+						dinosaurio.rect.bottom = e.rect.top
+					elif ((dinosaurio.velx < 0 and dinosaurio.vely > 0) and (dinosaurio.rect.left >= e.rect.right-10)):
+						dinosaurio.rect.left = e.rect.right
+					elif ((dinosaurio.velx < 0 and dinosaurio.vely == 0) and (dinosaurio.rect.left >= e.rect.right-10)):
+						dinosaurio.rect.left = e.rect.right
+					elif ((dinosaurio.velx < 0 and dinosaurio.vely < 0) and (dinosaurio.rect.left >= e.rect.right-10)):
+						dinosaurio.rect.left = e.rect.right
+					elif ((dinosaurio.velx < 0 and dinosaurio.vely < 0) and (dinosaurio.rect.top >= e.rect.bottom-10)):
+						dinosaurio.rect.top = e.rect.bottom
+					elif ((dinosaurio.velx == 0 and dinosaurio.vely < 0) and (dinosaurio.rect.top >= e.rect.bottom-10)):
+						dinosaurio.rect.top = e.rect.bottom
+					elif ((dinosaurio.velx > 0 and dinosaurio.vely < 0) and (dinosaurio.rect.top >= e.rect.bottom-10)):
+						dinosaurio.rect.top = e.rect.bottom
+					elif ((dinosaurio.velx > 0 and dinosaurio.vely < 0) and (dinosaurio.rect.right <= e.rect.left+10)):
+						dinosaurio.rect.right = e.rect.left
+					elif ((dinosaurio.velx > 0 and dinosaurio.vely == 0) and (dinosaurio.rect.right <= e.rect.left+10)):
+						dinosaurio.rect.right = e.rect.left
+					elif ((dinosaurio.velx > 0 and dinosaurio.vely > 0) and (dinosaurio.rect.right <= e.rect.left+10)):
+						dinosaurio.rect.right = e.rect.left
+
 
 
 
@@ -446,7 +483,7 @@ class lvl1:
 			pygame.draw.line(pantalla, Util.ROJO, [int(j.rect.x+j.rect.width/2), int(j.rect.y+j.rect.height/2)], desplazamiento, 1)
 			pygame.draw.circle(pantalla, Util.NEGRO, [int(j.rect.x+j.rect.width/2), int(j.rect.y+j.rect.height/2)], 100, 1)
 			'''
-			
+
 			#cargando elementos del HUD
 			HUD.update(j.vida, j.tiempo_inmunidad, j.habitaciones)
 			jugadores.draw(pantalla)
@@ -455,7 +492,7 @@ class lvl1:
 			balas_enemigas.draw(pantalla)
 			enemigos.draw(pantalla)
 			explosiones.draw(pantalla)
-			botiquines.draw(pantalla)			
+			botiquines.draw(pantalla)
 			pygame.display.flip()
 			reloj.tick(20)
 
