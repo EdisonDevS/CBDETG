@@ -14,12 +14,12 @@ from niveles.clases.Muerte import *
 class lvl1:
 	def __init__(self, pantalla, mapa):
 		#configuracion del jugador
-		img_juagador= pygame.image.load('niveles/images/liche.png')
-		imagenesJugador=Util.cut(img_juagador, 9, 21, 29, 33)
+		img_juagador= pygame.transform.scale2x(pygame.image.load('niveles/images/liche.png'))
+		imagenesJugador=Util.cut(img_juagador, 9, 21, 58, 66)
 
 		#configuraion de los enemigos
-		img_enemigo= pygame.image.load('niveles/images/enemigos.png')
-		imagenesEnemigo=Util.cut(img_enemigo, 7, 32, 24, 24)
+		img_enemigo= pygame.transform.scale2x(pygame.image.load('niveles/images/enemigos.png'))
+		imagenesEnemigo=Util.cut(img_enemigo, 7, 32, 48, 48)
 
 		#configuracion de las explosiones
 		img_explosion=pygame.image.load('niveles/images/explosion.png')
@@ -326,7 +326,7 @@ class lvl1:
 					if b.tipo_ayuda==0:
 						jugador.vida+=40
 					else:
-						jugador.inmune=True
+						jugador.inmune=True	
 						jugador.inicio_inmunidad=datetime.now()
 					botiquines.remove(b)
 
@@ -384,54 +384,37 @@ class lvl1:
 			for dinosaurio in enemigos:
 				ls_col = pygame.sprite.spritecollide(dinosaurio,  bloques, False)
 				for e in ls_col:
-					print(""+str(dinosaurio.rect.top) + " " + str(e.rect.bottom))
 					if ((dinosaurio.velx == 0 and dinosaurio.vely > 0) and (dinosaurio.rect.bottom <= e.rect.top+10) and (len(ls_col)==2) and ((ls_col[0].rect.right==ls_col[1].rect.right) and ((ls_col[0].rect.bottom==ls_col[1].rect.top) or (ls_col[1].rect.bottom==ls_col[0].rect.top)))):
-						print('1')
 						dinosaurio.rect.y+=6
 					elif ((dinosaurio.velx == 0 and dinosaurio.vely < 0) and (dinosaurio.rect.top >= e.rect.bottom-10) and (len(ls_col)==2) and ((ls_col[0].rect.right==ls_col[1].rect.right) and ((ls_col[0].rect.bottom==ls_col[1].rect.top) or (ls_col[1].rect.bottom==ls_col[0].rect.top)))):
-						print('2')
 						dinosaurio.rect.y-=6
 					elif ((dinosaurio.velx < 0 and dinosaurio.vely == 0) and (dinosaurio.rect.left >= e.rect.right-10) and (len(ls_col)==2) and ((ls_col[0].rect.top==ls_col[1].rect.top) and ((ls_col[0].rect.left==ls_col[1].rect.right) or (ls_col[1].rect.left==ls_col[0].rect.right)))):
-						print('3')
 						dinosaurio.rect.x-=6
 					elif ((dinosaurio.velx > 0 and dinosaurio.vely == 0) and (dinosaurio.rect.right <= e.rect.left+10) and (len(ls_col)==2) and ((ls_col[0].rect.top==ls_col[1].rect.top) and ((ls_col[0].rect.left==ls_col[1].rect.right) or (ls_col[1].rect.left==ls_col[0].rect.right)))):
-						print('4')
 						dinosaurio.rect.x+=6
 					elif ((dinosaurio.velx > 0 and dinosaurio.vely > 0) and (dinosaurio.rect.bottom <= e.rect.top+10)):
-						print('5')
 						dinosaurio.rect.bottom = e.rect.top
 					elif ((dinosaurio.velx == 0 and dinosaurio.vely > 0) and (dinosaurio.rect.bottom <= e.rect.top+10)):
-						print('6')
 						dinosaurio.rect.bottom = e.rect.top
 					elif ((dinosaurio.velx < 0 and dinosaurio.vely > 0) and (dinosaurio.rect.bottom <= e.rect.top+10)):
-						print('7')
 						dinosaurio.rect.bottom = e.rect.top
 					elif ((dinosaurio.velx < 0 and dinosaurio.vely > 0) and (dinosaurio.rect.left >= e.rect.right-10)):
-						print('8')
 						dinosaurio.rect.left = e.rect.right
 					elif ((dinosaurio.velx < 0 and dinosaurio.vely == 0) and (dinosaurio.rect.left >= e.rect.right-10)):
-						print('9')
 						dinosaurio.rect.left = e.rect.right
 					elif ((dinosaurio.velx < 0 and dinosaurio.vely < 0) and (dinosaurio.rect.left >= e.rect.right-10)):
-						print('10')
 						dinosaurio.rect.left = e.rect.right
 					elif ((dinosaurio.velx < 0 and dinosaurio.vely < 0) and (dinosaurio.rect.top >= e.rect.bottom-10)):
-						print('11')
 						dinosaurio.rect.top = e.rect.bottom
 					elif ((dinosaurio.velx == 0 and dinosaurio.vely < 0) and (dinosaurio.rect.top >= e.rect.bottom-10)):
-						print('12')
 						dinosaurio.rect.top = e.rect.bottom
 					elif ((dinosaurio.velx > 0 and dinosaurio.vely < 0) and (dinosaurio.rect.top >= e.rect.bottom-10)):
-						print('13')
 						dinosaurio.rect.top = e.rect.bottom
 					elif ((dinosaurio.velx > 0 and dinosaurio.vely < 0) and (dinosaurio.rect.right <= e.rect.left+10)):
-						print('14')
 						dinosaurio.rect.right = e.rect.left
 					elif ((dinosaurio.velx > 0 and dinosaurio.vely == 0) and (dinosaurio.rect.right <= e.rect.left+10)):
-						print('15')
 						dinosaurio.rect.right = e.rect.left
 					elif ((dinosaurio.velx > 0 and dinosaurio.vely > 0) and (dinosaurio.rect.right <= e.rect.left+10)):
-						print('16')
 						dinosaurio.rect.right = e.rect.left
 
 

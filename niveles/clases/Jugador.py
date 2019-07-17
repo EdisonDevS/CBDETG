@@ -11,7 +11,7 @@ class Jugador(pygame.sprite.Sprite):
         self.animacion = 0
         self.matriz = mat_i
         self.limite = [8,8,7,9,9,9,9,6,6,6,6,4,4,4,4,6,5,4,6,3,3]
-        self.image=pygame.transform.scale2x(self.matriz[self.accion][self.animacion])
+        self.image=self.matriz[self.accion][self.animacion]
         self.rect = self.image.get_rect()
         self.rect.x = pos[0]
         self.rect.y = pos[1]
@@ -53,7 +53,7 @@ class Jugador(pygame.sprite.Sprite):
         self.dash()
         self.rect.x+=self.velx
         self.rect.y+=self.vely
-        self.image=pygame.transform.scale2x(self.matriz[self.accion][self.animacion])
+        self.image=self.matriz[self.accion][self.animacion]
 
         #se hace el cambio de habitación
         if self.rect.x < 0:
@@ -65,7 +65,6 @@ class Jugador(pygame.sprite.Sprite):
                 self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=2
                 self.habitacionActual[1] = self.habitacionActual[1]-1
                 self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=1
-            self.velx = -3
             self.rect.x = Util.ANCHO-self.rect.w
             self.rect.y = 6*64
 
@@ -78,7 +77,6 @@ class Jugador(pygame.sprite.Sprite):
                 self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=2
                 self.habitacionActual[1] = self.habitacionActual[1]+1
                 self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=1
-            self.velx = 3
             self.rect.x = 0
             self.rect.y = 3*64
 
@@ -91,7 +89,6 @@ class Jugador(pygame.sprite.Sprite):
                 self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=2
                 self.habitacionActual[0] = self.habitacionActual[0]-1
                 self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=1
-            self.vely = -3
             self.rect.y = Util.ALTO-self.rect.h
             self.rect.x = 4*64
 
@@ -104,7 +101,6 @@ class Jugador(pygame.sprite.Sprite):
                 self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=2
                 self.habitacionActual[0] = self.habitacionActual[0]+1
                 self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=1
-            self.vely = 3
             self.rect.y = 0
             self.rect.x = 17*64
 
