@@ -319,6 +319,20 @@ class lvl1:
 						balas_enemigas.remove(b)
 
 
+			#COLISIONES BALAS ENEMIGAS - MUROS
+			for b in balas_enemigas:
+				ls_col = pygame.sprite.spritecollide(b, bloques, False)
+				for jugador in ls_col:
+					balas_enemigas.remove(b)
+
+
+			#COLISIONES BALAS - MUROS
+			for b in balas:
+				ls_col = pygame.sprite.spritecollide(b, bloques, False)
+				for jugador in ls_col:
+					balas.remove(b)
+
+
 			#COLISIONES JUGADOR - Botiquin
 			for b in botiquines:
 				ls_col = pygame.sprite.spritecollide(b, jugadores, False)
