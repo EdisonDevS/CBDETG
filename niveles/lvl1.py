@@ -386,36 +386,52 @@ class lvl1:
 				for e in ls_col:
 					print(""+str(dinosaurio.rect.top) + " " + str(e.rect.bottom))
 					if ((dinosaurio.velx == 0 and dinosaurio.vely > 0) and (dinosaurio.rect.bottom <= e.rect.top+10) and (len(ls_col)==2) and ((ls_col[0].rect.right==ls_col[1].rect.right) and ((ls_col[0].rect.bottom==ls_col[1].rect.top) or (ls_col[1].rect.bottom==ls_col[0].rect.top)))):
+						print('1')
 						dinosaurio.rect.y+=5
 					elif ((dinosaurio.velx == 0 and dinosaurio.vely < 0) and (dinosaurio.rect.top >= e.rect.bottom-10) and (len(ls_col)==2) and ((ls_col[0].rect.right==ls_col[1].rect.right) and ((ls_col[0].rect.bottom==ls_col[1].rect.top) or (ls_col[1].rect.bottom==ls_col[0].rect.top)))):
+						print('2')
 						dinosaurio.rect.y-=5
 					elif ((dinosaurio.velx < 0 and dinosaurio.vely == 0) and (dinosaurio.rect.left >= e.rect.right-10) and (len(ls_col)==2) and ((ls_col[0].rect.top==ls_col[1].rect.top) and ((ls_col[0].rect.left==ls_col[1].rect.right) or (ls_col[1].rect.left==ls_col[0].rect.right)))):
+						print('3')
 						dinosaurio.rect.x-=5
 					elif ((dinosaurio.velx > 0 and dinosaurio.vely == 0) and (dinosaurio.rect.right <= e.rect.left+10) and (len(ls_col)==2) and ((ls_col[0].rect.top==ls_col[1].rect.top) and ((ls_col[0].rect.left==ls_col[1].rect.right) or (ls_col[1].rect.left==ls_col[0].rect.right)))):
+						print('4')
 						dinosaurio.rect.x+=5
 					elif ((dinosaurio.velx > 0 and dinosaurio.vely > 0) and (dinosaurio.rect.bottom <= e.rect.top+10)):
+						print('5')
 						dinosaurio.rect.bottom = e.rect.top
 					elif ((dinosaurio.velx == 0 and dinosaurio.vely > 0) and (dinosaurio.rect.bottom <= e.rect.top+10)):
+						print('6')
 						dinosaurio.rect.bottom = e.rect.top
 					elif ((dinosaurio.velx < 0 and dinosaurio.vely > 0) and (dinosaurio.rect.bottom <= e.rect.top+10)):
+						print('7')
 						dinosaurio.rect.bottom = e.rect.top
 					elif ((dinosaurio.velx < 0 and dinosaurio.vely > 0) and (dinosaurio.rect.left >= e.rect.right-10)):
+						print('8')
 						dinosaurio.rect.left = e.rect.right
 					elif ((dinosaurio.velx < 0 and dinosaurio.vely == 0) and (dinosaurio.rect.left >= e.rect.right-10)):
+						print('9')
 						dinosaurio.rect.left = e.rect.right
 					elif ((dinosaurio.velx < 0 and dinosaurio.vely < 0) and (dinosaurio.rect.left >= e.rect.right-10)):
+						print('10')
 						dinosaurio.rect.left = e.rect.right
 					elif ((dinosaurio.velx < 0 and dinosaurio.vely < 0) and (dinosaurio.rect.top >= e.rect.bottom-10)):
+						print('11')
 						dinosaurio.rect.top = e.rect.bottom
 					elif ((dinosaurio.velx == 0 and dinosaurio.vely < 0) and (dinosaurio.rect.top >= e.rect.bottom-10)):
+						print('12')
 						dinosaurio.rect.top = e.rect.bottom
 					elif ((dinosaurio.velx > 0 and dinosaurio.vely < 0) and (dinosaurio.rect.top >= e.rect.bottom-10)):
+						print('13')
 						dinosaurio.rect.top = e.rect.bottom
 					elif ((dinosaurio.velx > 0 and dinosaurio.vely < 0) and (dinosaurio.rect.right <= e.rect.left+10)):
+						print('14')
 						dinosaurio.rect.right = e.rect.left
 					elif ((dinosaurio.velx > 0 and dinosaurio.vely == 0) and (dinosaurio.rect.right <= e.rect.left+10)):
+						print('15')
 						dinosaurio.rect.right = e.rect.left
 					elif ((dinosaurio.velx > 0 and dinosaurio.vely > 0) and (dinosaurio.rect.right <= e.rect.left+10)):
+						print('16')
 						dinosaurio.rect.right = e.rect.left
 
 
