@@ -387,16 +387,16 @@ class lvl1:
 					print(""+str(dinosaurio.rect.top) + " " + str(e.rect.bottom))
 					if ((dinosaurio.velx == 0 and dinosaurio.vely > 0) and (dinosaurio.rect.bottom <= e.rect.top+10) and (len(ls_col)==2) and ((ls_col[0].rect.right==ls_col[1].rect.right) and ((ls_col[0].rect.bottom==ls_col[1].rect.top) or (ls_col[1].rect.bottom==ls_col[0].rect.top)))):
 						print('1')
-						dinosaurio.rect.y+=5
+						dinosaurio.rect.y+=6
 					elif ((dinosaurio.velx == 0 and dinosaurio.vely < 0) and (dinosaurio.rect.top >= e.rect.bottom-10) and (len(ls_col)==2) and ((ls_col[0].rect.right==ls_col[1].rect.right) and ((ls_col[0].rect.bottom==ls_col[1].rect.top) or (ls_col[1].rect.bottom==ls_col[0].rect.top)))):
 						print('2')
-						dinosaurio.rect.y-=5
+						dinosaurio.rect.y-=6
 					elif ((dinosaurio.velx < 0 and dinosaurio.vely == 0) and (dinosaurio.rect.left >= e.rect.right-10) and (len(ls_col)==2) and ((ls_col[0].rect.top==ls_col[1].rect.top) and ((ls_col[0].rect.left==ls_col[1].rect.right) or (ls_col[1].rect.left==ls_col[0].rect.right)))):
 						print('3')
-						dinosaurio.rect.x-=5
+						dinosaurio.rect.x-=6
 					elif ((dinosaurio.velx > 0 and dinosaurio.vely == 0) and (dinosaurio.rect.right <= e.rect.left+10) and (len(ls_col)==2) and ((ls_col[0].rect.top==ls_col[1].rect.top) and ((ls_col[0].rect.left==ls_col[1].rect.right) or (ls_col[1].rect.left==ls_col[0].rect.right)))):
 						print('4')
-						dinosaurio.rect.x+=5
+						dinosaurio.rect.x+=6
 					elif ((dinosaurio.velx > 0 and dinosaurio.vely > 0) and (dinosaurio.rect.bottom <= e.rect.top+10)):
 						print('5')
 						dinosaurio.rect.bottom = e.rect.top
@@ -453,7 +453,7 @@ class lvl1:
 			balas.update()
 			balas_enemigas.update()
 			jugadores.update(bloques)
-			enemigos.update(player_position, balas_enemigas, imagenesBalasEnemigo)
+			enemigos.update(j.getPosition(), balas_enemigas, imagenesBalasEnemigo)
 			mrsMuertes.update(player_position)
 			explosiones.update()
 			pantalla.fill(Util.FONDO)

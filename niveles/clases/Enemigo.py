@@ -78,13 +78,13 @@ class Enemigo(pygame.sprite.Sprite):
             else:
                 self.animacion=0
         elif self.rect.x < player_position[0]:
-            self.rect.x += self.velx
+            self.velx = abs(self.velx)
             if self.correr:
                 self.animacion=3
             else:
                 self.animacion=1
         elif self.rect.x > player_position[0]: 
-            self.rect.x -= self.velx
+            self.velx = -abs(self.velx)
             if self.correr:
                 self.animacion=7
             else:
@@ -93,9 +93,12 @@ class Enemigo(pygame.sprite.Sprite):
         if abs(player_position[1]-self.rect.y)<=1:
             self.rect.y+=0
         elif self.rect.y < player_position[1]:
-            self.rect.y += self.vely
+            self.vely = abs(self.vely)
         else: 
-            self.rect.y -= self.vely
+            self.vely = -abs(self.vely)
+
+        self.rect.y += self.vely
+        self.rect.x += self.velx
 
 
     def disparar(self, balas_enemigas, player_position, img_balas):
