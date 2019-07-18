@@ -112,9 +112,20 @@ class lvl1:
 			#if segundos < 20:
 				#m = Muerte(Util.CENTRO, imagenesMuerte)
 
-			if segundos>95 and len(enemigos)==0:
-				self.nivel_finalizado()
-				break
+			if len(enemigos)!=0:
+				if j.rect.x > (Util.ANCHO - j.rect.width - 64):
+					j.velx = 0
+					j.rect.x = Util.ANCHO  - j.rect.width - 64
+				if j.rect.x < 64:
+					j.velx = 0
+					j.rect.x = 64
+				if j.rect.y > (Util.ALTO  - j.rect.height - 64):
+					j.vely = 0
+					j.rect.y = Util.ALTO - j.rect.height - 64
+				if j.rect.y < 64:
+					j.vely = 0
+					j.rect.y = 64
+				
 			"""
 			#oleadas de enemigos
 			if segundos<20:
