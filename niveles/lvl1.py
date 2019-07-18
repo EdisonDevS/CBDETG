@@ -14,11 +14,8 @@ from niveles.clases.NPC import *
 class lvl1:
 	def __init__(self, pantalla, mapa):
 		#configuracion del jugador
-		img_juagador= pygame.transform.scale2x(pygame.image.load('niveles/images/liche.png'))
-		imagenesJugador=Util.cut(img_juagador, 9, 21, 58, 66)
-
-		#configuraion de los enemigos
-		
+		img_juagador= pygame.image.load('niveles/images/liche.png')
+		imagenesJugador=Util.cut(img_juagador, 9, 21, 29, 33)
 
 		#configuracion de las explosiones
 		img_explosion=pygame.image.load('niveles/images/explosion.png')
@@ -344,7 +341,7 @@ class lvl1:
 					if b.tipo_ayuda==0:
 						jugador.vida+=40
 					else:
-						jugador.inmune=True	
+						jugador.inmune=True
 						jugador.inicio_inmunidad=datetime.now()
 					botiquines.remove(b)
 
@@ -365,13 +362,25 @@ class lvl1:
 				for e in ls_col:
 					print(""+str(jugador.rect.top) + " " + str(e.rect.bottom))
 					if ((jugador.velx == 0 and jugador.vely > 0) and (jugador.rect.bottom <= e.rect.top+10) and (len(ls_col)==2) and ((ls_col[0].rect.right==ls_col[1].rect.right) and ((ls_col[0].rect.bottom==ls_col[1].rect.top) or (ls_col[1].rect.bottom==ls_col[0].rect.top)))):
-						jugador.rect.y+=5
+						if jugador.rect.top==e.rect.bottom:
+						 	None
+						else:
+							jugador.rect.bottom=e.rect.top
 					elif ((jugador.velx == 0 and jugador.vely < 0) and (jugador.rect.top >= e.rect.bottom-10) and (len(ls_col)==2) and ((ls_col[0].rect.right==ls_col[1].rect.right) and ((ls_col[0].rect.bottom==ls_col[1].rect.top) or (ls_col[1].rect.bottom==ls_col[0].rect.top)))):
-						jugador.rect.y-=5
+						if jugador.rect.bottom==e.rect.top:
+						 	None
+						else:
+							jugador.rect.top=e.rect.bottom
 					elif ((jugador.velx < 0 and jugador.vely == 0) and (jugador.rect.left >= e.rect.right-10) and (len(ls_col)==2) and ((ls_col[0].rect.top==ls_col[1].rect.top) and ((ls_col[0].rect.left==ls_col[1].rect.right) or (ls_col[1].rect.left==ls_col[0].rect.right)))):
-						jugador.rect.x-=5
+						if jugador.rect.right==e.rect.left:
+						 	None
+						else:
+							jugador.rect.left=e.rect.right
 					elif ((jugador.velx > 0 and jugador.vely == 0) and (jugador.rect.right <= e.rect.left+10) and (len(ls_col)==2) and ((ls_col[0].rect.top==ls_col[1].rect.top) and ((ls_col[0].rect.left==ls_col[1].rect.right) or (ls_col[1].rect.left==ls_col[0].rect.right)))):
-						jugador.rect.x+=5
+						if jugador.rect.left==e.rect.right:
+						 	None
+						else:
+							jugador.rect.right=e.rect.left
 					elif ((jugador.velx == 0 and jugador.vely > 0) and (jugador.rect.bottom <= e.rect.top+10)):
 						jugador.rect.bottom = e.rect.top
 					elif ((jugador.velx < 0 and jugador.vely > 0) and (jugador.rect.bottom <= e.rect.top+10)):

@@ -11,8 +11,8 @@ class Jugador(pygame.sprite.Sprite):
         self.animacion = 0
         self.matriz = mat_i
         self.limite = [8,8,7,9,9,9,9,6,6,6,6,4,4,4,4,6,5,4,6,3,3]
-        self.image=self.matriz[self.accion][self.animacion].subsurface(0,0, 50, 50)
-        
+        self.image=pygame.transform.scale(self.matriz[self.accion][self.animacion], [48, 55])
+
         self.rect = self.image.get_rect()
         self.rect.x = pos[0]
         self.rect.y = pos[1]
@@ -52,12 +52,12 @@ class Jugador(pygame.sprite.Sprite):
             self.inmune=False
 
         self.dash(bloques)
-        if self.animacion == 0 and self.accion == 1:            
+        if self.animacion == 0 and self.accion == 1:
             self.velx = 0
             self.vely = 0
         self.rect.x+=self.velx
         self.rect.y+=self.vely
-        self.image=self.matriz[self.accion][self.animacion]
+        self.image=pygame.transform.scale(self.matriz[self.accion][self.animacion], [48, 55])
 
         #se hace el cambio de habitación
         if self.rect.x < 0:
@@ -131,7 +131,7 @@ class Jugador(pygame.sprite.Sprite):
 
     def dash(self, bloques):
         hacerDash=True
-        
+
         inicio = [self.rect.x+self.rect.width/2,self.rect.y+self.rect.height/2]
         end = pygame.mouse.get_pos()
         desplazamiento = Util.angular(inicio, end)
@@ -140,10 +140,10 @@ class Jugador(pygame.sprite.Sprite):
             if ((self.rect.x+desplazamiento[0]*100 >= b.rect.x and self.rect.x+desplazamiento[0]*100 <= b.rect.x+64) and (self.rect.y+desplazamiento[1]*100 >= b.rect.y and self.rect.y+desplazamiento[1]*100 <= b.rect.y+64)):
                 hacerDash=False
         '''
-        if self.animacion == 1 and self.accion == 6:            
+        if self.animacion == 1 and self.accion == 6:
             self.velx = 30*desplazamiento[0]
             self.vely = 30*desplazamiento[1]
-        
+
 
 
     def getPosition(self):
