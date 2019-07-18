@@ -44,9 +44,7 @@ class Jugador(pygame.sprite.Sprite):
         self.inicio_inmunidad=datetime.now()
 
 
-    def update(self, bloques, enemigos, mapa, imagenesEnemigo):
-        print(self.habitaciones)
-        print(self.habitacionActual)
+    def update(self, bloques, enemigos, mapa, imagenesEnemigo,imagenesNPCreaper, NPCreapers):
         transcurrido_inmunidad=datetime.now()-self.inicio_inmunidad
         self.tiempo_inmunidad = 5-transcurrido_inmunidad.seconds
 
@@ -73,7 +71,8 @@ class Jugador(pygame.sprite.Sprite):
                 self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=1
             self.rect.x = Util.ANCHO-self.rect.w
             self.rect.y = 6*64
-            enemigos=Util.mapear(self.habitacionActual, mapa, imagenesEnemigo)[6]
+            enemigos=Util.mapear(self.habitacionActual, mapa, imagenesEnemigo,imagenesNPCreaper)[6]
+            NPCreapers=Util.mapear(self.habitacionActual, mapa, imagenesEnemigo, imagenesNPCreaper)[7]
 
         if self.rect.x > Util.ANCHO-self.rect.w:
             if self.habitacionActual[1]==4:
@@ -86,7 +85,8 @@ class Jugador(pygame.sprite.Sprite):
                 self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=1
             self.rect.x = 0
             self.rect.y = 3*64
-            enemigos=Util.mapear(self.habitacionActual, mapa, imagenesEnemigo)[6]
+            enemigos=Util.mapear(self.habitacionActual, mapa, imagenesEnemigo, imagenesNPCreaper)[6]
+            NPCreapers=Util.mapear(self.habitacionActual, mapa, imagenesEnemigo, imagenesNPCreaper)[7]
 
         if self.rect.y < 0:
             if self.habitacionActual[0]==0:
@@ -99,7 +99,8 @@ class Jugador(pygame.sprite.Sprite):
                 self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=1
             self.rect.y = Util.ALTO-self.rect.h
             self.rect.x = 4*64
-            enemigos=Util.mapear(self.habitacionActual, mapa, imagenesEnemigo)[6]
+            enemigos=Util.mapear(self.habitacionActual, mapa, imagenesEnemigo, imagenesNPCreaper)[6]
+            NPCreapers=Util.mapear(self.habitacionActual, mapa, imagenesEnemigo, imagenesNPCreaper)[7]
 
         if self.rect.y > Util.ALTO-self.rect.h:
             if self.habitacionActual[0]==4:
@@ -112,7 +113,8 @@ class Jugador(pygame.sprite.Sprite):
                 self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=1
             self.rect.y = 0
             self.rect.x = 17*64
-            enemigos=Util.mapear(self.habitacionActual, mapa, imagenesEnemigo)[6]
+            enemigos=Util.mapear(self.habitacionActual, mapa, imagenesEnemigo, imagenesNPCreaper)[6]
+            NPCreapers=Util.mapear(self.habitacionActual, mapa, imagenesEnemigo, imagenesNPCreaper)[7]
 
         if self.accion < self.limite[self.animacion]-1:
             self.accion+=1
@@ -126,7 +128,7 @@ class Jugador(pygame.sprite.Sprite):
                 self.animacion = 0
 
 
-        return enemigos
+        return enemigos, NPCreapers
 
 
 

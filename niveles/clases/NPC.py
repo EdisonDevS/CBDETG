@@ -6,7 +6,7 @@ from niveles.clases.Bala import *
 
 class NPC(pygame.sprite.Sprite):
     
-    def __init__(self, mat_i, lim, tipo):
+    def __init__(self, mat_i, lim, tipo, fil,col):
         pygame.sprite.Sprite.__init__(self)
         #tipo de NPC
         self.tipo_NPC=0
@@ -18,8 +18,8 @@ class NPC(pygame.sprite.Sprite):
         self.accion = 0
         self.image=self.matriz[self.accion][self.animacion]
         self.rect = self.image.get_rect()
-        self.rect.x = Util.CENTROX
-        self.rect.y = Util.CENTROY
+        self.rect.x = fil*64    
+        self.rect.y = col*64
         #stats
         self.tipo = tipo
         self.ventaja = 0

@@ -25,8 +25,23 @@ class Genesis:
 		self.e=False
 		print("se puso en "+str(self.e))
 		self.cleanFirstRoom()
+		self.putNPCs()
+
+
 
 		return self.map
+
+
+	def putNPCs(self):
+		fila=random.randint(0, 4)
+		columna=random.randint(0, 4)
+		print("la muerte está en "+ str(fila) + " : " + str(columna))
+		room = self.map[fila][columna]
+
+		if self.level==1:
+			room[5][10][1]=-100
+
+
 
 
 	def cleanFirstRoom(self):

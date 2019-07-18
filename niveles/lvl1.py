@@ -57,7 +57,7 @@ class lvl1:
 		botiquines=pygame.sprite.Group()
 		NPCreapers = pygame.sprite.Group()
 
-		mapita = Util.mapear(self.habitacionActual, self.mapa, imagenesEnemigo)
+		mapita = Util.mapear(self.habitacionActual, self.mapa, imagenesEnemigo, imagenesNPCreaper)
 
 		bloques = mapita[0]
 		piso = mapita[1]
@@ -66,12 +66,11 @@ class lvl1:
 		pasto = mapita[4]
 		puertas = mapita[5]
 		enemigos = mapita[6]
+		NPCreapers = mapita[7]
 
 		#jugador
 		j=Jugador(Util.CENTRO,imagenesJugador, self.habitacionActual)
 		jugadores.add(j)
-		m = NPC(imagenesNPCreaper, 4, 1)
-		NPCreapers.add(m)
 		#variables necesarias
 		fin=False
 		reloj=pygame.time.Clock()
@@ -88,7 +87,7 @@ class lvl1:
 				print ("Holaaaaa")
 				pygame.mixer.music.play()
 			'''
-			mapita = Util.mapear(self.habitacionActual, self.mapa, imagenesEnemigo)
+			mapita = Util.mapear(self.habitacionActual, self.mapa, imagenesEnemigo, imagenesNPCreaper)
 
 			bloques = mapita[0]
 			piso = mapita[1]
@@ -96,6 +95,7 @@ class lvl1:
 			agua = mapita[3]
 			pasto = mapita[4]
 			puertas = mapita[5]
+			NPCreapers = mapita[7]
 
 			if j.vida>100:
 				j.vida-=0.1
@@ -360,7 +360,7 @@ class lvl1:
 			for jugador in jugadores:
 				ls_col = pygame.sprite.spritecollide(jugador,  bloques, False)
 				for e in ls_col:
-					print(""+str(jugador.rect.top) + " " + str(e.rect.bottom))
+					#print(""+str(jugador.rect.top) + " " + str(e.rect.bottom))
 					if ((jugador.velx == 0 and jugador.vely > 0) and (jugador.rect.bottom <= e.rect.top+10) and (len(ls_col)==2) and ((ls_col[0].rect.right==ls_col[1].rect.right) and ((ls_col[0].rect.bottom==ls_col[1].rect.top) or (ls_col[1].rect.bottom==ls_col[0].rect.top)))):
 						if jugador.rect.top==e.rect.bottom:
 						 	None
@@ -409,7 +409,7 @@ class lvl1:
 			for jugador in jugadores:
 				ls_col = pygame.sprite.spritecollide(jugador,  bloques, False)
 				for e in ls_col:
-					print(""+str(jugador.rect.top) + " " + str(e.rect.bottom))
+					#print(""+str(jugador.rect.top) + " " + str(e.rect.bottom))
 					if ((jugador.velx == 0 and jugador.vely > 0) and (jugador.rect.bottom <= e.rect.top+60) and (len(ls_col)==2) and ((ls_col[0].rect.right==ls_col[1].rect.right) and ((ls_col[0].rect.bottom==ls_col[1].rect.top) or (ls_col[1].rect.bottom==ls_col[0].rect.top)))):
 						jugador.rect.y+=30
 					elif ((jugador.velx == 0 and jugador.vely < 0) and (jugador.rect.top >= e.rect.bottom-60) and (len(ls_col)==2) and ((ls_col[0].rect.right==ls_col[1].rect.right) and ((ls_col[0].rect.bottom==ls_col[1].rect.top) or (ls_col[1].rect.bottom==ls_col[0].rect.top)))):
@@ -500,7 +500,7 @@ class lvl1:
 			balas.update()
 			NPCreapers.update()
 			balas_enemigas.update()
-			enemigos = j.update(bloques, enemigos, self.mapa, imagenesEnemigo)
+			enemigos, NPCreapers = j.update(bloques, enemigos, self.mapa, imagenesEnemigo, imagenesNPCreaper, NPCreapers)
 			enemigos.update(j.getPosition(), balas_enemigas, imagenesBalasEnemigo)
 			explosiones.update()
 			pantalla.fill(Util.FONDO)
