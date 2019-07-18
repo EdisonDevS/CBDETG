@@ -10,7 +10,9 @@ class Genesis:
 		self.MINROOMSIZE = [10, 21]
 
 
-	def generateMap(self):
+	def generateMap(self, level):
+		self.level=level
+		self.e=True
 		for i in range(self.MAPSIZE[0]):
 			row=[]
 
@@ -20,7 +22,19 @@ class Genesis:
 
 			self.map.append(row)
 
+		self.e=False
+		print("se puso en "+str(self.e))
+		self.cleanFirstRoom()
+
 		return self.map
+
+
+	def cleanFirstRoom(self):
+		room = self.map[2][2]
+
+		self.putFloor(room, self.roomType[0])
+		self.putWalls(room, self.roomType[2])
+
 
 
 	def createRoom(self):
@@ -29,17 +43,18 @@ class Genesis:
 		yDimension=random.randint(self.MINROOMSIZE[1],self.MAXROOMSIZE[1])
 
 		#se establece el shape del arreglo de numpy
-		roomDimensions=[xDimension, yDimension]
-		
+		roomDimensions=[xDimension, yDimension, 2]
+
 		#se crea el array de numpy de acuerdo a las especificaciones
 		room=np.zeros(roomDimensions)
 
 		roomType = self.roomTypeSelector()
+		self.roomType=roomType
 
 		self.fillRoom(room, roomType)
 
 		self.printRoom(room)
-		
+
 		return room
 
 
@@ -50,11 +65,21 @@ class Genesis:
 
 
 	def putFloor(self, room, roomType):
+		if self.level==1:
+			arreglo=random.choice([[[-10, -50],[0.2, 0.8]], [[-9, -50],[0.2, 0.8]], [[-8, -50],[0.2, 0.8]], [[-7, -50],[0.2, 0.8]]])
+		else:
+			arreglo=[[-10, -9, -8, -7, -50], [0.05, 0.05, 0.05, 0.05, 0.8]]
+
 		floor = np.random.choice(roomType[0], p=roomType[1], size=(10, 21))
+		enemys = np.random.choice(arreglo[0], p=arreglo[1], size=(10, 21))
 
 		for j in range(10):
 			for k in range(21):
-				room[j][k] = floor[j][k]
+				room[j][k][0] = floor[j][k]
+				if self.e:
+					room[j][k][1] = enemys[j][k]
+				else:
+					room[j][k][1] = -50
 
 
 
@@ -73,7 +98,7 @@ class Genesis:
 		for i in range(dimensions[0]):
 			room[i][0] = np.random.choice(roomType[0], p=roomType[1], size=(1,1))[0]
 
-		#se pone la pared lateral derecha		
+		#se pone la pared lateral derecha
 		for i in range(dimensions[0]):
 			room[i][dimensions[1] - 1] = np.random.choice(roomType[0], p=roomType[1], size=(1,1))[0]
 
@@ -82,7 +107,7 @@ class Genesis:
 		room[3][0]=-2
 		room[6][dimensions[1] - 1] = -3
 		room[dimensions[0] - 1][4] = -4
-		
+
 
 
 	def solidPatternDesigner(self, room, roomType):

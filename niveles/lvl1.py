@@ -9,17 +9,13 @@ from niveles.clases.Enemigo import *
 from niveles.clases.Explosion import *
 from niveles.clases.Botiquin import *
 from niveles.clases.Hud import *
-from niveles.clases.Muerte import *
+from niveles.clases.NPC import *
 
 class lvl1:
 	def __init__(self, pantalla, mapa):
 		#configuracion del jugador
 		img_juagador= pygame.image.load('niveles/images/liche.png')
 		imagenesJugador=Util.cut(img_juagador, 9, 21, 29, 33)
-
-		#configuraion de los enemigos
-		img_enemigo= pygame.image.load('niveles/images/enemigos.png')
-		imagenesEnemigo=Util.cut(img_enemigo, 7, 32, 24, 24)
 
 		#configuracion de las explosiones
 		img_explosion=pygame.image.load('niveles/images/explosion.png')
@@ -37,9 +33,12 @@ class lvl1:
 		img_botiquin=pygame.image.load('niveles/images/botiquin.png')
 		imagenesBotiquin=Util.cut(img_botiquin, 2, 1, 32, 24)
 
-		#configuracion de Mrs Muerte
-		img_muerte = pygame.image.load('niveles/images/DeathV2.png')
-		imagenesMuerte = Util.cut(img_muerte, 16, 6, 48, 78)
+		#configuracion de NPC 1
+		img_NPCreaper= pygame.image.load('niveles/images/NPCwitch.png')
+		imagenesNPCreaper = Util.cut(img_NPCreaper, 4, 1, 64, 96)
+
+		img_enemigo= pygame.transform.scale2x(pygame.image.load('niveles/images/enemigos.png'))
+		imagenesEnemigo=Util.cut(img_enemigo, 7, 32, 48, 48)
 
 		HUD=Hud(pantalla)
 
@@ -56,9 +55,9 @@ class lvl1:
 		explosiones=pygame.sprite.Group()
 		balas_enemigas=pygame.sprite.Group()
 		botiquines=pygame.sprite.Group()
-		mrsMuertes = pygame.sprite.Group()
+		NPCreapers = pygame.sprite.Group()
 
-		mapita = Util.mapear(self.habitacionActual, self.mapa)
+		mapita = Util.mapear(self.habitacionActual, self.mapa, imagenesEnemigo)
 
 		bloques = mapita[0]
 		piso = mapita[1]
@@ -66,11 +65,13 @@ class lvl1:
 		agua = mapita[3]
 		pasto = mapita[4]
 		puertas = mapita[5]
+		enemigos = mapita[6]
 
 		#jugador
 		j=Jugador(Util.CENTRO,imagenesJugador, self.habitacionActual)
 		jugadores.add(j)
-		m = Muerte(Util.CENTRO, imagenesMuerte)
+		m = NPC(imagenesNPCreaper, 4, 1)
+		NPCreapers.add(m)
 		#variables necesarias
 		fin=False
 		reloj=pygame.time.Clock()
@@ -87,7 +88,7 @@ class lvl1:
 				print ("Holaaaaa")
 				pygame.mixer.music.play()
 			'''
-			mapita = Util.mapear(self.habitacionActual, self.mapa)
+			mapita = Util.mapear(self.habitacionActual, self.mapa, imagenesEnemigo)
 
 			bloques = mapita[0]
 			piso = mapita[1]
@@ -108,29 +109,24 @@ class lvl1:
 			tiempo = instanteFinal - instanteInicial # Devuelve un objeto timedelta
 			segundos = tiempo.seconds
 
-			if segundos < 20:
+			#if segundos < 20:
 				#m = Muerte(Util.CENTRO, imagenesMuerte)
-				#mrsMuertes.add(m)
-				pass
 
-			'''
 			if segundos>95 and len(enemigos)==0:
 				self.nivel_finalizado()
 				break
-
+			"""
 			#oleadas de enemigos
 			if segundos<20:
 				posibilidad_enemigo=random.randint(0,100)
-
 				#print(posibilidad_enemigo)
-
 				if posibilidad_enemigo in [100,50,25,0]:
 					x=j.rect.x
 					y=j.rect.y
 					#se garantiza que el enemigo no salga a menos de 200px del jugador
 					while(abs(x-j.rect.x)<200 or abs(y-j.rect.y)<200):
-						x=random.randint(0,Util.ANCHO)
-						y=random.randint(0,Util.ALTO)
+						x=random.randint(64,Util.ANCHO-88)
+						y=random.randint(64,Util.ALTO-88)
 					coordenadas=[x, y]
 					#se garantiza que el enemigo no aparezca sobre un muro
 					crear=False
@@ -139,7 +135,6 @@ class lvl1:
 							None
 						else:
 							crear=True
-
 					if crear:
 						e=Enemigo(coordenadas, imagenesEnemigo)
 						e.tipo_enemigo=2*8
@@ -147,18 +142,16 @@ class lvl1:
 							e.incremento_caminar=3
 							e.incremento_correr=3
 						enemigos.add(e)
-
 			elif segundos>25 and segundos<45:
 				posibilidad_enemigo=random.randint(0,100)
-
 				#print(posibilidad_enemigo)
 				if posibilidad_enemigo in [100,50,25,0]:
 					x=j.rect.x
 					y=j.rect.y
 					#se garantiza que el enemigo no salga a menos de 12px del jugador
 					while(abs(x-j.rect.x)<200 or abs(y-j.rect.y)<200):
-						x=random.randint(0,Util.ANCHO)
-						y=random.randint(0,Util.ALTO)
+						x=random.randint(64,Util.ANCHO-88)
+						y=random.randint(64,Util.ALTO-88)
 					coordenadas=[x, y]
 					#se garantiza que el enemigo no aparezca sobre un muro
 					crear=False
@@ -167,7 +160,6 @@ class lvl1:
 							None
 						else:
 							crear=True
-
 					if crear:
 						e=Enemigo(coordenadas, imagenesEnemigo)
 						e.tipo_enemigo=random.randint(2,3)*8
@@ -175,28 +167,24 @@ class lvl1:
 							e.incremento_caminar=3
 							e.incremento_correr=3
 						enemigos.add(e)
-
 			elif segundos>50 and segundos<70:
 				posibilidad_enemigo=random.randint(0,100)
-
 				#print(posibilidad_enemigo)
-
 				if posibilidad_enemigo in [100,50,25,0]:
 					x=j.rect.x
 					y=j.rect.y
 					#se garantiza que el enemigo no salga a menos de 12px del jugador
 					while(abs(x-j.rect.x)<200 or abs(y-j.rect.y)<200):
-						x=random.randint(0,Util.ANCHO)
-						y=random.randint(0,Util.ALTO)
+						x=random.randint(64,Util.ANCHO-88)
+						y=random.randint(64,Util.ALTO-88)
 					coordenadas=[x, y]
 					#se garantiza que el enemigo no aparezca sobre un muro
 					crear=False
 					for b in bloques:
-						if ((coordenadas[0] > b.rect.left and coordenadas[0] < b.rect.right) and (coordenadas[1] > b.rect.top and coordenadas[1] < b.rect.bottom)):
+						if ((coordenadas[0] > b.rect.left and coordenadas[0] < b.rect.right) and (coordenadas[1] > b.rect.top and coordenadas[1] < b.rect.bottom) and (coordenadas[0] < b.rect.left-24)):
 							None
 						else:
 							crear=True
-
 					if crear:
 						e=Enemigo(coordenadas, imagenesEnemigo)
 						e.tipo_enemigo=random.randint(0,3)*8
@@ -204,19 +192,16 @@ class lvl1:
 							e.incremento_caminar=3
 							e.incremento_correr=3
 						enemigos.add(e)
-
 			elif segundos>75 and segundos<95:
 				posibilidad_enemigo=random.randint(0,100)
-
 				#print(posibilidad_enemigo)
-
 				if posibilidad_enemigo in [100,50,25,0]:
 					x=j.rect.x
 					y=j.rect.y
 					#se garantiza que el enemigo no salga a menos de 12px del jugador
 					while(abs(x-j.rect.x)<200 or abs(y-j.rect.y)<200):
-						x=random.randint(0,Util.ANCHO)
-						y=random.randint(0,Util.ALTO)
+						x=random.randint(64,Util.ANCHO-88)
+						y=random.randint(64,Util.ALTO-88)
 					coordenadas=[x, y]
 					#se garantiza que el enemigo no aparezca sobre un muro
 					crear=False
@@ -225,7 +210,6 @@ class lvl1:
 							None
 						else:
 							crear=True
-
 					if crear:
 						e=Enemigo(coordenadas, imagenesEnemigo)
 						e.tipo_enemigo=random.randint(1,3)*8
@@ -233,9 +217,8 @@ class lvl1:
 							e.incremento_caminar=3
 							e.incremento_correr=3
 						enemigos.add(e)
+			"""
 
-
-			'''
 			eventos=pygame.event.get()
 
 			for event in eventos:
@@ -323,6 +306,20 @@ class lvl1:
 						balas_enemigas.remove(b)
 
 
+			#COLISIONES BALAS ENEMIGAS - MUROS
+			for b in balas_enemigas:
+				ls_col = pygame.sprite.spritecollide(b, bloques, False)
+				for jugador in ls_col:
+					balas_enemigas.remove(b)
+
+
+			#COLISIONES BALAS - MUROS
+			for b in balas:
+				ls_col = pygame.sprite.spritecollide(b, bloques, False)
+				for jugador in ls_col:
+					balas.remove(b)
+
+
 			#COLISIONES JUGADOR - Botiquin
 			for b in botiquines:
 				ls_col = pygame.sprite.spritecollide(b, jugadores, False)
@@ -345,19 +342,31 @@ class lvl1:
 					else:
 						j.vida-=0.5
 
-
+			#colisiones del jugador con los muros
 			for jugador in jugadores:
 				ls_col = pygame.sprite.spritecollide(jugador,  bloques, False)
 				for e in ls_col:
 					print(""+str(jugador.rect.top) + " " + str(e.rect.bottom))
 					if ((jugador.velx == 0 and jugador.vely > 0) and (jugador.rect.bottom <= e.rect.top+10) and (len(ls_col)==2) and ((ls_col[0].rect.right==ls_col[1].rect.right) and ((ls_col[0].rect.bottom==ls_col[1].rect.top) or (ls_col[1].rect.bottom==ls_col[0].rect.top)))):
-						jugador.rect.y+=5
+						if jugador.rect.top==e.rect.bottom:
+						 	None
+						else:
+							jugador.rect.bottom=e.rect.top
 					elif ((jugador.velx == 0 and jugador.vely < 0) and (jugador.rect.top >= e.rect.bottom-10) and (len(ls_col)==2) and ((ls_col[0].rect.right==ls_col[1].rect.right) and ((ls_col[0].rect.bottom==ls_col[1].rect.top) or (ls_col[1].rect.bottom==ls_col[0].rect.top)))):
-						jugador.rect.y-=5
+						if jugador.rect.bottom==e.rect.top:
+						 	None
+						else:
+							jugador.rect.top=e.rect.bottom
 					elif ((jugador.velx < 0 and jugador.vely == 0) and (jugador.rect.left >= e.rect.right-10) and (len(ls_col)==2) and ((ls_col[0].rect.top==ls_col[1].rect.top) and ((ls_col[0].rect.left==ls_col[1].rect.right) or (ls_col[1].rect.left==ls_col[0].rect.right)))):
-						jugador.rect.x-=5
+						if jugador.rect.right==e.rect.left:
+						 	None
+						else:
+							jugador.rect.left=e.rect.right
 					elif ((jugador.velx > 0 and jugador.vely == 0) and (jugador.rect.right <= e.rect.left+10) and (len(ls_col)==2) and ((ls_col[0].rect.top==ls_col[1].rect.top) and ((ls_col[0].rect.left==ls_col[1].rect.right) or (ls_col[1].rect.left==ls_col[0].rect.right)))):
-						jugador.rect.x+=5
+						if jugador.rect.left==e.rect.right:
+						 	None
+						else:
+							jugador.rect.right=e.rect.left
 					elif ((jugador.velx == 0 and jugador.vely > 0) and (jugador.rect.bottom <= e.rect.top+10)):
 						jugador.rect.bottom = e.rect.top
 					elif ((jugador.velx < 0 and jugador.vely > 0) and (jugador.rect.bottom <= e.rect.top+10)):
@@ -383,6 +392,82 @@ class lvl1:
 					elif ((jugador.velx > 0 and jugador.vely > 0) and (jugador.rect.bottom <= e.rect.top+10)):
 						jugador.rect.bottom = e.rect.top
 
+			for jugador in jugadores:
+				ls_col = pygame.sprite.spritecollide(jugador,  bloques, False)
+				for e in ls_col:
+					print(""+str(jugador.rect.top) + " " + str(e.rect.bottom))
+					if ((jugador.velx == 0 and jugador.vely > 0) and (jugador.rect.bottom <= e.rect.top+60) and (len(ls_col)==2) and ((ls_col[0].rect.right==ls_col[1].rect.right) and ((ls_col[0].rect.bottom==ls_col[1].rect.top) or (ls_col[1].rect.bottom==ls_col[0].rect.top)))):
+						jugador.rect.y+=30
+					elif ((jugador.velx == 0 and jugador.vely < 0) and (jugador.rect.top >= e.rect.bottom-60) and (len(ls_col)==2) and ((ls_col[0].rect.right==ls_col[1].rect.right) and ((ls_col[0].rect.bottom==ls_col[1].rect.top) or (ls_col[1].rect.bottom==ls_col[0].rect.top)))):
+						jugador.rect.y-=30
+					elif ((jugador.velx < 0 and jugador.vely == 0) and (jugador.rect.left >= e.rect.right-60) and (len(ls_col)==2) and ((ls_col[0].rect.top==ls_col[1].rect.top) and ((ls_col[0].rect.left==ls_col[1].rect.right) or (ls_col[1].rect.left==ls_col[0].rect.right)))):
+						jugador.rect.x-=30
+					elif ((jugador.velx > 0 and jugador.vely == 0) and (jugador.rect.right <= e.rect.left+60) and (len(ls_col)==2) and ((ls_col[0].rect.top==ls_col[1].rect.top) and ((ls_col[0].rect.left==ls_col[1].rect.right) or (ls_col[1].rect.left==ls_col[0].rect.right)))):
+						jugador.rect.x+=30
+					elif ((jugador.velx == 0 and jugador.vely > 0) and (jugador.rect.bottom <= e.rect.top+60)):
+						jugador.rect.bottom = e.rect.top
+					elif ((jugador.velx < 0 and jugador.vely > 0) and (jugador.rect.bottom <= e.rect.top+60)):
+						jugador.rect.bottom = e.rect.top
+					elif ((jugador.velx < 0 and jugador.vely > 0) and (jugador.rect.left >= e.rect.right-60)):
+						jugador.rect.left = e.rect.right
+					elif ((jugador.velx < 0 and jugador.vely == 0) and (jugador.rect.left >= e.rect.right-60)):
+						jugador.rect.left = e.rect.right
+					elif ((jugador.velx < 0 and jugador.vely < 0) and (jugador.rect.left >= e.rect.right-60)):
+						jugador.rect.left = e.rect.right
+					elif ((jugador.velx < 0 and jugador.vely < 0) and (jugador.rect.top >= e.rect.bottom-60)):
+						jugador.rect.top = e.rect.bottom
+					elif ((jugador.velx == 0 and jugador.vely < 0) and (jugador.rect.top >= e.rect.bottom-60)):
+						jugador.rect.top = e.rect.bottom
+					elif ((jugador.velx > 0 and jugador.vely < 0) and (jugador.rect.top >= e.rect.bottom-60)):
+						jugador.rect.top = e.rect.bottom
+					elif ((jugador.velx > 0 and jugador.vely < 0) and (jugador.rect.right <= e.rect.left+60)):
+						jugador.rect.right = e.rect.left
+					elif ((jugador.velx > 0 and jugador.vely == 0) and (jugador.rect.right <= e.rect.left+60)):
+						jugador.rect.right = e.rect.left
+					elif ((jugador.velx > 0 and jugador.vely > 0) and (jugador.rect.right <= e.rect.left+60)):
+						jugador.rect.right = e.rect.left
+					elif ((jugador.velx > 0 and jugador.vely > 0) and (jugador.rect.bottom <= e.rect.top+60)):
+						jugador.rect.bottom = e.rect.top
+
+
+			#colisiones de los dinosaurios con los murus
+			for dinosaurio in enemigos:
+				ls_col = pygame.sprite.spritecollide(dinosaurio,  bloques, False)
+				for e in ls_col:
+					if ((dinosaurio.velx == 0 and dinosaurio.vely > 0) and (dinosaurio.rect.bottom <= e.rect.top+10) and (len(ls_col)==2) and ((ls_col[0].rect.right==ls_col[1].rect.right) and ((ls_col[0].rect.bottom==ls_col[1].rect.top) or (ls_col[1].rect.bottom==ls_col[0].rect.top)))):
+						dinosaurio.rect.y+=7
+					elif ((dinosaurio.velx == 0 and dinosaurio.vely < 0) and (dinosaurio.rect.top >= e.rect.bottom-10) and (len(ls_col)==2) and ((ls_col[0].rect.right==ls_col[1].rect.right) and ((ls_col[0].rect.bottom==ls_col[1].rect.top) or (ls_col[1].rect.bottom==ls_col[0].rect.top)))):
+						dinosaurio.rect.y-=7
+					elif ((dinosaurio.velx < 0 and dinosaurio.vely == 0) and (dinosaurio.rect.left >= e.rect.right-10) and (len(ls_col)==2) and ((ls_col[0].rect.top==ls_col[1].rect.top) and ((ls_col[0].rect.left==ls_col[1].rect.right) or (ls_col[1].rect.left==ls_col[0].rect.right)))):
+						dinosaurio.rect.x-=7
+					elif ((dinosaurio.velx > 0 and dinosaurio.vely == 0) and (dinosaurio.rect.right <= e.rect.left+10) and (len(ls_col)==2) and ((ls_col[0].rect.top==ls_col[1].rect.top) and ((ls_col[0].rect.left==ls_col[1].rect.right) or (ls_col[1].rect.left==ls_col[0].rect.right)))):
+						dinosaurio.rect.x+=7
+					elif ((dinosaurio.velx > 0 and dinosaurio.vely > 0) and (dinosaurio.rect.bottom <= e.rect.top+10)):
+						dinosaurio.rect.bottom = e.rect.top
+					elif ((dinosaurio.velx == 0 and dinosaurio.vely > 0) and (dinosaurio.rect.bottom <= e.rect.top+10)):
+						dinosaurio.rect.bottom = e.rect.top
+					elif ((dinosaurio.velx < 0 and dinosaurio.vely > 0) and (dinosaurio.rect.bottom <= e.rect.top+10)):
+						dinosaurio.rect.bottom = e.rect.top
+					elif ((dinosaurio.velx < 0 and dinosaurio.vely > 0) and (dinosaurio.rect.left >= e.rect.right-10)):
+						dinosaurio.rect.left = e.rect.right
+					elif ((dinosaurio.velx < 0 and dinosaurio.vely == 0) and (dinosaurio.rect.left >= e.rect.right-10)):
+						dinosaurio.rect.left = e.rect.right
+					elif ((dinosaurio.velx < 0 and dinosaurio.vely < 0) and (dinosaurio.rect.left >= e.rect.right-10)):
+						dinosaurio.rect.left = e.rect.right
+					elif ((dinosaurio.velx < 0 and dinosaurio.vely < 0) and (dinosaurio.rect.top >= e.rect.bottom-10)):
+						dinosaurio.rect.top = e.rect.bottom
+					elif ((dinosaurio.velx == 0 and dinosaurio.vely < 0) and (dinosaurio.rect.top >= e.rect.bottom-10)):
+						dinosaurio.rect.top = e.rect.bottom
+					elif ((dinosaurio.velx > 0 and dinosaurio.vely < 0) and (dinosaurio.rect.top >= e.rect.bottom-10)):
+						dinosaurio.rect.top = e.rect.bottom
+					elif ((dinosaurio.velx > 0 and dinosaurio.vely < 0) and (dinosaurio.rect.right <= e.rect.left+10)):
+						dinosaurio.rect.right = e.rect.left
+					elif ((dinosaurio.velx > 0 and dinosaurio.vely == 0) and (dinosaurio.rect.right <= e.rect.left+10)):
+						dinosaurio.rect.right = e.rect.left
+					elif ((dinosaurio.velx > 0 and dinosaurio.vely > 0) and (dinosaurio.rect.right <= e.rect.left+10)):
+						dinosaurio.rect.right = e.rect.left
+
+
 
 
 			'''
@@ -399,10 +484,10 @@ class lvl1:
 
 
 			balas.update()
+			NPCreapers.update()
 			balas_enemigas.update()
-			jugadores.update(bloques)
-			enemigos.update(player_position, balas_enemigas, imagenesBalasEnemigo)
-			mrsMuertes.update(player_position)
+			enemigos = j.update(bloques, enemigos, self.mapa, imagenesEnemigo)
+			enemigos.update(j.getPosition(), balas_enemigas, imagenesBalasEnemigo)
 			explosiones.update()
 			pantalla.fill(Util.FONDO)
 			pantalla.blit(self.fondo,[0,0])
@@ -430,18 +515,14 @@ class lvl1:
 				texto="Segunda oleada: "+str(25-segundos)
 				textoPuntaje=titulos.render(texto, 1, Util.BLANCO)
 				pantalla.blit(textoPuntaje,[100,300])
-
 			if(segundos>45 and segundos<50):
 				texto="Tercera oleada: "+str(50-segundos)
 				textoPuntaje=titulos.render(texto, 1, Util.BLANCO)
 				pantalla.blit(textoPuntaje,[100,300])
-
-
 			if(segundos>70 and segundos<75):
 				texto="Cuarta oleada: "+str(75-segundos)
 				textoPuntaje=titulos.render(texto, 1, Util.BLANCO)
 				pantalla.blit(textoPuntaje,[100,300])
-
 			"""
 			'''
 			pygame.draw.line(pantalla, Util.ROJO, [int(j.rect.x+j.rect.width/2), int(j.rect.y+j.rect.height/2)], desplazamiento, 1)
@@ -451,7 +532,7 @@ class lvl1:
 			#cargando elementos del HUD
 			HUD.update(j.vida, j.tiempo_inmunidad, j.habitaciones)
 			jugadores.draw(pantalla)
-			mrsMuertes.draw(pantalla)
+			NPCreapers.draw(pantalla)
 			balas.draw(pantalla)
 			balas_enemigas.draw(pantalla)
 			enemigos.draw(pantalla)

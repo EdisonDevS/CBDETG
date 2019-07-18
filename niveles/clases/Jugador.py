@@ -11,7 +11,8 @@ class Jugador(pygame.sprite.Sprite):
         self.animacion = 0
         self.matriz = mat_i
         self.limite = [8,8,7,9,9,9,9,6,6,6,6,4,4,4,4,6,5,4,6,3,3]
-        self.image=pygame.transform.scale2x(self.matriz[self.accion][self.animacion])
+        self.image=pygame.transform.scale(self.matriz[self.accion][self.animacion], [48, 55])
+
         self.rect = self.image.get_rect()
         self.rect.x = pos[0]
         self.rect.y = pos[1]
@@ -33,7 +34,7 @@ class Jugador(pygame.sprite.Sprite):
         self.vely = 0
         self.sonido = pygame.mixer.Sound('niveles/sonidos/fireball.ogg')
         self.burn = pygame.mixer.Sound('niveles/sonidos/burn.ogg')
-        self.vida = 100
+        self.vida = 100000
         self.cadencia = 5
         self.disparos = 0
         self.escudo = 0
@@ -43,17 +44,20 @@ class Jugador(pygame.sprite.Sprite):
         self.inicio_inmunidad=datetime.now()
 
 
-    def update(self, bloques):
+    def update(self, bloques, enemigos, mapa, imagenesEnemigo):
         transcurrido_inmunidad=datetime.now()-self.inicio_inmunidad
         self.tiempo_inmunidad = 5-transcurrido_inmunidad.seconds
 
         if transcurrido_inmunidad.seconds >= Util.INMUNIDAD:
             self.inmune=False
 
-        self.dash()
+        self.dash(bloques)
+        if self.animacion == 0 and self.accion == 1:
+            self.velx = 0
+            self.vely = 0
         self.rect.x+=self.velx
         self.rect.y+=self.vely
-        self.image=pygame.transform.scale2x(self.matriz[self.accion][self.animacion])
+        self.image=pygame.transform.scale(self.matriz[self.accion][self.animacion], [48, 55])
 
         #se hace el cambio de habitación
         if self.rect.x < 0:
@@ -65,9 +69,9 @@ class Jugador(pygame.sprite.Sprite):
                 self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=2
                 self.habitacionActual[1] = self.habitacionActual[1]-1
                 self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=1
-            self.velx = -3
             self.rect.x = Util.ANCHO-self.rect.w
             self.rect.y = 6*64
+            enemigos=Util.mapear(self.habitacionActual, mapa, imagenesEnemigo)[6]
 
         if self.rect.x > Util.ANCHO-self.rect.w:
             if self.habitacionActual[1]==4:
@@ -78,9 +82,9 @@ class Jugador(pygame.sprite.Sprite):
                 self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=2
                 self.habitacionActual[1] = self.habitacionActual[1]+1
                 self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=1
-            self.velx = 3
             self.rect.x = 0
             self.rect.y = 3*64
+            enemigos=Util.mapear(self.habitacionActual, mapa, imagenesEnemigo)[6]
 
         if self.rect.y < 0:
             if self.habitacionActual[0]==0:
@@ -91,9 +95,9 @@ class Jugador(pygame.sprite.Sprite):
                 self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=2
                 self.habitacionActual[0] = self.habitacionActual[0]-1
                 self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=1
-            self.vely = -3
             self.rect.y = Util.ALTO-self.rect.h
             self.rect.x = 4*64
+            enemigos=Util.mapear(self.habitacionActual, mapa, imagenesEnemigo)[6]
 
         if self.rect.y > Util.ALTO-self.rect.h:
             if self.habitacionActual[0]==4:
@@ -104,9 +108,9 @@ class Jugador(pygame.sprite.Sprite):
                 self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=2
                 self.habitacionActual[0] = self.habitacionActual[0]+1
                 self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=1
-            self.vely = 3
             self.rect.y = 0
             self.rect.x = 17*64
+            enemigos=Util.mapear(self.habitacionActual, mapa, imagenesEnemigo)[6]
 
         if self.accion < self.limite[self.animacion]-1:
             self.accion+=1
@@ -120,15 +124,26 @@ class Jugador(pygame.sprite.Sprite):
                 self.animacion = 0
 
 
+        return enemigos
 
 
-    def dash(self):
-        if self.animacion == 1 and self.accion == 7:
-            inicio = [self.rect.x+self.rect.width/2,self.rect.y+self.rect.height/2]
-            end = pygame.mouse.get_pos()
-            desplazamiento = Util.angular(inicio, end)
-            self.rect.x += 100*desplazamiento[0]
-            self.rect.y += 100*desplazamiento[1]
+
+
+    def dash(self, bloques):
+        hacerDash=True
+
+        inicio = [self.rect.x+self.rect.width/2,self.rect.y+self.rect.height/2]
+        end = pygame.mouse.get_pos()
+        desplazamiento = Util.angular(inicio, end)
+        '''
+        for b in bloques:
+            if ((self.rect.x+desplazamiento[0]*100 >= b.rect.x and self.rect.x+desplazamiento[0]*100 <= b.rect.x+64) and (self.rect.y+desplazamiento[1]*100 >= b.rect.y and self.rect.y+desplazamiento[1]*100 <= b.rect.y+64)):
+                hacerDash=False
+        '''
+        if self.animacion == 1 and self.accion == 6:
+            self.velx = 30*desplazamiento[0]
+            self.vely = 30*desplazamiento[1]
+
 
 
     def getPosition(self):

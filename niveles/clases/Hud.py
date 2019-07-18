@@ -28,7 +28,7 @@ class Hud(pygame.sprite.Sprite):
         tam_vida=(vida*Util.ANCHOVIDA)//100
         color_verde=(vida*250)//100
 
-        pygame.draw.rect(self.pantalla, [255-color_verde, color_verde, 0], pygame.Rect((Util.POSICIONBARRAVIDA[0], Util.POSICIONBARRAVIDA[1], tam_vida, Util.ALTOVIDA)), 0)
+        pygame.draw.rect(self.pantalla, [255,255,255], pygame.Rect((Util.POSICIONBARRAVIDA[0], Util.POSICIONBARRAVIDA[1], tam_vida, Util.ALTOVIDA)), 0)
 
 
         #Inmunidad
