@@ -45,6 +45,8 @@ class Jugador(pygame.sprite.Sprite):
 
 
     def update(self, bloques, enemigos, mapa, imagenesEnemigo):
+        print(self.habitaciones)
+        print(self.habitacionActual)
         transcurrido_inmunidad=datetime.now()-self.inicio_inmunidad
         self.tiempo_inmunidad = 5-transcurrido_inmunidad.seconds
 
@@ -140,9 +142,9 @@ class Jugador(pygame.sprite.Sprite):
             if ((self.rect.x+desplazamiento[0]*100 >= b.rect.x and self.rect.x+desplazamiento[0]*100 <= b.rect.x+64) and (self.rect.y+desplazamiento[1]*100 >= b.rect.y and self.rect.y+desplazamiento[1]*100 <= b.rect.y+64)):
                 hacerDash=False
         '''
-        if self.animacion == 1 and self.accion == 6:
-            self.velx = 30*desplazamiento[0]
-            self.vely = 30*desplazamiento[1]
+        if self.animacion == 1 and self.accion == 4:
+            self.velx += 30*desplazamiento[0]
+            self.vely += 30*desplazamiento[1]
 
 
 
