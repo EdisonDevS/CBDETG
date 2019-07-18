@@ -190,7 +190,7 @@ class lvl1:
 					#se garantiza que el enemigo no aparezca sobre un muro
 					crear=False
 					for b in bloques:
-						if ((coordenadas[0] > b.rect.left and coordenadas[0] < b.rect.right) and (coordenadas[1] > b.rect.top and coordenadas[1] < b.rect.bottom)):
+						if ((coordenadas[0] > b.rect.left and coordenadas[0] < b.rect.right) and (coordenadas[1] > b.rect.top and coordenadas[1] < b.rect.bottom) and (coordenadas[0] < b.rect.left-24)):
 							None
 						else:
 							crear=True
@@ -399,13 +399,13 @@ class lvl1:
 				ls_col = pygame.sprite.spritecollide(dinosaurio,  bloques, False)
 				for e in ls_col:
 					if ((dinosaurio.velx == 0 and dinosaurio.vely > 0) and (dinosaurio.rect.bottom <= e.rect.top+10) and (len(ls_col)==2) and ((ls_col[0].rect.right==ls_col[1].rect.right) and ((ls_col[0].rect.bottom==ls_col[1].rect.top) or (ls_col[1].rect.bottom==ls_col[0].rect.top)))):
-						dinosaurio.rect.y+=6
+						dinosaurio.rect.y+=7
 					elif ((dinosaurio.velx == 0 and dinosaurio.vely < 0) and (dinosaurio.rect.top >= e.rect.bottom-10) and (len(ls_col)==2) and ((ls_col[0].rect.right==ls_col[1].rect.right) and ((ls_col[0].rect.bottom==ls_col[1].rect.top) or (ls_col[1].rect.bottom==ls_col[0].rect.top)))):
-						dinosaurio.rect.y-=6
+						dinosaurio.rect.y-=7
 					elif ((dinosaurio.velx < 0 and dinosaurio.vely == 0) and (dinosaurio.rect.left >= e.rect.right-10) and (len(ls_col)==2) and ((ls_col[0].rect.top==ls_col[1].rect.top) and ((ls_col[0].rect.left==ls_col[1].rect.right) or (ls_col[1].rect.left==ls_col[0].rect.right)))):
-						dinosaurio.rect.x-=6
+						dinosaurio.rect.x-=7
 					elif ((dinosaurio.velx > 0 and dinosaurio.vely == 0) and (dinosaurio.rect.right <= e.rect.left+10) and (len(ls_col)==2) and ((ls_col[0].rect.top==ls_col[1].rect.top) and ((ls_col[0].rect.left==ls_col[1].rect.right) or (ls_col[1].rect.left==ls_col[0].rect.right)))):
-						dinosaurio.rect.x+=6
+						dinosaurio.rect.x+=7
 					elif ((dinosaurio.velx > 0 and dinosaurio.vely > 0) and (dinosaurio.rect.bottom <= e.rect.top+10)):
 						dinosaurio.rect.bottom = e.rect.top
 					elif ((dinosaurio.velx == 0 and dinosaurio.vely > 0) and (dinosaurio.rect.bottom <= e.rect.top+10)):
