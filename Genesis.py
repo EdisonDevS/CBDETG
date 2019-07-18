@@ -29,7 +29,7 @@ class Genesis:
 		yDimension=random.randint(self.MINROOMSIZE[1],self.MAXROOMSIZE[1])
 
 		#se establece el shape del arreglo de numpy
-		roomDimensions=[xDimension, yDimension]
+		roomDimensions=[xDimension, yDimension, 2]
 		
 		#se crea el array de numpy de acuerdo a las especificaciones
 		room=np.zeros(roomDimensions)
@@ -51,10 +51,12 @@ class Genesis:
 
 	def putFloor(self, room, roomType):
 		floor = np.random.choice(roomType[0], p=roomType[1], size=(10, 21))
+		enemys = np.random.choice([-10,-9,-8,-7], p=roomType[1], size=(10, 21))
 
 		for j in range(10):
 			for k in range(21):
-				room[j][k] = floor[j][k]
+				room[j][k][0] = floor[j][k]
+				room[j][k][0] = floor[j][k]
 
 
 
