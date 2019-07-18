@@ -9,7 +9,7 @@ from niveles.clases.Enemigo import *
 from niveles.clases.Explosion import *
 from niveles.clases.Botiquin import *
 from niveles.clases.Hud import *
-from niveles.clases.Muerte import *
+from niveles.clases.NPC import *
 
 class lvl1:
 	def __init__(self, pantalla, mapa):
@@ -36,9 +36,9 @@ class lvl1:
 		img_botiquin=pygame.image.load('niveles/images/botiquin.png')
 		imagenesBotiquin=Util.cut(img_botiquin, 2, 1, 32, 24)
 
-		#configuracion de Mrs Muerte
-		img_muerte = pygame.image.load('niveles/images/DeathV2.png')
-		imagenesMuerte = Util.cut(img_muerte, 16, 6, 48, 78)
+		#configuracion de NPC 1
+		img_NPCreaper= pygame.image.load('niveles/images/NPCwitch.png')
+		imagenesNPCreaper = Util.cut(img_NPCreaper, 4, 1, 64, 96)
 
 		img_enemigo= pygame.transform.scale2x(pygame.image.load('niveles/images/enemigos.png'))
 		imagenesEnemigo=Util.cut(img_enemigo, 7, 32, 48, 48)
@@ -58,7 +58,7 @@ class lvl1:
 		explosiones=pygame.sprite.Group()
 		balas_enemigas=pygame.sprite.Group()
 		botiquines=pygame.sprite.Group()
-		mrsMuertes = pygame.sprite.Group()
+		NPCreapers = pygame.sprite.Group()
 
 		mapita = Util.mapear(self.habitacionActual, self.mapa, imagenesEnemigo)
 
@@ -73,7 +73,8 @@ class lvl1:
 		#jugador
 		j=Jugador(Util.CENTRO,imagenesJugador, self.habitacionActual)
 		jugadores.add(j)
-		m = Muerte(Util.CENTRO, imagenesMuerte)
+		m = NPC(imagenesNPCreaper, 4, 1)
+		NPCreapers.add(m)
 		#variables necesarias
 		fin=False
 		reloj=pygame.time.Clock()
@@ -111,9 +112,8 @@ class lvl1:
 			tiempo = instanteFinal - instanteInicial # Devuelve un objeto timedelta
 			segundos = tiempo.seconds
 
-			if segundos < 20:
+			#if segundos < 20:
 				#m = Muerte(Util.CENTRO, imagenesMuerte)
-				mrsMuertes.add(m)
 
 			if segundos>95 and len(enemigos)==0:
 				self.nivel_finalizado()
@@ -452,10 +452,10 @@ class lvl1:
 
 
 			balas.update()
+			NPCreapers.update()
 			balas_enemigas.update()
 			enemigos = j.update(bloques, enemigos, self.mapa, imagenesEnemigo)
 			enemigos.update(j.getPosition(), balas_enemigas, imagenesBalasEnemigo)
-			mrsMuertes.update(player_position)
 			explosiones.update()
 			pantalla.fill(Util.FONDO)
 			pantalla.blit(self.fondo,[0,0])
@@ -504,7 +504,7 @@ class lvl1:
 			#cargando elementos del HUD
 			HUD.update(j.vida, j.tiempo_inmunidad, j.habitaciones)
 			jugadores.draw(pantalla)
-			mrsMuertes.draw(pantalla)
+			NPCreapers.draw(pantalla)
 			balas.draw(pantalla)
 			balas_enemigas.draw(pantalla)
 			enemigos.draw(pantalla)
