@@ -18,8 +18,7 @@ class lvl1:
 		imagenesJugador=Util.cut(img_juagador, 9, 21, 58, 66)
 
 		#configuraion de los enemigos
-		img_enemigo= pygame.transform.scale2x(pygame.image.load('niveles/images/enemigos.png'))
-		imagenesEnemigo=Util.cut(img_enemigo, 7, 32, 48, 48)
+		
 
 		#configuracion de las explosiones
 		img_explosion=pygame.image.load('niveles/images/explosion.png')
@@ -41,6 +40,9 @@ class lvl1:
 		img_muerte = pygame.image.load('niveles/images/DeathV2.png')
 		imagenesMuerte = Util.cut(img_muerte, 16, 6, 48, 78)
 
+		img_enemigo= pygame.transform.scale2x(pygame.image.load('niveles/images/enemigos.png'))
+		imagenesEnemigo=Util.cut(img_enemigo, 7, 32, 48, 48)
+
 		HUD=Hud(pantalla)
 
 		self.pantalla=pantalla
@@ -58,7 +60,7 @@ class lvl1:
 		botiquines=pygame.sprite.Group()
 		mrsMuertes = pygame.sprite.Group()
 
-		mapita = Util.mapear(self.habitacionActual, self.mapa)
+		mapita = Util.mapear(self.habitacionActual, self.mapa, imagenesEnemigo)
 
 		bloques = mapita[0]
 		piso = mapita[1]
@@ -66,6 +68,7 @@ class lvl1:
 		agua = mapita[3]
 		pasto = mapita[4]
 		puertas = mapita[5]
+		enemigos = mapita[6]
 
 		#jugador
 		j=Jugador(Util.CENTRO,imagenesJugador, self.habitacionActual)
@@ -87,7 +90,7 @@ class lvl1:
 				print ("Holaaaaa")
 				pygame.mixer.music.play()
 			'''
-			mapita = Util.mapear(self.habitacionActual, self.mapa)
+			mapita = Util.mapear(self.habitacionActual, self.mapa, imagenesEnemigo)
 
 			bloques = mapita[0]
 			piso = mapita[1]
@@ -115,7 +118,7 @@ class lvl1:
 			if segundos>95 and len(enemigos)==0:
 				self.nivel_finalizado()
 				break
-
+			"""
 			#oleadas de enemigos
 			if segundos<20:
 				posibilidad_enemigo=random.randint(0,100)
@@ -231,6 +234,7 @@ class lvl1:
 							e.incremento_caminar=3
 							e.incremento_correr=3
 						enemigos.add(e)
+			"""
 
 			eventos=pygame.event.get()
 
@@ -449,7 +453,7 @@ class lvl1:
 
 			balas.update()
 			balas_enemigas.update()
-			jugadores.update(bloques)
+			enemigos = j.update(bloques, enemigos, self.mapa, imagenesEnemigo)
 			enemigos.update(j.getPosition(), balas_enemigas, imagenesBalasEnemigo)
 			mrsMuertes.update(player_position)
 			explosiones.update()

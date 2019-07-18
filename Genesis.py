@@ -51,12 +51,12 @@ class Genesis:
 
 	def putFloor(self, room, roomType):
 		floor = np.random.choice(roomType[0], p=roomType[1], size=(10, 21))
-		enemys = np.random.choice([-10,-9,-8,-7], p=roomType[1], size=(10, 21))
+		enemys = np.random.choice([-10, -9, -8, -7, -50], p=[0.05, 0.05, 0.05, 0.05, 0.8], size=(10, 21))
 
 		for j in range(10):
 			for k in range(21):
 				room[j][k][0] = floor[j][k]
-				room[j][k][0] = floor[j][k]
+				room[j][k][1] = enemys[j][k]
 
 
 

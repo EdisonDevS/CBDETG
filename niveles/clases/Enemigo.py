@@ -47,8 +47,8 @@ class Enemigo(pygame.sprite.Sprite):
         segundos=transcurrido.seconds
 
         if(segundos%5==0):
-            self.x=random.randint(0,Util.ANCHO)
-            self.y=random.randint(0,Util.ALTO)
+            self.x=random.randint(0,1344)
+            self.y=random.randint(0,640)
         
         if(self.tipo_enemigo==0):
             player_position=[self.x,self.y]
@@ -106,6 +106,6 @@ class Enemigo(pygame.sprite.Sprite):
             posibilidad=random.randint(0,200)
             if posibilidad in [0,100]:
                 print("bala")
-                img_balas[2][0]=pygame.transform.scale(img_balas[2][0], [32,32])
+                img_balas[2][0]=pygame.transform.scale(img_balas[2][0], [64,64])
                 b=Bala([self.rect.x, self.rect.y], player_position, img_balas)
                 balas_enemigas.add(b)
