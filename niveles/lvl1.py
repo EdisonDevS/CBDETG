@@ -85,8 +85,8 @@ class lvl1:
 			'''
 			if pygame.mixer.music.get_endevent:
 				print ("Holaaaaa")
-				pygame.mixer.music.play()			
-			'''		
+				pygame.mixer.music.play()
+			'''
 			mapita = Util.mapear(self.habitacionActual, self.mapa)
 
 			bloques = mapita[0]
@@ -107,16 +107,17 @@ class lvl1:
 			instanteFinal = datetime.now()
 			tiempo = instanteFinal - instanteInicial # Devuelve un objeto timedelta
 			segundos = tiempo.seconds
-			
+
 			if segundos < 20:
 				#m = Muerte(Util.CENTRO, imagenesMuerte)
-				mrsMuertes.add(m)
+				#mrsMuertes.add(m)
+				pass
 
 			'''
 			if segundos>95 and len(enemigos)==0:
 				self.nivel_finalizado()
 				break
-			
+
 			#oleadas de enemigos
 			if segundos<20:
 				posibilidad_enemigo=random.randint(0,100)
@@ -356,9 +357,9 @@ class lvl1:
 					elif ((jugador.velx < 0 and jugador.vely == 0) and (jugador.rect.left >= e.rect.right-10) and (len(ls_col)==2) and ((ls_col[0].rect.top==ls_col[1].rect.top) and ((ls_col[0].rect.left==ls_col[1].rect.right) or (ls_col[1].rect.left==ls_col[0].rect.right)))):
 						jugador.rect.x-=5
 					elif ((jugador.velx > 0 and jugador.vely == 0) and (jugador.rect.right <= e.rect.left+10) and (len(ls_col)==2) and ((ls_col[0].rect.top==ls_col[1].rect.top) and ((ls_col[0].rect.left==ls_col[1].rect.right) or (ls_col[1].rect.left==ls_col[0].rect.right)))):
-						jugador.rect.x+=5					
+						jugador.rect.x+=5
 					elif ((jugador.velx == 0 and jugador.vely > 0) and (jugador.rect.bottom <= e.rect.top+10)):
-						jugador.rect.bottom = e.rect.top					
+						jugador.rect.bottom = e.rect.top
 					elif ((jugador.velx < 0 and jugador.vely > 0) and (jugador.rect.bottom <= e.rect.top+10)):
 						jugador.rect.bottom = e.rect.top
 					elif ((jugador.velx < 0 and jugador.vely > 0) and (jugador.rect.left >= e.rect.right-10)):
@@ -366,11 +367,11 @@ class lvl1:
 					elif ((jugador.velx < 0 and jugador.vely == 0) and (jugador.rect.left >= e.rect.right-10)):
 						jugador.rect.left = e.rect.right
 					elif ((jugador.velx < 0 and jugador.vely < 0) and (jugador.rect.left >= e.rect.right-10)):
-						jugador.rect.left = e.rect.right					
+						jugador.rect.left = e.rect.right
 					elif ((jugador.velx < 0 and jugador.vely < 0) and (jugador.rect.top >= e.rect.bottom-10)):
-						jugador.rect.top = e.rect.bottom					
+						jugador.rect.top = e.rect.bottom
 					elif ((jugador.velx == 0 and jugador.vely < 0) and (jugador.rect.top >= e.rect.bottom-10)):
-						jugador.rect.top = e.rect.bottom					
+						jugador.rect.top = e.rect.bottom
 					elif ((jugador.velx > 0 and jugador.vely < 0) and (jugador.rect.top >= e.rect.bottom-10)):
 						jugador.rect.top = e.rect.bottom
 					elif ((jugador.velx > 0 and jugador.vely < 0) and (jugador.rect.right <= e.rect.left+10)):
@@ -446,7 +447,7 @@ class lvl1:
 			pygame.draw.line(pantalla, Util.ROJO, [int(j.rect.x+j.rect.width/2), int(j.rect.y+j.rect.height/2)], desplazamiento, 1)
 			pygame.draw.circle(pantalla, Util.NEGRO, [int(j.rect.x+j.rect.width/2), int(j.rect.y+j.rect.height/2)], 100, 1)
 			'''
-			
+
 			#cargando elementos del HUD
 			HUD.update(j.vida, j.tiempo_inmunidad, j.habitaciones)
 			jugadores.draw(pantalla)
@@ -455,7 +456,7 @@ class lvl1:
 			balas_enemigas.draw(pantalla)
 			enemigos.draw(pantalla)
 			explosiones.draw(pantalla)
-			botiquines.draw(pantalla)			
+			botiquines.draw(pantalla)
 			pygame.display.flip()
 			reloj.tick(20)
 
