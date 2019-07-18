@@ -11,7 +11,8 @@ class Jugador(pygame.sprite.Sprite):
         self.animacion = 0
         self.matriz = mat_i
         self.limite = [8,8,7,9,9,9,9,6,6,6,6,4,4,4,4,6,5,4,6,3,3]
-        self.image=self.matriz[self.accion][self.animacion]
+        self.image=self.matriz[self.accion][self.animacion].subsurface(0,0, 50, 50)
+        
         self.rect = self.image.get_rect()
         self.rect.x = pos[0]
         self.rect.y = pos[1]

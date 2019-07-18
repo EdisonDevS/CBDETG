@@ -20,7 +20,17 @@ class Genesis:
 
 			self.map.append(row)
 
+		self.cleanFirstRoom()
+
 		return self.map
+
+
+	def cleanFirstRoom(self):
+		room = self.map[2][2]
+
+		self.putFloor(room, self.roomType[0], False)
+		self.putWalls(room, self.roomType[2])
+
 
 
 	def createRoom(self):
@@ -35,6 +45,7 @@ class Genesis:
 		room=np.zeros(roomDimensions)
 
 		roomType = self.roomTypeSelector()
+		self.roomType=roomType
 
 		self.fillRoom(room, roomType)
 
@@ -44,19 +55,24 @@ class Genesis:
 
 
 	def fillRoom(self, room, roomType):
-		self.putFloor(room, roomType[0])
+		self.putFloor(room, roomType[0], True)
 		self.solidPatternDesigner(room, roomType[1])
 		self.putWalls(room, roomType[2])
 
 
-	def putFloor(self, room, roomType):
+	def putFloor(self, room, roomType, e):
+		print(e)
+		E=e
+
 		floor = np.random.choice(roomType[0], p=roomType[1], size=(10, 21))
 		enemys = np.random.choice([-10, -9, -8, -7, -50], p=[0.05, 0.05, 0.05, 0.05, 0.8], size=(10, 21))
 
 		for j in range(10):
 			for k in range(21):
 				room[j][k][0] = floor[j][k]
-				room[j][k][1] = enemys[j][k]
+				if E:
+					print(E)
+					room[j][k][1] = enemys[j][k]
 
 
 
