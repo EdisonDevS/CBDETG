@@ -51,6 +51,9 @@ class Jugador(pygame.sprite.Sprite):
             self.inmune=False
 
         self.dash(bloques)
+        if self.animacion == 0 and self.accion == 1:            
+            self.velx = 0
+            self.vely = 0
         self.rect.x+=self.velx
         self.rect.y+=self.vely
         self.image=self.matriz[self.accion][self.animacion]
@@ -131,14 +134,15 @@ class Jugador(pygame.sprite.Sprite):
         inicio = [self.rect.x+self.rect.width/2,self.rect.y+self.rect.height/2]
         end = pygame.mouse.get_pos()
         desplazamiento = Util.angular(inicio, end)
-
+        '''
         for b in bloques:
             if ((self.rect.x+desplazamiento[0]*100 >= b.rect.x and self.rect.x+desplazamiento[0]*100 <= b.rect.x+64) and (self.rect.y+desplazamiento[1]*100 >= b.rect.y and self.rect.y+desplazamiento[1]*100 <= b.rect.y+64)):
                 hacerDash=False
-
-        if self.animacion == 1 and self.accion == 7 and hacerDash:            
-            self.rect.x += 100*desplazamiento[0]
-            self.rect.y += 100*desplazamiento[1]
+        '''
+        if self.animacion == 1 and self.accion == 6:            
+            self.velx = 30*desplazamiento[0]
+            self.vely = 30*desplazamiento[1]
+        
 
 
     def getPosition(self):
