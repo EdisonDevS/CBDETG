@@ -10,7 +10,8 @@ class Genesis:
 		self.MINROOMSIZE = [10, 21]
 
 
-	def generateMap(self):
+	def generateMap(self, level):
+		self.level=level
 		self.e=True
 		for i in range(self.MAPSIZE[0]):
 			row=[]
@@ -64,9 +65,13 @@ class Genesis:
 
 
 	def putFloor(self, room, roomType):
+		if self.level==1:
+			arreglo=random.choice([[[-10, -50],[0.2, 0.8]], [[-9, -50],[0.2, 0.8]], [[-8, -50],[0.2, 0.8]], [[-7, -50],[0.2, 0.8]]])
+		else:
+			arreglo=[[-10, -9, -8, -7, -50], [0.05, 0.05, 0.05, 0.05, 0.8]]
 
 		floor = np.random.choice(roomType[0], p=roomType[1], size=(10, 21))
-		enemys = np.random.choice([-10, -9, -8, -7, -50], p=[0.05, 0.05, 0.05, 0.05, 0.8], size=(10, 21))
+		enemys = np.random.choice(arreglo[0], p=arreglo[1], size=(10, 21))
 
 		for j in range(10):
 			for k in range(21):
