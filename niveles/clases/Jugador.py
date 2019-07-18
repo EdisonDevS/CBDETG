@@ -127,16 +127,16 @@ class Jugador(pygame.sprite.Sprite):
 
     def dash(self, bloques):
         hacerDash=True
-
+        
+        inicio = [self.rect.x+self.rect.width/2,self.rect.y+self.rect.height/2]
         end = pygame.mouse.get_pos()
+        desplazamiento = Util.angular(inicio, end)
 
         for b in bloques:
-            if ((end[0] >= b.rect.x and end[0] <= b.rect.x+64) and (end[1] >= b.rect.y and end[1] <= b.rect.y+64)):
+            if ((self.rect.x+desplazamiento[0]*100 >= b.rect.x and self.rect.x+desplazamiento[0]*100 <= b.rect.x+64) and (self.rect.y+desplazamiento[1]*100 >= b.rect.y and self.rect.y+desplazamiento[1]*100 <= b.rect.y+64)):
                 hacerDash=False
 
-        if self.animacion == 1 and self.accion == 7 and hacerDash:
-            inicio = [self.rect.x+self.rect.width/2,self.rect.y+self.rect.height/2]
-            desplazamiento = Util.angular(inicio, end)
+        if self.animacion == 1 and self.accion == 7 and hacerDash:            
             self.rect.x += 100*desplazamiento[0]
             self.rect.y += 100*desplazamiento[1]
 
