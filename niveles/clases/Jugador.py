@@ -59,20 +59,30 @@ class Jugador(pygame.sprite.Sprite):
         self.rect.y+=self.vely
         self.image=pygame.transform.scale(self.matriz[self.accion][self.animacion], [48, 55])
 
+        dibujarEnemigos=True
+
         #se hace el cambio de habitación
         if self.rect.x < 0:
             if self.habitacionActual[1]==0:
                 self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=2
                 self.habitacionActual[1]=4
+                if self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]==2:
+                    dibujarEnemigos=False
                 self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=1
+
             else:
                 self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=2
                 self.habitacionActual[1] = self.habitacionActual[1]-1
+                if self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]==2:
+                    dibujarEnemigos=False
                 self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=1
             self.rect.x = Util.ANCHO-self.rect.w
             self.rect.y = 6*64
             mapa=Util.mapear(self.habitacionActual, mapa, imagenesEnemigo,imagenesNPCreaper, imagenesBoss)
-            enemigos=mapa[6]
+            if dibujarEnemigos:
+                enemigos=mapa[6]
+            else:
+                enemigos=pygame.sprite.Group()
             NPCreapers=mapa[7]
             bosses = mapa[8]
             llaves = mapa[9]
@@ -81,15 +91,22 @@ class Jugador(pygame.sprite.Sprite):
             if self.habitacionActual[1]==4:
                 self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=2
                 self.habitacionActual[1]=0
+                if self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]==2:
+                    dibujarEnemigos=False
                 self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=1
             else:
                 self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=2
                 self.habitacionActual[1] = self.habitacionActual[1]+1
+                if self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]==2:
+                    dibujarEnemigos=False
                 self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=1
             self.rect.x = 0
             self.rect.y = 3*64
             mapa=Util.mapear(self.habitacionActual, mapa, imagenesEnemigo,imagenesNPCreaper, imagenesBoss)
-            enemigos=mapa[6]
+            if dibujarEnemigos:
+                enemigos=mapa[6]
+            else:
+                enemigos=pygame.sprite.Group()
             NPCreapers=mapa[7]
             bosses = mapa[8]
             llaves = mapa[9]
@@ -98,15 +115,22 @@ class Jugador(pygame.sprite.Sprite):
             if self.habitacionActual[0]==0:
                 self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=2
                 self.habitacionActual[0]=4
+                if self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]==2:
+                    dibujarEnemigos=False
                 self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=1
             else:
                 self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=2
                 self.habitacionActual[0] = self.habitacionActual[0]-1
+                if self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]==2:
+                    dibujarEnemigos=False
                 self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=1
             self.rect.y = Util.ALTO-self.rect.h
             self.rect.x = 4*64
             mapa=Util.mapear(self.habitacionActual, mapa, imagenesEnemigo,imagenesNPCreaper, imagenesBoss)
-            enemigos=mapa[6]
+            if dibujarEnemigos:
+                enemigos=mapa[6]
+            else:
+                enemigos=pygame.sprite.Group()
             NPCreapers=mapa[7]
             bosses = mapa[8]
             llaves = mapa[9]
@@ -115,15 +139,22 @@ class Jugador(pygame.sprite.Sprite):
             if self.habitacionActual[0]==4:
                 self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=2
                 self.habitacionActual[0]=0
+                if self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]==2:
+                    dibujarEnemigos=False
                 self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=1
             else:
                 self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=2
                 self.habitacionActual[0] = self.habitacionActual[0]+1
+                if self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]==2:
+                    dibujarEnemigos=False
                 self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=1
             self.rect.y = 0
             self.rect.x = 17*64
             mapa=Util.mapear(self.habitacionActual, mapa, imagenesEnemigo,imagenesNPCreaper, imagenesBoss)
-            enemigos=mapa[6]
+            if dibujarEnemigos:
+                enemigos=mapa[6]
+            else:
+                enemigos=pygame.sprite.Group()
             NPCreapers=mapa[7]
             bosses = mapa[8]
             llaves = mapa[9]

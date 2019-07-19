@@ -501,7 +501,6 @@ class lvl1:
 			player_position=j.getPosition()
 
 
-
 			balas.update()
 			bosses.update()
 			NPCreapers.update()
