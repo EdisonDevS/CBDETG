@@ -8,6 +8,7 @@ from niveles.lvl2 import *
 from Genesis import *
 from niveles.clases.Texto import *
 from niveles.clases.Tutorial import *
+from niveles.clases.Historia import *
 
 if __name__ == '__main__':
     pygame.init()
@@ -52,11 +53,10 @@ if __name__ == '__main__':
                     '''
                     #Jugar
                     if (pos[0] > 556 and pos[0] < 850) and (pos[1] > 236 and pos[1] < 307):
-                        #if finHist1 == False:
-                        texto="Iniciar Juego"
-                        textoPuntaje=titulos.render(texto, 1, Util.BLANCO)
-                        pantalla.blit(textoPuntaje,[500,300])  
-                            
+                        if finHist1 == False:
+                            finHist1 = True
+                            prologo = Historia(pantalla, 0)
+    
                         map=Genesis()
                         j=lvl1(pantalla, map.generateMap(1))
                         if j.nivel_aprobado:

@@ -13,14 +13,18 @@ from niveles.clases.Texto import *
 class Historia:
     #Clase Para El Las Historias
     def __init__(self, pantalla, tipo):
-        fondo = pygame.image.load('niveles/images/tutorial.png')
-        fuente=pygame.font.Font(None, 20)
-        titulos=pygame.font.Font(None, 70)
-        img_texto = pygame.image.load('niveles/images/Botones/botones2.png')
-        imagenestexto = Util.cut(img_texto, 1, 8, 966, 140)
+        fondoB1 = pygame.image.load('niveles/images/bosque1.png')
+        fondoB2 = pygame.image.load('niveles/images/bosque2.png')
+        fondoB3 = pygame.image.load('niveles/images/bosque3.png')
+        fondoB4 = pygame.image.load('niveles/images/bosque4.png')
+        fondosB = [fondoB1, fondoB2, fondoB3, fondoB4]
+        #tipo : "0" Prologo, "1" Inter-Nivel, "2" Final
+        fuente = pygame.font.SysFont("Times New Roman", 20)        
+        img_texto = pygame.image.load('niveles/images/Botones/botones3.png')
+        imagenestexto = Util.cut(img_texto, 1, 11, 966, 140)
         textos = pygame.sprite.Group()
-        t = Texto(Util.CENTRO, imagenestexto, 7)
-        textos.add(t)
+        #t = Texto(Util.CENTRO, imagenestexto, 7)
+        #textos.add(t)
         fin = False
 
         while not fin:            
@@ -35,6 +39,6 @@ class Historia:
                         if (pos[0] > 996 and pos[0] < 1337) and (pos[1] > 563 and pos[1] < 629):
                             fin = True       
             
-            pantalla.blit(fondo,[0,0])
-            textos.draw(pantalla)
+            pantalla.blit(fondosB[3],[0,0])
+            #textos.draw(pantalla)
             pygame.display.flip()
