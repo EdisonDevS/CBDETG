@@ -89,10 +89,10 @@ class lvl1:
 
 		#jugador
 		j=Jugador(Util.CENTRO,imagenesJugador, self.habitacionActual)
-		bob = Jefe_Bob(Util.CENTRO, imagenesBob)
-		mino = Jefe(Util.CENTRO, imagenesMino)
-		minos.add(mino)
-		bobs.add(bob)
+		#bob = Jefe_Bob(Util.CENTRO, imagenesBob)
+		#mino = Jefe(Util.CENTRO, imagenesMino)
+		#minos.add(mino)
+		#bobs.add(bob)
 		jugadores.add(j)
 		#variables necesarias
 		fin=False
@@ -610,7 +610,7 @@ class lvl1:
 			bosses.update()
 			NPCreapers.update()
 			balas_enemigas.update()
-			enemigos, NPCreapers, bosses, llaves, botiquines = j.update(bloques, enemigos, bosses, self.mapa, imagenesEnemigo, imagenesNPCreaper, NPCreapers, imagenesBoss, llaves, botiquines)
+			enemigos, NPCreapers, bosses, llaves, botiquines, bobs = j.update(bloques, enemigos, bosses, self.mapa, imagenesEnemigo, imagenesNPCreaper, NPCreapers, imagenesBoss, llaves, botiquines, bobs)
 			enemigos.update(j.getPosition(), balas_enemigas, imagenesBalasEnemigo)
 			explosiones.update()
 			pantalla.fill(Util.FONDO)

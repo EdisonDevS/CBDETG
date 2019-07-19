@@ -89,6 +89,7 @@ class Jugador(pygame.sprite.Sprite):
             NPCreapers=mapa[7]
             bosses = mapa[8]
             llaves = mapa[9]
+            bobs = mapa[10]
 
         if self.rect.x > Util.ANCHO-self.rect.w:
             if self.habitacionActual[1]==4:
@@ -116,6 +117,7 @@ class Jugador(pygame.sprite.Sprite):
             NPCreapers=mapa[7]
             bosses = mapa[8]
             llaves = mapa[9]
+            bobs = mapa[10]
 
         if self.rect.y < 0:
             if self.habitacionActual[0]==0:
@@ -143,6 +145,7 @@ class Jugador(pygame.sprite.Sprite):
             NPCreapers=mapa[7]
             bosses = mapa[8]
             llaves = mapa[9]
+            bobs = mapa[10]
 
         if self.rect.y > Util.ALTO-self.rect.h:
             if self.habitacionActual[0]==4:
@@ -170,6 +173,7 @@ class Jugador(pygame.sprite.Sprite):
             NPCreapers=mapa[7]
             bosses = mapa[8]
             llaves = mapa[9]
+            bobs = mapa[10]
 
         if self.accion < self.limite[self.animacion]-1:
             self.accion+=1
