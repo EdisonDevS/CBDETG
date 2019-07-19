@@ -139,6 +139,8 @@ class Util:
                 if(c[1] == -8):
                     e=Enemigo([filas*64,col*64], imagenesEnemigo)
                     e.tipo_enemigo = int((c[1]+10)*8)
+                    e.incremento_correr=3
+                    e.incremento_caminar=3
                     enemigos.add(e)
                 if(c[1] == -7):
                     e=Enemigo([filas*64,col*64], imagenesEnemigo)
