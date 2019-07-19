@@ -72,6 +72,7 @@ class lvl1:
 		llaves = pygame.sprite.Group()
 		bobs = pygame.sprite.Group()
 		minos = pygame.sprite.Group()
+		abismos = pygame.sprite.Group()
 
 		mapita = Util.mapear(self.habitacionActual, self.mapa, imagenesEnemigo, imagenesNPCreaper, imagenesBoss)
 
@@ -87,6 +88,7 @@ class lvl1:
 		llaves = mapita[9]
 		bobs = mapita[10]
 		habitacionBoss=mapita[10]
+		abismos = mapita[11]
 
 		#jugador
 		j=Jugador(Util.CENTRO,imagenesJugador, self.habitacionActual)
@@ -117,6 +119,7 @@ class lvl1:
 			agua = mapita[3]
 			pasto = mapita[4]
 			puertas = mapita[5]
+			abismos = mapita[11]
 
 
 			if j.vida>100:
