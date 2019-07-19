@@ -2,12 +2,6 @@ import pygame
 import random
 from datetime import datetime
 from Util import *
-
-
-import pygame
-import random
-from datetime import datetime
-from Util import *
 from niveles.clases.Texto import *
 
 class Historia:
