@@ -5,6 +5,8 @@ import time
 import configparser
 from niveles.clases.Bloque import *
 from niveles.clases.Enemigo import *
+from niveles.clases.NPC import *
+from niveles.clases.Jefe import *
 from Genesis import *
 
 class Util:
@@ -78,14 +80,16 @@ class Util:
         return ([x,y])
 
 
-    def mapear(habitacion, map, ene):
+    def mapear(habitacion, map, ene, npc, boss):
         mapa=map[habitacion[0]][habitacion[1]]
         #print(mapa)
         mapi = pygame.image.load('niveles/images/mapa.png')
-        puer = pygame.image.load('niveles/images/puertas.png')
-        puerta = Util.cut(puer, 2, 2, 64, 64)
+        puer = pygame.image.load('niveles/images/puertasDobles.png')
+        puerta = Util.cut(puer, 4, 2, 64, 64)
         matrizMapa = Util.cut(mapi, 8, 6, 64, 64)
         imagenesEnemigo=ene
+        imagenesNPCreaper=npc
+        imagenesBoss=boss
         bloques = pygame.sprite.Group()
         enemigos = pygame.sprite.Group()
         piso = pygame.sprite.Group()
@@ -93,9 +97,25 @@ class Util:
         agua = pygame.sprite.Group()
         pasto = pygame.sprite.Group()
         puertas = pygame.sprite.Group()
+        bosses = pygame.sprite.Group()
+        NPCreapers = pygame.sprite.Group()
         filas = 0
         for col in range (10):
             for c in mapa[col]:
+                #Bosses
+                if(c[1] == -1000):
+                    b = Jefe([filas*64, col*64], imagenesBoss)
+                    NPCreapers.add(b)
+                if(c[1] == -2000):
+                    b = NPC(imagenesBoss, 4, 1, filas, col)
+                    NPCreapers.add(b)
+                #NPCs
+                if(c[1] == -100):
+                    m = NPC(imagenesNPCreaper, 4, 1, filas, col)
+                    NPCreapers.add(m)
+                if(c[1] == -200):
+                    m = NPC(imagenesNPCreaper, 4, 1, filas, col)
+                    NPCreapers.add(m)
                 #enemigos
                 if(c[1] == -10):
                     e=Enemigo([filas*64,col*64], imagenesEnemigo)
@@ -174,16 +194,28 @@ class Util:
                     bloques.add(bloque)
                 #puertas
                 if(c[0] == -1):
-                    bloque = Bloque(puerta[0][0], [filas*64,col*64])
+                    bloque = Bloque(puerta[2][0], [filas*64,col*64])
                     puertas.add(bloque)
                 if(c[0] == -2):
-                    bloque = Bloque(puerta[0][1], [filas*64,col*64])
+                    bloque = Bloque(puerta[1][0], [filas*64,col*64])
                     puertas.add(bloque)
                 if(c[0] == -3):
-                    bloque = Bloque(puerta[1][1], [filas*64,col*64])
+                    bloque = Bloque(puerta[3][0], [filas*64,col*64])
                     puertas.add(bloque)
                 if(c[0] == -4):
-                    bloque = Bloque(puerta[1][0], [filas*64,col*64])
+                    bloque = Bloque(puerta[3][1], [filas*64,col*64])
+                    puertas.add(bloque)
+                if(c[0] == -5):
+                    bloque = Bloque(puerta[1][1], [filas*64,col*64])
+                    puertas.add(bloque)
+                if(c[0] == -6):
+                    bloque = Bloque(puerta[2][1], [filas*64,col*64])
+                    puertas.add(bloque)
+                if(c[0] == -24):
+                    bloque = Bloque(puerta[0][0], [filas*64,col*64])
+                    puertas.add(bloque)
+                if(c[0] == -25):
+                    bloque = Bloque(puerta[0][1], [filas*64,col*64])
                     puertas.add(bloque)
                 #nieve
                 if(c[0] == 19):
@@ -210,4 +242,4 @@ class Util:
                 filas += 1
             filas = 0
 
-        return bloques, piso, magma, agua, pasto, puertas, enemigos
+        return bloques, piso, magma, agua, pasto, puertas, enemigos, NPCreapers, bosses

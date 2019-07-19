@@ -10,12 +10,17 @@ from niveles.clases.Explosion import *
 from niveles.clases.Botiquin import *
 from niveles.clases.Hud import *
 from niveles.clases.NPC import *
+from niveles.clases.Bob import *
 
 class lvl1:
 	def __init__(self, pantalla, mapa):
 		#configuracion del jugador
 		img_juagador= pygame.image.load('niveles/images/liche.png')
 		imagenesJugador=Util.cut(img_juagador, 9, 21, 29, 33)
+
+		#configuracion del boss
+		img_boss= pygame.image.load('niveles/images/boss.png')
+		imagenesBoss=Util.cut(img_boss, 9, 20, 96, 96)
 
 		#configuracion de las explosiones
 		img_explosion=pygame.image.load('niveles/images/explosion.png')
@@ -56,8 +61,9 @@ class lvl1:
 		balas_enemigas=pygame.sprite.Group()
 		botiquines=pygame.sprite.Group()
 		NPCreapers = pygame.sprite.Group()
+		bosses = pygame.sprite.Group()
 
-		mapita = Util.mapear(self.habitacionActual, self.mapa, imagenesEnemigo)
+		mapita = Util.mapear(self.habitacionActual, self.mapa, imagenesEnemigo, imagenesNPCreaper, imagenesBoss)
 
 		bloques = mapita[0]
 		piso = mapita[1]
@@ -66,12 +72,12 @@ class lvl1:
 		pasto = mapita[4]
 		puertas = mapita[5]
 		enemigos = mapita[6]
+		NPCreapers = mapita[7]
+		bosses = mapita[8]
 
 		#jugador
 		j=Jugador(Util.CENTRO,imagenesJugador, self.habitacionActual)
 		jugadores.add(j)
-		m = NPC(imagenesNPCreaper, 4, 1)
-		NPCreapers.add(m)
 		#variables necesarias
 		fin=False
 		reloj=pygame.time.Clock()
@@ -88,7 +94,7 @@ class lvl1:
 				print ("Holaaaaa")
 				pygame.mixer.music.play()
 			'''
-			mapita = Util.mapear(self.habitacionActual, self.mapa, imagenesEnemigo)
+			mapita = Util.mapear(self.habitacionActual, self.mapa, imagenesEnemigo, imagenesNPCreaper, imagenesBoss)
 
 			bloques = mapita[0]
 			piso = mapita[1]
@@ -96,6 +102,7 @@ class lvl1:
 			agua = mapita[3]
 			pasto = mapita[4]
 			puertas = mapita[5]
+			NPCreapers = mapita[7]
 
 			if j.vida>100:
 				j.vida-=0.1
@@ -112,9 +119,20 @@ class lvl1:
 			#if segundos < 20:
 				#m = Muerte(Util.CENTRO, imagenesMuerte)
 
-			if segundos>95 and len(enemigos)==0:
-				self.nivel_finalizado()
-				break
+			if len(enemigos)!=0:
+				if j.rect.x > (Util.ANCHO - j.rect.width - 64):
+					j.velx = 0
+					j.rect.x = Util.ANCHO  - j.rect.width - 64
+				if j.rect.x < 64:
+					j.velx = 0
+					j.rect.x = 64
+				if j.rect.y > (Util.ALTO  - j.rect.height - 64):
+					j.vely = 0
+					j.rect.y = Util.ALTO - j.rect.height - 64
+				if j.rect.y < 64:
+					j.vely = 0
+					j.rect.y = 64
+				
 			"""
 			#oleadas de enemigos
 			if segundos<20:
@@ -346,7 +364,7 @@ class lvl1:
 			for jugador in jugadores:
 				ls_col = pygame.sprite.spritecollide(jugador,  bloques, False)
 				for e in ls_col:
-					print(""+str(jugador.rect.top) + " " + str(e.rect.bottom))
+					#print(""+str(jugador.rect.top) + " " + str(e.rect.bottom))
 					if ((jugador.velx == 0 and jugador.vely > 0) and (jugador.rect.bottom <= e.rect.top+10) and (len(ls_col)==2) and ((ls_col[0].rect.right==ls_col[1].rect.right) and ((ls_col[0].rect.bottom==ls_col[1].rect.top) or (ls_col[1].rect.bottom==ls_col[0].rect.top)))):
 						if jugador.rect.top==e.rect.bottom:
 						 	None
@@ -395,7 +413,7 @@ class lvl1:
 			for jugador in jugadores:
 				ls_col = pygame.sprite.spritecollide(jugador,  bloques, False)
 				for e in ls_col:
-					print(""+str(jugador.rect.top) + " " + str(e.rect.bottom))
+					#print(""+str(jugador.rect.top) + " " + str(e.rect.bottom))
 					if ((jugador.velx == 0 and jugador.vely > 0) and (jugador.rect.bottom <= e.rect.top+60) and (len(ls_col)==2) and ((ls_col[0].rect.right==ls_col[1].rect.right) and ((ls_col[0].rect.bottom==ls_col[1].rect.top) or (ls_col[1].rect.bottom==ls_col[0].rect.top)))):
 						jugador.rect.y+=30
 					elif ((jugador.velx == 0 and jugador.vely < 0) and (jugador.rect.top >= e.rect.bottom-60) and (len(ls_col)==2) and ((ls_col[0].rect.right==ls_col[1].rect.right) and ((ls_col[0].rect.bottom==ls_col[1].rect.top) or (ls_col[1].rect.bottom==ls_col[0].rect.top)))):
@@ -484,9 +502,10 @@ class lvl1:
 
 
 			balas.update()
+			bosses.update()
 			NPCreapers.update()
 			balas_enemigas.update()
-			enemigos = j.update(bloques, enemigos, self.mapa, imagenesEnemigo)
+			enemigos, NPCreapers, bosses = j.update(bloques, enemigos, bosses, self.mapa, imagenesEnemigo, imagenesNPCreaper, NPCreapers, imagenesBoss)
 			enemigos.update(j.getPosition(), balas_enemigas, imagenesBalasEnemigo)
 			explosiones.update()
 			pantalla.fill(Util.FONDO)
@@ -530,6 +549,7 @@ class lvl1:
 			'''
 
 			#cargando elementos del HUD
+			bosses.draw(pantalla)
 			HUD.update(j.vida, j.tiempo_inmunidad, j.habitaciones)
 			jugadores.draw(pantalla)
 			NPCreapers.draw(pantalla)

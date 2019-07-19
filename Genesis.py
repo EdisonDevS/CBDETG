@@ -25,8 +25,47 @@ class Genesis:
 		self.e=False
 		print("se puso en "+str(self.e))
 		self.cleanFirstRoom()
+		self.putNPCs()
+		self.createBossRoom()
+
 
 		return self.map
+
+
+	def createBossRoom(self):
+		fila=2
+		columna=2
+
+		while(fila==2 and columna==2):
+			fila=random.randint(0,4)
+			columna=random.randint(0,4)
+
+		room=self.map[fila][columna]
+
+		print("el boss está en " + str(fila) + " : " + str(columna))
+
+		roomType=self.roomTypeSelector()
+		self.putFloor(room, roomType[0])
+		self.putWalls(room, roomType[2])
+
+
+
+		if self.level==1:
+			room[5][10][1]=-1000
+		else:
+			room[5][10][1]=-2000
+
+	def putNPCs(self):
+		fila=random.randint(0, 4)
+		columna=random.randint(0, 4)
+		print("la muerte está en "+ str(fila) + " : " + str(columna))
+		room = self.map[fila][columna]
+
+		if self.level==1:
+			room[5][10][1]=-100
+		else:
+			room[5][10][1]=-200
+
 
 
 	def cleanFirstRoom(self):
@@ -66,9 +105,9 @@ class Genesis:
 
 	def putFloor(self, room, roomType):
 		if self.level==1:
-			arreglo=random.choice([[[-10, -50],[0.2, 0.8]], [[-9, -50],[0.2, 0.8]], [[-8, -50],[0.2, 0.8]], [[-7, -50],[0.2, 0.8]]])
+			arreglo=random.choice([[[-10, -50],[0.05, 0.95]], [[-9, -50],[0.1, 0.9]], [[-8, -50],[0.1, 0.9]], [[-7, -50],[0.1, 0.9]]])
 		else:
-			arreglo=[[-10, -9, -8, -7, -50], [0.05, 0.05, 0.05, 0.05, 0.8]]
+			arreglo=[[-10, -9, -8, -7, -50], [0.025, 0.025, 0.025, 0.025, 0.9]]
 
 		floor = np.random.choice(roomType[0], p=roomType[1], size=(10, 21))
 		enemys = np.random.choice(arreglo[0], p=arreglo[1], size=(10, 21))
@@ -104,9 +143,13 @@ class Genesis:
 
 		#se ponen las puertas
 		room[0][17]=-1
-		room[3][0]=-2
+		room[0][16]=-2
 		room[6][dimensions[1] - 1] = -3
-		room[dimensions[0] - 1][4] = -4
+		room[7][dimensions[1] - 1] = -4
+		room[dimensions[0] - 1][4] = -5
+		room[dimensions[0] - 1][5] = -6
+		room[3][0]=-24
+		room[4][0]=-25
 
 
 
