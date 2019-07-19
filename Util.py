@@ -83,8 +83,8 @@ class Util:
         mapa=map[habitacion[0]][habitacion[1]]
         #print(mapa)
         mapi = pygame.image.load('niveles/images/mapa.png')
-        puer = pygame.image.load('niveles/images/puertas.png')
-        puerta = Util.cut(puer, 2, 2, 64, 64)
+        puer = pygame.image.load('niveles/images/puertasDobles.png')
+        puerta = Util.cut(puer, 4, 2, 64, 64)
         matrizMapa = Util.cut(mapi, 8, 6, 64, 64)
         imagenesEnemigo=ene
         imagenesNPCreaper=npc
@@ -184,16 +184,28 @@ class Util:
                     bloques.add(bloque)
                 #puertas
                 if(c[0] == -1):
-                    bloque = Bloque(puerta[0][0], [filas*64,col*64])
+                    bloque = Bloque(puerta[2][0], [filas*64,col*64])
                     puertas.add(bloque)
                 if(c[0] == -2):
-                    bloque = Bloque(puerta[0][1], [filas*64,col*64])
+                    bloque = Bloque(puerta[1][0], [filas*64,col*64])
                     puertas.add(bloque)
                 if(c[0] == -3):
-                    bloque = Bloque(puerta[1][1], [filas*64,col*64])
+                    bloque = Bloque(puerta[3][0], [filas*64,col*64])
                     puertas.add(bloque)
                 if(c[0] == -4):
-                    bloque = Bloque(puerta[1][0], [filas*64,col*64])
+                    bloque = Bloque(puerta[3][1], [filas*64,col*64])
+                    puertas.add(bloque)
+                if(c[0] == -5):
+                    bloque = Bloque(puerta[1][1], [filas*64,col*64])
+                    puertas.add(bloque)
+                if(c[0] == -6):
+                    bloque = Bloque(puerta[2][1], [filas*64,col*64])
+                    puertas.add(bloque)
+                if(c[0] == -24):
+                    bloque = Bloque(puerta[0][0], [filas*64,col*64])
+                    puertas.add(bloque)
+                if(c[0] == -25):
+                    bloque = Bloque(puerta[0][1], [filas*64,col*64])
                     puertas.add(bloque)
                 #nieve
                 if(c[0] == 19):

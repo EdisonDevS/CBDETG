@@ -121,9 +121,13 @@ class Genesis:
 
 		#se ponen las puertas
 		room[0][17]=-1
-		room[3][0]=-2
+		room[0][16]=-2
 		room[6][dimensions[1] - 1] = -3
-		room[dimensions[0] - 1][4] = -4
+		room[7][dimensions[1] - 1] = -4
+		room[dimensions[0] - 1][4] = -5
+		room[dimensions[0] - 1][5] = -6
+		room[3][0]=-24
+		room[4][0]=-25
 
 
 
