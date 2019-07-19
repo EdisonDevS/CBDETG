@@ -44,7 +44,7 @@ class Jugador(pygame.sprite.Sprite):
         self.inicio_inmunidad=datetime.now()
 
 
-    def update(self, bloques, enemigos, bosses, mapa, imagenesEnemigo,imagenesNPCreaper, NPCreapers, imagenesBoss, llaves, botiquines):
+    def update(self, bloques, enemigos, bosses, mapa, imagenesEnemigo,imagenesNPCreaper, NPCreapers, imagenesBoss, llaves, botiquines, bobs):
         transcurrido_inmunidad=datetime.now()-self.inicio_inmunidad
         self.tiempo_inmunidad = 5-transcurrido_inmunidad.seconds
         
@@ -187,7 +187,7 @@ class Jugador(pygame.sprite.Sprite):
                 self.animacion = 0
 
 
-        return enemigos, NPCreapers, bosses, llaves, botiquines
+        return enemigos, NPCreapers, bosses, llaves, botiquines, bobs
 
 
 
