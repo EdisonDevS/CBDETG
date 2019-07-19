@@ -85,6 +85,7 @@ class lvl1:
 		NPCreapers = mapita[7]
 		bosses = mapita[8]
 		llaves = mapita[9]
+		bobs = mapita[10]
 
 		#jugador
 		j=Jugador(Util.CENTRO,imagenesJugador, self.habitacionActual)
@@ -175,7 +176,6 @@ class lvl1:
 			else:
 				if mino.accion == 5:
 					minos.remove(mino)
-					
 
 ######################### BOB ################################################################################
 ##############################################################################################################

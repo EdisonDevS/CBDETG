@@ -7,6 +7,7 @@ from niveles.clases.Bloque import *
 from niveles.clases.Enemigo import *
 from niveles.clases.NPC import *
 from niveles.clases.Jefe import *
+from niveles.clases.Bob import *
 from Genesis import *
 
 class Util:
@@ -98,6 +99,7 @@ class Util:
         puertas = pygame.sprite.Group()
         bosses = pygame.sprite.Group()
         NPCreapers = pygame.sprite.Group()
+        bobs = pygame.sprite.Group()
         llaves = pygame.sprite.Group()
         filas = 0
         for col in range (10):
@@ -108,11 +110,12 @@ class Util:
                     llaves.add(llave)
                 #Bosses
                 if(c[1] == -1000):
-                    b = Jefe([filas*64, col*64], imagenesBoss)
-                    NPCreapers.add(b)
+                    b = Bob([filas*64, col*64], imagenesBoss)
+                    bobs.add(b)
+                    
                 if(c[1] == -2000):
-                    b = NPC(imagenesBoss, 4, 1, filas, col)
-                    NPCreapers.add(b)
+                    b = Jefe([filas*64, col*64], imagenesBoss)
+                    bosses.add(b)
                 #NPCs
                 if(c[1] == -100):
                     m = NPC(imagenesNPCreaper, 4, 1, filas, col)
@@ -246,4 +249,4 @@ class Util:
                 filas += 1
             filas = 0
 
-        return bloques, piso, magma, agua, pasto, puertas, enemigos, NPCreapers, bosses, llaves
+        return bloques, piso, magma, agua, pasto, puertas, enemigos, NPCreapers, bosses, llaves, bobs
