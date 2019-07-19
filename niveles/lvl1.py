@@ -20,8 +20,8 @@ class lvl1:
 		imagenesJugador=Util.cut(img_juagador, 9, 21, 29, 33)
 
 		#configuracion del boss
-		img_boss= pygame.image.load('niveles/images/boss.png')
-		imagenesBoss=Util.cut(img_boss, 9, 20, 96, 96)
+		img_boss= pygame.image.load('niveles/images/el_otro_boss.png')
+		imagenesBoss=Util.cut(img_boss, 19, 8, 64, 64)
 
 		#configuracion de las explosiones
 		img_explosion=pygame.image.load('niveles/images/explosion.png')
@@ -108,11 +108,7 @@ class lvl1:
 
 		#juego
 		while not fin:
-			'''
-			if pygame.mixer.music.get_endevent:
-				print ("Holaaaaa")
-				pygame.mixer.music.play()
-			'''
+			
 			mapita = Util.mapear(self.habitacionActual, self.mapa, imagenesEnemigo, imagenesNPCreaper, imagenesBoss)
 
 			bloques = mapita[0]

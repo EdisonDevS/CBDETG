@@ -7,6 +7,8 @@ from niveles.lvl1 import *
 from niveles.lvl2 import *
 from Genesis import *
 from niveles.clases.Texto import *
+from niveles.clases.Tutorial import *
+from niveles.clases.Historia import *
 
 if __name__ == '__main__':
     pygame.init()
@@ -16,7 +18,7 @@ if __name__ == '__main__':
     titulos=pygame.font.Font(None, 70)
     reloj=pygame.time.Clock()
 
-    fondo = pygame.transform.scale2x( pygame.image.load('niveles/images/Fondo.png'))
+    fondo = pygame.transform.scale2x(pygame.image.load('niveles/images/fondo.png'))
     #Textos
     img_texto = pygame.image.load('niveles/images/Botones/botones.png')
     imagenestexto = Util.cut(img_texto, 1, 7, 966, 130)
@@ -27,7 +29,8 @@ if __name__ == '__main__':
     textos.add(t)
     textos.add(t1)
     textos.add(t2)
-
+    #Historia Prologo
+    finHist1 = False #True
     fin=False	    
     m = pygame.mixer.music.load('niveles/sonidos/musica.ogg')
     pygame.mixer.music.play(-1)        
@@ -49,12 +52,18 @@ if __name__ == '__main__':
                             j=lvl2(pantalla)
                     '''
                     #Jugar
-                    #if (pos[0] > 306 and pos[0] < 598) and (pos[1] > 182 and pos[1] < 312):
                     if (pos[0] > 556 and pos[0] < 850) and (pos[1] > 236 and pos[1] < 307):
+                        if finHist1 == False:
+                            finHist1 = True
+                            prologo = Historia(pantalla, 0)
+    
                         map=Genesis()
                         j=lvl1(pantalla, map.generateMap(1))
                         if j.nivel_aprobado:
                             j=lvl2(pantalla)
+                        finHist1 = False
+                    if (pos[0] > 493 and pos[0] < 913) and (pos[1] > 440 and pos[1] < 512):
+                        tut = Tutorial(pantalla)                        
 
 
         

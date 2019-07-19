@@ -95,17 +95,17 @@ class Jefe_Bob(pygame.sprite.Sprite):
         return ([x,y])
 
     def comportamientoJefe_Bob(self, pos_jugador):
-        if not self.atacar: 
-            self.run(pos_jugador)
-        else:
-            posibilidad_ataque=random.randint(0,20)
-            if self.velx > 0:
-                self.animacion = 0
-            elif self.velx < 0:
-                self.animacion = 4
-            self.velx = 0
-            self.vely = 0
-            if not self.atacando:
-                if posibilidad_ataque in [1,2,3,4,5,6,7,8,9,10]:
-                    self.sonido.play()
-                    self.ataque(pos_jugador)
+        #if not self.atacar: 
+            #self.run(pos_jugador)
+        #else:
+        posibilidad_ataque=random.randint(0,20)
+        if self.velx > 0:
+            self.animacion = 0
+        elif self.velx < 0:
+            self.animacion = 4
+        self.velx = 0
+        self.vely = 0
+        if not self.atacando:
+            if posibilidad_ataque in [1,2,3,4,5,6,7,8,9,10]:
+                self.sonido.play()
+                self.ataque(pos_jugador)
