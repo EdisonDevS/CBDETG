@@ -27,7 +27,8 @@ if __name__ == '__main__':
     textos.add(t)
     textos.add(t1)
     textos.add(t2)
-
+    #Historia Prologo
+    finHist1 = False #True
     fin=False	    
     m = pygame.mixer.music.load('niveles/sonidos/musica.ogg')
     pygame.mixer.music.play(-1)        
@@ -50,6 +51,11 @@ if __name__ == '__main__':
                     '''
                     #Jugar
                     if (pos[0] > 556 and pos[0] < 850) and (pos[1] > 236 and pos[1] < 307):
+                        #if finHist1 == False:
+                        texto="Iniciar Juego"
+                        textoPuntaje=titulos.render(texto, 1, Util.BLANCO)
+                        pantalla.blit(textoPuntaje,[500,300])  
+                            
                         map=Genesis()
                         j=lvl1(pantalla, map.generateMap(1))
                         if j.nivel_aprobado:

@@ -34,7 +34,7 @@ class Jugador(pygame.sprite.Sprite):
         self.vely = 0
         self.sonido = pygame.mixer.Sound('niveles/sonidos/fireball.ogg')
         self.burn = pygame.mixer.Sound('niveles/sonidos/burn.ogg')
-        self.vida = 100000
+        self.vida = 100
         self.cadencia = 5
         self.disparos = 0
         self.escudo = 0
@@ -44,12 +44,10 @@ class Jugador(pygame.sprite.Sprite):
         self.inicio_inmunidad=datetime.now()
 
 
-    def update(self, bloques, enemigos, bosses, mapa, imagenesEnemigo,imagenesNPCreaper, NPCreapers, imagenesBoss):
+    def update(self, bloques, enemigos, bosses, mapa, imagenesEnemigo,imagenesNPCreaper, NPCreapers, imagenesBoss, llaves):
         transcurrido_inmunidad=datetime.now()-self.inicio_inmunidad
         self.tiempo_inmunidad = 5-transcurrido_inmunidad.seconds
-
-        llaves=pygame.sprite.Group()
-
+        
         if transcurrido_inmunidad.seconds >= Util.INMUNIDAD:
             self.inmune=False
 
