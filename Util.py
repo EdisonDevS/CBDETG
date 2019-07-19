@@ -6,6 +6,7 @@ import configparser
 from niveles.clases.Bloque import *
 from niveles.clases.Enemigo import *
 from niveles.clases.NPC import *
+from niveles.clases.Jefe import *
 from Genesis import *
 
 class Util:
@@ -79,7 +80,7 @@ class Util:
         return ([x,y])
 
 
-    def mapear(habitacion, map, ene, npc):
+    def mapear(habitacion, map, ene, npc, boss):
         mapa=map[habitacion[0]][habitacion[1]]
         #print(mapa)
         mapi = pygame.image.load('niveles/images/mapa.png')
@@ -88,6 +89,7 @@ class Util:
         matrizMapa = Util.cut(mapi, 8, 6, 64, 64)
         imagenesEnemigo=ene
         imagenesNPCreaper=npc
+        imagenesBoss=boss
         bloques = pygame.sprite.Group()
         enemigos = pygame.sprite.Group()
         piso = pygame.sprite.Group()
@@ -95,10 +97,18 @@ class Util:
         agua = pygame.sprite.Group()
         pasto = pygame.sprite.Group()
         puertas = pygame.sprite.Group()
+        bosses = pygame.sprite.Group()
         NPCreapers = pygame.sprite.Group()
         filas = 0
         for col in range (10):
             for c in mapa[col]:
+                #Bosses
+                if(c[1] == -1000):
+                    b = Jefe([filas*64, col*64], imagenesBoss)
+                    NPCreapers.add(b)
+                if(c[1] == -2000):
+                    b = NPC(imagenesBoss, 4, 1, filas, col)
+                    NPCreapers.add(b)
                 #NPCs
                 if(c[1] == -100):
                     m = NPC(imagenesNPCreaper, 4, 1, filas, col)
@@ -232,4 +242,4 @@ class Util:
                 filas += 1
             filas = 0
 
-        return bloques, piso, magma, agua, pasto, puertas, enemigos, NPCreapers
+        return bloques, piso, magma, agua, pasto, puertas, enemigos, NPCreapers, bosses

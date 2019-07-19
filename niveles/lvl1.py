@@ -10,12 +10,17 @@ from niveles.clases.Explosion import *
 from niveles.clases.Botiquin import *
 from niveles.clases.Hud import *
 from niveles.clases.NPC import *
+from niveles.clases.Bob import *
 
 class lvl1:
 	def __init__(self, pantalla, mapa):
 		#configuracion del jugador
 		img_juagador= pygame.image.load('niveles/images/liche.png')
 		imagenesJugador=Util.cut(img_juagador, 9, 21, 29, 33)
+
+		#configuracion del boss
+		img_boss= pygame.image.load('niveles/images/boss.png')
+		imagenesBoss=Util.cut(img_boss, 9, 20, 96, 96)
 
 		#configuracion de las explosiones
 		img_explosion=pygame.image.load('niveles/images/explosion.png')
@@ -56,8 +61,9 @@ class lvl1:
 		balas_enemigas=pygame.sprite.Group()
 		botiquines=pygame.sprite.Group()
 		NPCreapers = pygame.sprite.Group()
+		bosses = pygame.sprite.Group()
 
-		mapita = Util.mapear(self.habitacionActual, self.mapa, imagenesEnemigo, imagenesNPCreaper)
+		mapita = Util.mapear(self.habitacionActual, self.mapa, imagenesEnemigo, imagenesNPCreaper, imagenesBoss)
 
 		bloques = mapita[0]
 		piso = mapita[1]
@@ -67,6 +73,7 @@ class lvl1:
 		puertas = mapita[5]
 		enemigos = mapita[6]
 		NPCreapers = mapita[7]
+		bosses = mapita[8]
 
 		#jugador
 		j=Jugador(Util.CENTRO,imagenesJugador, self.habitacionActual)
@@ -87,7 +94,7 @@ class lvl1:
 				print ("Holaaaaa")
 				pygame.mixer.music.play()
 			'''
-			mapita = Util.mapear(self.habitacionActual, self.mapa, imagenesEnemigo, imagenesNPCreaper)
+			mapita = Util.mapear(self.habitacionActual, self.mapa, imagenesEnemigo, imagenesNPCreaper, imagenesBoss)
 
 			bloques = mapita[0]
 			piso = mapita[1]
@@ -509,9 +516,10 @@ class lvl1:
 
 
 			balas.update()
+			bosses.update()
 			NPCreapers.update()
 			balas_enemigas.update()
-			enemigos, NPCreapers = j.update(bloques, enemigos, self.mapa, imagenesEnemigo, imagenesNPCreaper, NPCreapers)
+			enemigos, NPCreapers, bosses = j.update(bloques, enemigos, bosses, self.mapa, imagenesEnemigo, imagenesNPCreaper, NPCreapers, imagenesBoss)
 			enemigos.update(j.getPosition(), balas_enemigas, imagenesBalasEnemigo)
 			explosiones.update()
 			pantalla.fill(Util.FONDO)
@@ -559,6 +567,7 @@ class lvl1:
 			'''
 
 			#cargando elementos del HUD
+			bosses.draw(pantalla)
 			HUD.update(j.vida, j.tiempo_inmunidad, j.habitaciones)
 			jugadores.draw(pantalla)
 			NPCreapers.draw(pantalla)

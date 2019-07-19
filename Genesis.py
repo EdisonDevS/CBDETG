@@ -26,11 +26,34 @@ class Genesis:
 		print("se puso en "+str(self.e))
 		self.cleanFirstRoom()
 		self.putNPCs()
-
+		self.createBossRoom()
 
 
 		return self.map
 
+
+	def createBossRoom(self):
+		fila=2
+		columna=2
+
+		while(fila==2 and columna==2):
+			fila=random.randint(0,4)
+			columna=random.randint(0,4)
+
+		room=self.map[fila][columna]
+
+		print("el boss está en " + str(fila) + " : " + str(columna))
+
+		roomType=self.roomTypeSelector()
+		self.putFloor(room, roomType[0])
+		self.putWalls(room, roomType[2])
+
+
+
+		if self.level==1:
+			room[5][10][1]=-1000
+		else:
+			room[5][10][1]=-2000
 
 	def putNPCs(self):
 		fila=random.randint(0, 4)
@@ -42,7 +65,6 @@ class Genesis:
 			room[5][10][1]=-100
 		else:
 			room[5][10][1]=-200
-
 
 
 
