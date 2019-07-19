@@ -22,12 +22,14 @@ class Tutorial:
             for event in eventos:
                 if event.type == pygame.QUIT:
                     fin = True
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if event.button == 1:
+                        pos=pygame.mouse.get_pos()                        
+                        if (pos[0] > 996 and pos[0] < 1337) and (pos[1] > 563 and pos[1] < 629):
+                            fin = True       
             
             pantalla.blit(fondo,[0,0])
             textos.draw(pantalla)
-            #texto="Volver"
-            #textoPuntaje = titulos.render(texto, 1, Util.ROJO)
-            #pantalla.blit(textoPuntaje,[1200,550]) 
             pygame.display.flip()
 
     
