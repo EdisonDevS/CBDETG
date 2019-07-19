@@ -20,7 +20,7 @@ class Jefe_Bob(pygame.sprite.Sprite):
         self.centroSprite = [self.rect.x+self.rect.width/2,self.rect.y+self.rect.height/2]
 
         #stats
-        self.sonido = pygame.mixer.Sound('niveles/sonidos/toro.ogg')
+        self.sonido = pygame.mixer.Sound('niveles/sonidos/swordBob.ogg')
         self.sonido.play()
         self.daño_ataque = 0
         self.velx = 0
