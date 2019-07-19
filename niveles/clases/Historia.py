@@ -16,13 +16,13 @@ class Historia:
         #tipo : "0" Prologo, "1" Inter-Nivel, "2" Final
         fuente1 = pygame.font.SysFont("Times New Roman", 25)  
         textoPrologo = [str(" Cuentas las leyendas que en lo profundo de un gran bosque vivia un hechiro sin igual , tan poderoso"), 
-        str(" que el solo podria destruir naciones enteras.")]
+        str(" que el solo podria destruir naciones enteras."),       
+        str(" En su choza el hechicero pasaba su tiempo investigando sobre nuevos hechizos que le permitieran "),
+        str(" alcanzar un poder mayor, una noche un pequeño jabali paso por su residencia emitiendo una energia "),
+        str(" inusual, la cual llamo su atencion entonces tomo una antorcha y se dispuso a perseguirlo; logro"),
+        str(" alcanzarlo en una cueva la cual emitia la misma energía que el Jabali pero en mayor cantidad." )]
         '''
-        +" En su choza el hechicero pasaba su tiempo investigando sobre nuevos hechizos que le permitieran"
-        + " alcanzar un poder mayor, una noche un pequeño jabali paso por su residencia emitiendo una "
-        + "energia inusual, la cual llamo su atencion entonces tomo una antorcha y se dispuso a perseguirlo;"
-        + " logro alcanzarlo en una cueva la cual emitia la misma energía que el Jabali pero en mayor cantidad" 
-        + ". Lo que observo en esa cueva el hechicero era algo totalmente nuevo para el, lo que habia en la "
+        + " Lo que observo en esa cueva el hechicero era algo totalmente nuevo para el, lo que habia en la "
         + "cueva era un gran lago de agua negra, esta sustancia lo cautivo ya que emitia una fuerte energia, "
         + "mientras observaba con asombro un fuerte viento del exterior le hecho a volar el sombrero ante esto"
         + " el reacciono soltando la antorcha para que su sombrero no se ensuciace."
@@ -32,7 +32,7 @@ class Historia:
         #prologo = fuente1.render(textoPrologo, 1, Util.BLANCO)   
         prologo = []
         for f in textoPrologo:
-            prologo.append(fuente1.render(f, 1, Util.NEGRO))
+            prologo.append(fuente1.render(f, 1, Util.BLANCO))
 
         img_texto = pygame.image.load('niveles/images/Botones/Botones3.png')
         imagenestexto = Util.cut(img_texto, 1, 11, 966, 140)
@@ -67,7 +67,7 @@ class Historia:
             pantalla.blit(fondosB[i],[0,0])
             textos.draw(pantalla)
             for p in prologo:
-                pantalla.blit(p,[150,100 + j]) 
+                pantalla.blit(p,[150,200 + j]) 
                 j += 23
             j = 0
             pygame.display.flip()
