@@ -60,6 +60,7 @@ class Jugador(pygame.sprite.Sprite):
         self.image=pygame.transform.scale(self.matriz[self.accion][self.animacion], [48, 55])
 
         dibujarEnemigos=True
+        habitacionBoss = False
 
         #se hace el cambio de habitación
         if self.rect.x < 0:
@@ -90,6 +91,7 @@ class Jugador(pygame.sprite.Sprite):
             bosses = mapa[8]
             llaves = mapa[9]
             bobs = mapa[10]
+            habitacionBoss = mapa[11]
 
         if self.rect.x > Util.ANCHO-self.rect.w:
             if self.habitacionActual[1]==4:
@@ -118,6 +120,7 @@ class Jugador(pygame.sprite.Sprite):
             bosses = mapa[8]
             llaves = mapa[9]
             bobs = mapa[10]
+            habitacionBoss = mapa[11]
 
         if self.rect.y < 0:
             if self.habitacionActual[0]==0:
@@ -146,6 +149,7 @@ class Jugador(pygame.sprite.Sprite):
             bosses = mapa[8]
             llaves = mapa[9]
             bobs = mapa[10]
+            habitacionBoss = mapa[11]
 
         if self.rect.y > Util.ALTO-self.rect.h:
             if self.habitacionActual[0]==4:
@@ -168,12 +172,15 @@ class Jugador(pygame.sprite.Sprite):
             else:
                 enemigos=pygame.sprite.Group()
 
+            #se borran los botiquines que haya en el mapa
             for b in botiquines:
                 botiquines.remove(b)
+
             NPCreapers=mapa[7]
             bosses = mapa[8]
             llaves = mapa[9]
             bobs = mapa[10]
+            habitacionBoss = mapa[11]
 
         if self.accion < self.limite[self.animacion]-1:
             self.accion+=1
@@ -187,7 +194,7 @@ class Jugador(pygame.sprite.Sprite):
                 self.animacion = 0
 
 
-        return enemigos, NPCreapers, bosses, llaves, botiquines, bobs
+        return enemigos, NPCreapers, bosses, llaves, botiquines, bobs, habitacionBoss
 
 
 

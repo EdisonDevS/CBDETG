@@ -86,6 +86,7 @@ class lvl1:
 		bosses = mapita[8]
 		llaves = mapita[9]
 		bobs = mapita[10]
+		habitacionBoss=mapita[10]
 
 		#jugador
 		j=Jugador(Util.CENTRO,imagenesJugador, self.habitacionActual)
@@ -98,6 +99,8 @@ class lvl1:
 		fin=False
 		reloj=pygame.time.Clock()
 		instanteInicial = datetime.now()
+
+		buscarLlave = True
 
 		#fuentes de texto
 		fuente=pygame.font.Font(None, 30)
@@ -118,6 +121,7 @@ class lvl1:
 			agua = mapita[3]
 			pasto = mapita[4]
 			puertas = mapita[5]
+
 
 			if j.vida>100:
 				j.vida-=0.1
@@ -592,7 +596,11 @@ class lvl1:
 						dinosaurio.rect.right = e.rect.left
 
 
-
+			#buscando la llave
+			for j in jugadores:
+				ls_col = pygame.sprite.spritecollide(j, llaves, True)
+				for jugador in ls_col:
+					buscarLlave=False
 
 			'''
 			inicio = [j.rect.x,j.rect.y]
@@ -612,7 +620,34 @@ class lvl1:
 			bosses.update()
 			NPCreapers.update()
 			balas_enemigas.update()
-			enemigos, NPCreapers, bosses, llaves, botiquines, bobs = j.update(bloques, enemigos, bosses, self.mapa, imagenesEnemigo, imagenesNPCreaper, NPCreapers, imagenesBoss, llaves, botiquines, bobs)
+			enemigos, NPCreapers, bosses, llaves, botiquines, bobs, habitacionBoss = j.update(bloques, enemigos, bosses, self.mapa, imagenesEnemigo, imagenesNPCreaper, NPCreapers, imagenesBoss, llaves, botiquines, bobs)
+			
+			if habitacionBoss:
+				if j.rect.y < 64:
+					j.rect.y -= 64
+					enemigos, NPCreapers, bosses, llaves, botiquines, bobs, habitacionBoss = j.update(bloques, enemigos, bosses, self.mapa, imagenesEnemigo, imagenesNPCreaper, NPCreapers, imagenesBoss, llaves, botiquines, bobs)
+					texto="Necesitas la llave para acceder a esta habitación"
+					textoPuntaje=titulos.render(texto, 1, Util.AMARILLO)
+					self.pantalla.blit(textoPuntaje,[520,200])
+				if j.rect.x <64:
+					j.rect.y- 64
+					enemigos, NPCreapers, bosses, llaves, botiquines, bobs, habitacionBoss = j.update(bloques, enemigos, bosses, self.mapa, imagenesEnemigo, imagenesNPCreaper, NPCreapers, imagenesBoss, llaves, botiquines, bobs)
+					texto="Necesitas la llave para acceder a esta habitación"
+					textoPuntaje=titulos.render(texto, 1, Util.AMARILLO)
+					self.pantalla.blit(textoPuntaje,[520,200])
+				if j.rect.y > Util.ALTO -64:
+					J.rect.y += 63
+					enemigos, NPCreapers, bosses, llaves, botiquines, bobs, habitacionBoss = j.update(bloques, enemigos, bosses, self.mapa, imagenesEnemigo, imagenesNPCreaper, NPCreapers, imagenesBoss, llaves, botiquines, bobs)
+					texto="Necesitas la llave para acceder a esta habitación"
+					textoPuntaje=titulos.render(texto, 1, Util.AMARILLO)
+					self.pantalla.blit(textoPuntaje,[520,200])
+				if j.rect.x > Util.ANCHO-64:
+					j.rect.x += 64
+					enemigos, NPCreapers, bosses, llaves, botiquines, bobs, habitacionBoss = j.update(bloques, enemigos, bosses, self.mapa, imagenesEnemigo, imagenesNPCreaper, NPCreapers, imagenesBoss, llaves, botiquines, bobs)
+					texto="Necesitas la llave para acceder a esta habitación"
+					textoPuntaje=titulos.render(texto, 1, Util.AMARILLO)
+					self.pantalla.blit(textoPuntaje,[520,200])
+
 			enemigos.update(j.getPosition(), balas_enemigas, imagenesBalasEnemigo)
 			explosiones.update()
 			pantalla.fill(Util.FONDO)

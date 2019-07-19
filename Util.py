@@ -101,6 +101,7 @@ class Util:
         NPCreapers = pygame.sprite.Group()
         bobs = pygame.sprite.Group()
         llaves = pygame.sprite.Group()
+        habitacionBoss==False
         filas = 0
         for col in range (10):
             for c in mapa[col]:
@@ -112,10 +113,12 @@ class Util:
                 if(c[1] == -1000):
                     b = Jefe_Bob([filas*64, col*64], imagenesBoss)
                     bobs.add(b)
+                    habitacionBoss=True
                     
                 if(c[1] == -2000):
                     b = Jefe([filas*64, col*64], imagenesBoss)
                     bosses.add(b)
+                    habitacionBoss=True
                 #NPCs
                 if(c[1] == -100):
                     m = NPC(imagenesNPCreaper, 4, 1, filas, col)
@@ -249,4 +252,4 @@ class Util:
                 filas += 1
             filas = 0
 
-        return bloques, piso, magma, agua, pasto, puertas, enemigos, NPCreapers, bosses, llaves, bobs
+        return bloques, piso, magma, agua, pasto, puertas, enemigos, NPCreapers, bosses, llaves, bobs,habitacionBoss
