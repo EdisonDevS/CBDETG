@@ -21,14 +21,18 @@ class Historia:
         str(" alcanzar un poder mayor, una noche un pequeño jabali paso por su residencia emitiendo una energia "),
         str(" inusual, la cual llamo su atencion entonces tomo una antorcha y se dispuso a perseguirlo; logro"),
         str(" alcanzarlo en una cueva la cual emitia la misma energía que el Jabali pero en mayor cantidad." )]
+        
+        #'''
+        textoPrologo2 = [str(" Lo que observo en esa cueva el hechicero era algo totalmente nuevo para el, lo que habia en la"),
+        str(" Lo que observo en esa cueva el hechicero era algo totalmente nuevo para el, lo que habia en la cueva era un gran"),
+        str(" lago de agua negra, esta sustancia lo cautivo ya que emitia una fuerte energia, mientras observaba con asombro un"),
+        str(" fuerte viento del exterior le hecho a volar el sombrero ante esto el reacciono soltando la antorcha para atrapar su"),
+        str(" sombrero y que este no se ensuciace.")]
         '''
-        + " Lo que observo en esa cueva el hechicero era algo totalmente nuevo para el, lo que habia en la "
-        + "cueva era un gran lago de agua negra, esta sustancia lo cautivo ya que emitia una fuerte energia, "
-        + "mientras observaba con asombro un fuerte viento del exterior le hecho a volar el sombrero ante esto"
-        + " el reacciono soltando la antorcha para que su sombrero no se ensuciace."
         + " Unos segundos después de que el hechicero soltase la antorcha una gran explosión extruendo los "
         + "cielos y arraso a su paso con casi todo el bosque.")
         '''
+        
         #prologo = fuente1.render(textoPrologo, 1, Util.BLANCO)   
         prologo = []
         for f in textoPrologo:

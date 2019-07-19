@@ -23,8 +23,8 @@ class NPC(pygame.sprite.Sprite):
         #stats
         self.tipo = tipo
         self.ventaja = 0
-        self.sonido = pygame.mixer.Sound('niveles/sonidos/dinos.ogg')
-        self.sonido.play()
+        self.sonido = pygame.mixer.Sound('niveles/sonidos/Talking.ogg')
+        #self.sonido.play()
 
         #hora de creacion
         self.creacion=datetime.now()
