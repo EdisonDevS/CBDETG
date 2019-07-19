@@ -34,7 +34,6 @@ class Hud(pygame.sprite.Sprite):
 
         pygame.draw.rect(self.pantalla, [255-color_verde, color_verde, 0], pygame.Rect((Util.POSICIONBARRAVIDA[0], Util.POSICIONBARRAVIDA[1], tam_vida, Util.ALTOVIDA)), 0)
 
-
         #Inmunidad
         if inmune >= 0:
             tam_inmune=(inmune*Util.ANCHOINMUNE)//Util.INMUNIDAD

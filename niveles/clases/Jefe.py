@@ -26,7 +26,7 @@ class Jefe(pygame.sprite.Sprite):
         self.cool_down = 0
         self.velx = 0
         self.vely = 0
-        self.vida = 1000
+        self.vida = 10
         self.daño_bala = 25
         self.muriendo = False
         self.atacar=False
@@ -95,8 +95,17 @@ class Jefe(pygame.sprite.Sprite):
             if self.animacion == 14:
                 self.animacion = 10
 
+    def angular(self,Inicio, Fin):
+        yo = Fin[1] - Inicio[1]
+        xo = Fin[0] - Inicio[0]
+        ang = math.atan2(yo,xo)
+        print(ang)
+        x = math.cos(ang)
+        y = math.sin(ang)
+        return ([x,y])
+
     def run(self,pos_jugador):
-        desplazamiento = Util.angular(self.centroSprite, pos_jugador)
+        desplazamiento = self.angular(self.centroSprite, pos_jugador)
         self.velx = 5*desplazamiento[0]
         self.vely = 5*desplazamiento[1]
         if self.accion == 0:
@@ -109,7 +118,7 @@ class Jefe(pygame.sprite.Sprite):
         self.velx = 0
         self.vely = 0
         self.atacando=True
-        desplazamiento = Util.angular(self.centroSprite, pos_jugador)
+        desplazamiento = self.angular(self.centroSprite, pos_jugador)
         if self.accion == 0:
             if desplazamiento[0] >= 0:
                 self.animacion = 3
@@ -120,7 +129,7 @@ class Jefe(pygame.sprite.Sprite):
         self.velx = 0
         self.vely = 0
         self.atacando=True
-        desplazamiento = Util.angular(self.centroSprite, pos_jugador)
+        desplazamiento = self.angular(self.centroSprite, pos_jugador)
         if self.accion == 0:
             if desplazamiento[0] >= 0:
                 self.animacion = 4
@@ -131,7 +140,7 @@ class Jefe(pygame.sprite.Sprite):
         self.velx = 0
         self.vely = 0
         self.atacando=True
-        desplazamiento = Util.angular(self.centroSprite, pos_jugador)
+        desplazamiento = self.angular(self.centroSprite, pos_jugador)
         if self.accion == 0:
             if desplazamiento[0] >= 0:
                 self.animacion = 6
