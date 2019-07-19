@@ -183,7 +183,7 @@ class Jugador(pygame.sprite.Sprite):
                 self.animacion = 0
 
 
-        return enemigos, NPCreapers, bosses, llaves
+        return enemigos, NPCreapers, bosses, llaves, botiquines
 
 
 
