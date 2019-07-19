@@ -76,8 +76,9 @@ class lvl1:
 		bobs = pygame.sprite.Group()
 		minos = pygame.sprite.Group()
 		abismos = pygame.sprite.Group()
+		botiquinesBruja = pygame.sprite.Group()
 
-		mapita = Util.mapear(self.habitacionActual, self.mapa, imagenesEnemigo, imagenesNPCreaper, imagenesBoss)
+		mapita = Util.mapear(self.habitacionActual, self.mapa, imagenesEnemigo, imagenesNPCreaper, imagenesBoss, imagenesBotiquin)
 
 		bloques = mapita[0]
 		piso = mapita[1]
@@ -117,7 +118,7 @@ class lvl1:
 		while not fin:
 
 			
-			mapita = Util.mapear(self.habitacionActual, self.mapa, imagenesEnemigo, imagenesNPCreaper, imagenesBoss)
+			mapita = Util.mapear(self.habitacionActual, self.mapa, imagenesEnemigo, imagenesNPCreaper, imagenesBoss, imagenesBotiquin)
 
 			bloques = mapita[0]
 			piso = mapita[1]
@@ -186,7 +187,7 @@ class lvl1:
 				else:
 					if minon.accion == 5:
 						minos.remove(minon)
-						nivel_finalizado()
+						
 
 ######################### BOB ################################################################################
 ##############################################################################################################
@@ -646,7 +647,7 @@ class lvl1:
 			bloques.draw(pantalla)
 			puertas.draw(pantalla)
 
-			enemigos, NPCreapers, bosses, llaves, botiquines, bobs, habitacionBoss = j.update(bloques, enemigos, bosses, self.mapa, imagenesEnemigo, imagenesNPCreaper, NPCreapers, imagenesBoss, llaves, botiquines, bobs)
+			enemigos, NPCreapers, bosses, llaves, botiquines, bobs, habitacionBoss, botiquinesBruja = j.update(bloques, enemigos, bosses, self.mapa, imagenesEnemigo, imagenesNPCreaper, NPCreapers, imagenesBoss, llaves, botiquines, bobs, botiquinesBruja)
 			
 			if habitacionBoss and buscarLlave:
 				if j.rect.y < 64:

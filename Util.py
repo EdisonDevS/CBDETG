@@ -8,6 +8,7 @@ from niveles.clases.Enemigo import *
 from niveles.clases.NPC import *
 from niveles.clases.Jefe import *
 from niveles.clases.Bob import *
+from niveles.clases.Botiquin import *
 from Genesis import *
 
 class Util:
@@ -79,7 +80,7 @@ class Util:
         return ([x,y])
 
 
-    def mapear(habitacion, map, ene, npc, boss):
+    def mapear(habitacion, map, ene, npc, boss, bot):
         mapa=map[habitacion[0]][habitacion[1]]
         #print(mapa)
         mapi = pygame.image.load('niveles/images/mapa.png')
@@ -90,6 +91,7 @@ class Util:
         imagenesEnemigo=ene
         imagenesNPCreaper=npc
         imagenesBoss=boss
+        imagenesBotiquines=bot
         bloques = pygame.sprite.Group()
         enemigos = pygame.sprite.Group()
         piso = pygame.sprite.Group()
@@ -102,10 +104,15 @@ class Util:
         bobs = pygame.sprite.Group()
         llaves = pygame.sprite.Group()
         abismos = pygame.sprite.Group()
+        botiquines = pygame.sprite.Group()
         habitacionBoss=False
         filas = 0
         for col in range (10):
             for c in mapa[col]:
+                #botiquines
+                if(c[1] == -25000):
+                    llave = Botiquin([filas*64,col*64],imagenesBotiquines ,0)
+                    botiquines.add(llave)
                 #Llave
                 if(c[1] == 8000):
                     llave = Bloque(key, [filas*64,col*64])
@@ -261,4 +268,4 @@ class Util:
                 filas += 1
             filas = 0
 
-        return bloques, piso, magma, agua, pasto, puertas, enemigos, NPCreapers, bosses, llaves, bobs,habitacionBoss, abismos
+        return bloques, piso, magma, agua, pasto, puertas, enemigos, NPCreapers, bosses, llaves, bobs,habitacionBoss, abismos, botiquines

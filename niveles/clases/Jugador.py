@@ -44,7 +44,7 @@ class Jugador(pygame.sprite.Sprite):
         self.inicio_inmunidad=datetime.now()
 
 
-    def update(self, bloques, enemigos, bosses, mapa, imagenesEnemigo,imagenesNPCreaper, NPCreapers, imagenesBoss, llaves, botiquines, bobs):
+    def update(self, bloques, enemigos, bosses, mapa, imagenesEnemigo,imagenesNPCreaper, NPCreapers, imagenesBoss, llaves, botiquines, bobs, botiquinesBruja, imagenesBotiquin):
         transcurrido_inmunidad=datetime.now()-self.inicio_inmunidad
         self.tiempo_inmunidad = 5-transcurrido_inmunidad.seconds
         
@@ -79,7 +79,7 @@ class Jugador(pygame.sprite.Sprite):
                 self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=1
             self.rect.x = Util.ANCHO-self.rect.w
             self.rect.y = 6*64
-            mapa=Util.mapear(self.habitacionActual, mapa, imagenesEnemigo,imagenesNPCreaper, imagenesBoss)
+            mapa=Util.mapear(self.habitacionActual, mapa, imagenesEnemigo,imagenesNPCreaper, imagenesBoss, imagenesBotiquin)
             if dibujarEnemigos:
                 enemigos=mapa[6]
             else:
@@ -92,6 +92,7 @@ class Jugador(pygame.sprite.Sprite):
             llaves = mapa[9]
             bobs = mapa[10]
             habitacionBoss = mapa[11]
+            botiquinesBruja = mapa[13]
 
         if self.rect.x > Util.ANCHO-self.rect.w:
             if self.habitacionActual[1]==4:
@@ -108,7 +109,7 @@ class Jugador(pygame.sprite.Sprite):
                 self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=1
             self.rect.x = 0
             self.rect.y = 3*64
-            mapa=Util.mapear(self.habitacionActual, mapa, imagenesEnemigo,imagenesNPCreaper, imagenesBoss)
+            mapa=Util.mapear(self.habitacionActual, mapa, imagenesEnemigo,imagenesNPCreaper, imagenesBoss, imagenesBotiquin)
             if dibujarEnemigos:
                 enemigos=mapa[6]
             else:
@@ -121,6 +122,7 @@ class Jugador(pygame.sprite.Sprite):
             llaves = mapa[9]
             bobs = mapa[10]
             habitacionBoss = mapa[11]
+            botiquinesBruja = mapa[13]
 
         if self.rect.y < 0:
             if self.habitacionActual[0]==0:
@@ -137,7 +139,7 @@ class Jugador(pygame.sprite.Sprite):
                 self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=1
             self.rect.y = Util.ALTO-self.rect.h
             self.rect.x = 4*64
-            mapa=Util.mapear(self.habitacionActual, mapa, imagenesEnemigo,imagenesNPCreaper, imagenesBoss)
+            mapa=Util.mapear(self.habitacionActual, mapa, imagenesEnemigo,imagenesNPCreaper, imagenesBoss, imagenesBotiquin)
             if dibujarEnemigos:
                 enemigos=mapa[6]
             else:
@@ -150,6 +152,7 @@ class Jugador(pygame.sprite.Sprite):
             llaves = mapa[9]
             bobs = mapa[10]
             habitacionBoss = mapa[11]
+            botiquinesBruja = mapa[13]
 
         if self.rect.y > Util.ALTO-self.rect.h:
             if self.habitacionActual[0]==4:
@@ -166,7 +169,7 @@ class Jugador(pygame.sprite.Sprite):
                 self.habitaciones[self.habitacionActual[0]][self.habitacionActual[1]]=1
             self.rect.y = 0
             self.rect.x = 17*64
-            mapa=Util.mapear(self.habitacionActual, mapa, imagenesEnemigo,imagenesNPCreaper, imagenesBoss)
+            mapa=Util.mapear(self.habitacionActual, mapa, imagenesEnemigo,imagenesNPCreaper, imagenesBoss, imagenesBotiquin)
             if dibujarEnemigos:
                 enemigos=mapa[6]
             else:
@@ -181,6 +184,7 @@ class Jugador(pygame.sprite.Sprite):
             llaves = mapa[9]
             bobs = mapa[10]
             habitacionBoss = mapa[11]
+            botiquinesBruja = mapa[13]
 
         if self.accion < self.limite[self.animacion]-1:
             self.accion+=1

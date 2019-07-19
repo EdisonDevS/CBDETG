@@ -13,7 +13,7 @@ from niveles.clases.NPC import *
 from niveles.clases.Bob import *
 from Util import *
 
-class lvl1:
+class lvl2:
 	def __init__(self, pantalla, mapa):
 		#configuracion del jugador
 		img_juagador= pygame.image.load('niveles/images/liche.png')
@@ -40,8 +40,8 @@ class lvl1:
 		imagenesBotiquin=Util.cut(img_botiquin, 2, 1, 32, 24)
 
 		#configuracion de NPC 1
-		img_NPCreaper= pygame.image.load('niveles/images/NPCreaper.png')
-		imagenesNPCreaper = Util.cut(img_NPCreaper, 3, 1, 64, 72)
+		img_NPCreaper= pygame.image.load('niveles/images/NPCwitch.png')
+		imagenesNPCreaper = Util.cut(img_NPCreaper, 4, 1, 64, 96)
 
 		img_enemigo= pygame.transform.scale2x(pygame.image.load('niveles/images/enemigos.png'))
 		imagenesEnemigo=Util.cut(img_enemigo, 7, 32, 48, 48)
@@ -53,7 +53,7 @@ class lvl1:
 		imagenesMino = Util.cut(img_Mino, 9, 20, 96, 96)
 
 		dialogos = pygame.image.load('niveles/images/dialogos.png')
-		imagenesDialogos = Util.cut(dialogos, 4, 1, 492, 268)
+		imagenesDialogos = Util.cut(dialogos, 5, 2, 492, 268)
 
 		HUD=Hud(pantalla)
 
@@ -76,8 +76,13 @@ class lvl1:
 		bobs = pygame.sprite.Group()
 		minos = pygame.sprite.Group()
 		abismos = pygame.sprite.Group()
+		botiquinesBruja=pygame.sprite.Group()
+		llave = Botiquin([576,448],imagenesBotiquin ,0)
+		botiquinesBruja.add(llave)
+		llave = Botiquin([704,448],imagenesBotiquin ,0)
+		botiquinesBruja.add(llave)
 
-		mapita = Util.mapear(self.habitacionActual, self.mapa, imagenesEnemigo, imagenesNPCreaper, imagenesBoss)
+		mapita = Util.mapear(self.habitacionActual, self.mapa, imagenesEnemigo, imagenesNPCreaper, imagenesMino, imagenesBotiquin)
 
 		bloques = mapita[0]
 		piso = mapita[1]
@@ -117,7 +122,7 @@ class lvl1:
 		while not fin:
 
 			
-			mapita = Util.mapear(self.habitacionActual, self.mapa, imagenesEnemigo, imagenesNPCreaper, imagenesBoss)
+			mapita = Util.mapear(self.habitacionActual, self.mapa, imagenesEnemigo, imagenesNPCreaper, imagenesMino, imagenesBotiquin)
 
 			bloques = mapita[0]
 			piso = mapita[1]
@@ -126,7 +131,6 @@ class lvl1:
 			pasto = mapita[4]
 			puertas = mapita[5]
 			abismos = mapita[11]
-
 
 			if j.vida>100:
 				j.vida-=0.1
@@ -186,6 +190,7 @@ class lvl1:
 				else:
 					if minon.accion == 5:
 						minos.remove(minon)
+						
 
 ######################### BOB ################################################################################
 ##############################################################################################################
@@ -357,7 +362,7 @@ class lvl1:
 			for e in eventos:
 				if e.type==pygame.KEYDOWN:
 					if e.key == pygame.K_e:
-						if dialogo<3:
+						if dialogo<4:
 							dialogo+=1
 
 			for event in eventos:
@@ -469,6 +474,17 @@ class lvl1:
 						jugador.inmune=True
 						jugador.inicio_inmunidad=datetime.now()
 					botiquines.remove(b)
+
+
+			for b in botiquinesBruja:
+				ls_col = pygame.sprite.spritecollide(b, jugadores, False)
+				for jugador in ls_col:
+					if b.tipo_ayuda==0:
+						jugador.vida+=40
+					else:
+						jugador.inmune=True
+						jugador.inicio_inmunidad=datetime.now()
+					botiquinesBruja.remove(b)
 
 
 			#COlISIONES MAGMA
@@ -645,7 +661,7 @@ class lvl1:
 			bloques.draw(pantalla)
 			puertas.draw(pantalla)
 
-			enemigos, NPCreapers, bosses, llaves, botiquines, bobs, habitacionBoss = j.update(bloques, enemigos, bosses, self.mapa, imagenesEnemigo, imagenesNPCreaper, NPCreapers, imagenesBoss, llaves, botiquines, bobs)
+			enemigos, NPCreapers, bosses, llaves, botiquines, bobs, habitacionBoss = j.update(bloques, enemigos, bosses, self.mapa, imagenesEnemigo, imagenesNPCreaper, NPCreapers, imagenesBoss, llaves, botiquines, bobs, botiquinesBruja, imagenesBotiquin)
 			
 			if habitacionBoss and buscarLlave:
 				if j.rect.y < 64:
@@ -678,9 +694,9 @@ class lvl1:
 				ls_col = pygame.sprite.spritecollide(j, NPCreapers, False)
 				for e in ls_col:
 					if dialogo in [0,1,3]:
-						pantalla.blit(imagenesDialogos[dialogo][0], [e.rect.x - 492, e.rect.y - 268])
+						pantalla.blit(imagenesDialogos[dialogo][1], [e.rect.x - 492, e.rect.y - 268])
 					else:
-						pantalla.blit(imagenesDialogos[dialogo][0], [j.rect.x, e.rect.y - 268])
+						pantalla.blit(imagenesDialogos[dialogo][1], [j.rect.x, e.rect.y - 268])
 
 
 			#se muestran los puntajes
@@ -713,6 +729,7 @@ class lvl1:
 			'''
 
 			#cargando elementos del HUD
+			
 			bobs.draw(pantalla)
 			minos.draw(pantalla)
 			bosses.draw(pantalla)
@@ -725,6 +742,7 @@ class lvl1:
 			enemigos.draw(pantalla)
 			explosiones.draw(pantalla)
 			botiquines.draw(pantalla)
+			botiquinesBruja.draw(pantalla)
 			pygame.display.flip()
 			reloj.tick(20)
 
