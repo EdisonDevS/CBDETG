@@ -49,6 +49,19 @@ class Genesis:
 		self.putWalls(room, roomType[2])
 
 
+		filaNueva=random.randint(0,4)
+		columnaNueva=random.randint(0,4)
+
+		while (filaNueva == fila and columnaNueva == columna):
+			filaNueva=random.randint(0,4)
+			columnaNueva=random.randint(0,4)
+
+		room=self.map[filaNueva][columnaNueva]
+		print('la llave está en ' + str(filaNueva) + ' : ' + str(columnaNueva))
+
+		room[1][1]=8000
+
+
 
 		if self.level==1:
 			room[5][10][1]=-1000

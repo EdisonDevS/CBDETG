@@ -62,6 +62,7 @@ class lvl1:
 		botiquines=pygame.sprite.Group()
 		NPCreapers = pygame.sprite.Group()
 		bosses = pygame.sprite.Group()
+		llaves = pygame.sprite.Group()
 
 		mapita = Util.mapear(self.habitacionActual, self.mapa, imagenesEnemigo, imagenesNPCreaper, imagenesBoss)
 
@@ -74,6 +75,7 @@ class lvl1:
 		enemigos = mapita[6]
 		NPCreapers = mapita[7]
 		bosses = mapita[8]
+		llaves = mapita[9]
 
 		#jugador
 		j=Jugador(Util.CENTRO,imagenesJugador, self.habitacionActual)
@@ -102,7 +104,6 @@ class lvl1:
 			agua = mapita[3]
 			pasto = mapita[4]
 			puertas = mapita[5]
-			NPCreapers = mapita[7]
 
 			if j.vida>100:
 				j.vida-=0.1
@@ -505,7 +506,7 @@ class lvl1:
 			bosses.update()
 			NPCreapers.update()
 			balas_enemigas.update()
-			enemigos, NPCreapers, bosses = j.update(bloques, enemigos, bosses, self.mapa, imagenesEnemigo, imagenesNPCreaper, NPCreapers, imagenesBoss)
+			enemigos, NPCreapers, bosses, llaves = j.update(bloques, enemigos, bosses, self.mapa, imagenesEnemigo, imagenesNPCreaper, NPCreapers, imagenesBoss)
 			enemigos.update(j.getPosition(), balas_enemigas, imagenesBalasEnemigo)
 			explosiones.update()
 			pantalla.fill(Util.FONDO)
@@ -550,6 +551,7 @@ class lvl1:
 
 			#cargando elementos del HUD
 			bosses.draw(pantalla)
+			llaves.draw(pantalla)
 			HUD.update(j.vida, j.tiempo_inmunidad, j.habitaciones)
 			jugadores.draw(pantalla)
 			NPCreapers.draw(pantalla)
