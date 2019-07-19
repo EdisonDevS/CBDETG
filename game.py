@@ -60,7 +60,7 @@ if __name__ == '__main__':
                         map=Genesis()
                         j=lvl1(pantalla, map.generateMap(1))
                         if j.nivel_aprobado:
-                            j=lvl2(pantalla)
+                            j=lvl2(pantalla, map.generateMap(2))
                         finHist1 = False
                     if (pos[0] > 493 and pos[0] < 913) and (pos[1] > 440 and pos[1] < 512):
                         tut = Tutorial(pantalla)                        

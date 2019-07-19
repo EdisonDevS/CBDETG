@@ -126,10 +126,10 @@ class Genesis:
 		for j in range(10):
 			for k in range(21):
 				room[j][k][0] = floor[j][k]
-				if self.e:
-					room[j][k][1] = enemys[j][k]
-				else:
-					room[j][k][1] = -50
+				#if self.e:
+				#	room[j][k][1] = enemys[j][k]
+				#else:
+				#	room[j][k][1] = -50
 
 
 
