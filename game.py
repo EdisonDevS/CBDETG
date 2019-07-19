@@ -16,7 +16,7 @@ if __name__ == '__main__':
     titulos=pygame.font.Font(None, 70)
     reloj=pygame.time.Clock()
 
-    fondo = pygame.transform.scale2x( pygame.image.load('niveles/images/Fondo.png'))
+    fondo = pygame.image.load('niveles/images/Cave.png')
     #Textos
     img_texto = pygame.image.load('niveles/images/Botones/botones.png')
     imagenestexto = Util.cut(img_texto, 1, 7, 966, 130)
