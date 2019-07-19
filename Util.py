@@ -71,8 +71,6 @@ class Util:
     def angular(Inicio, Fin):
         yo = Fin[1] - Inicio[1]
         xo = Fin[0] - Inicio[0]
-        print(yo)
-        print(xo)
         ang = math.atan2(yo,xo)
         print(ang)
         x = math.cos(ang)

@@ -11,6 +11,7 @@ from niveles.clases.Botiquin import *
 from niveles.clases.Hud import *
 from niveles.clases.NPC import *
 from niveles.clases.Bob import *
+from Util import *
 
 class lvl1:
 	def __init__(self, pantalla, mapa):
@@ -45,6 +46,12 @@ class lvl1:
 		img_enemigo= pygame.transform.scale2x(pygame.image.load('niveles/images/enemigos.png'))
 		imagenesEnemigo=Util.cut(img_enemigo, 7, 32, 48, 48)
 
+		img_Bob = pygame.transform.scale(pygame.image.load('niveles/images/el_otro_boss.png'),[1824,768])
+		imagenesBob = Util.cut(img_Bob, 19, 8, 96, 96)
+
+		img_Mino = pygame.image.load('niveles/images/boss.png')
+		imagenesMino = Util.cut(img_Mino, 9, 20, 96, 96)
+
 		HUD=Hud(pantalla)
 
 		self.pantalla=pantalla
@@ -63,6 +70,8 @@ class lvl1:
 		NPCreapers = pygame.sprite.Group()
 		bosses = pygame.sprite.Group()
 		llaves = pygame.sprite.Group()
+		bobs = pygame.sprite.Group()
+		minos = pygame.sprite.Group()
 
 		mapita = Util.mapear(self.habitacionActual, self.mapa, imagenesEnemigo, imagenesNPCreaper, imagenesBoss)
 
@@ -79,6 +88,10 @@ class lvl1:
 
 		#jugador
 		j=Jugador(Util.CENTRO,imagenesJugador, self.habitacionActual)
+		bob = Jefe_Bob(Util.CENTRO, imagenesBob)
+		mino = Jefe(Util.CENTRO, imagenesMino)
+		minos.add(mino)
+		bobs.add(bob)
 		jugadores.add(j)
 		#variables necesarias
 		fin=False
@@ -91,11 +104,7 @@ class lvl1:
 
 		#juego
 		while not fin:
-			'''
-			if pygame.mixer.music.get_endevent:
-				print ("Holaaaaa")
-				pygame.mixer.music.play()
-			'''
+			
 			mapita = Util.mapear(self.habitacionActual, self.mapa, imagenesEnemigo, imagenesNPCreaper, imagenesBoss)
 
 			bloques = mapita[0]
@@ -119,6 +128,96 @@ class lvl1:
 
 			#if segundos < 20:
 				#m = Muerte(Util.CENTRO, imagenesMuerte)
+
+######################### MINOTAURO ##########################################################################
+##############################################################################################################
+
+			#COMPORTAMIENTO POR PROXIMIDAD MINOTAURO
+			for je in minos:
+				if pygame.sprite.collide_circle_ratio(0.5)(j,je):
+					je.atacar=True
+				else:
+					je.atacar=False
+
+			#COLISION ATAQUES MINOTAURO CON JUGADOR
+			for je in minos:
+				ls_col = pygame.sprite.spritecollide(je, jugadores, False)
+				for ju in ls_col:
+					if ju.vida-je.daño_ataque>0:
+						ju.vida-=je.daño_ataque
+					else:
+						ju.vida = 0
+
+			#COLISION BALAS CON MINOTAURO
+			for b in balas:
+				ls_col = pygame.sprite.spritecollide(b, minos, False)
+				for be in ls_col:
+					if not be.muriendo:
+						if be.vida>0:
+							be.vida-=be.daño_bala
+						else:
+							be.animacion = 9
+							be.accion = 0
+							be.vida = 0
+							be.muriendo = True
+							be.vely = 0
+							be.velx = 0
+
+					balas.remove(b)
+
+			#CONTROL VIDA MINOTAURO
+			if not mino.muriendo:
+				mino.comportamientoJefe(j.getPosition())
+			else:
+				if mino.accion == 5:
+					minos.remove(mino)
+					
+
+######################### BOB ################################################################################
+##############################################################################################################
+
+			#COMPORTAMIENTO POR PROXIMIDAD BOB
+			for je in bobs:
+				if pygame.sprite.collide_circle_ratio(0.5)(j,je):
+					je.atacar=True
+				else:
+					je.atacar=False
+
+			#COLISION ATAQUES MINOTAURO CON BOB
+			for je in bobs:
+				ls_col = pygame.sprite.spritecollide(je, jugadores, False)
+				for ju in ls_col:
+					if ju.vida-je.daño_ataque>0:
+						ju.vida-=je.daño_ataque
+					else:
+						ju.vida = 0
+
+			#COLISION BALAS CON BOB
+			for b in balas:
+				ls_col = pygame.sprite.spritecollide(b, bobs, False)
+				for be in ls_col:
+					if not be.muriendo:
+						if be.vida>0:
+							be.vida-=be.daño_bala
+						else:
+							be.animacion = 3
+							be.accion = 0
+							be.vida = 0
+							be.muriendo = True
+							be.vely = 0
+							be.velx = 0
+
+					balas.remove(b)
+
+			#CONTROL VIDA BOB
+			if not bob.muriendo:
+				bob.comportamientoJefe_Bob(j.getPosition())
+			else:
+				if bob.accion == 18:
+					bobs.remove(bob)
+
+##############################################################################################################
+##############################################################################################################
 
 			if len(enemigos)!=0:
 				if j.rect.x > (Util.ANCHO - j.rect.width - 64):
@@ -501,12 +600,13 @@ class lvl1:
 			player_position=j.getPosition()
 
 
-
 			balas.update()
+			bobs.update()
+			minos.update()
 			bosses.update()
 			NPCreapers.update()
 			balas_enemigas.update()
-			enemigos, NPCreapers, bosses, llaves = j.update(bloques, enemigos, bosses, self.mapa, imagenesEnemigo, imagenesNPCreaper, NPCreapers, imagenesBoss, llaves)
+			enemigos, NPCreapers, bosses, llaves = j.update(bloques, enemigos, bosses, self.mapa, imagenesEnemigo, imagenesNPCreaper, NPCreapers, imagenesBoss, llaves, botiquines)
 			enemigos.update(j.getPosition(), balas_enemigas, imagenesBalasEnemigo)
 			explosiones.update()
 			pantalla.fill(Util.FONDO)
@@ -550,6 +650,8 @@ class lvl1:
 			'''
 
 			#cargando elementos del HUD
+			bobs.draw(pantalla)
+			minos.draw(pantalla)
 			bosses.draw(pantalla)
 			llaves.draw(pantalla)
 			HUD.update(j.vida, j.tiempo_inmunidad, j.habitaciones)

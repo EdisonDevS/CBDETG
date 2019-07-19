@@ -25,7 +25,7 @@ class Jefe_Bob(pygame.sprite.Sprite):
         self.daño_ataque = 0
         self.velx = 0
         self.vely = 0
-        self.vida = 1000
+        self.vida = 10
         self.daño_bala = 25
         self.muriendo = False
         self.atacar=False
@@ -40,33 +40,15 @@ class Jefe_Bob(pygame.sprite.Sprite):
         #Control daño por tipo de ataque
 
         #derecha
-        if self.animacion == 3 and self.accion == 1:
+        if self.animacion == 2 and self.accion == 5:
             self.daño_ataque = 10
-        if self.animacion == 4 and self.accion == 1:
-            self.daño_ataque = 5
-        if self.animacion == 6 and self.accion == 3:
-            self.daño_ataque = 7
-
-        if self.animacion == 3 and self.accion == 3:
-            self.daño_ataque = 0
-        if self.animacion == 4 and self.accion == 3:
-            self.daño_ataque = 0
-        if self.animacion == 6 and self.accion == 7:
+        if self.animacion == 2 and self.accion == 7:
             self.daño_ataque = 0
 
         #izquierda
-        if self.animacion == 13 and self.accion == 1:
+        if self.animacion == 6 and self.accion == 5:
             self.daño_ataque = 10
-        if self.animacion == 14 and self.accion == 1:
-            self.daño_ataque = 5
-        if self.animacion == 16 and self.accion == 3:
-            self.daño_ataque = 7
-
-        if self.animacion == 13 and self.accion == 3:
-            self.daño_ataque = 0
-        if self.animacion == 14 and self.accion == 3:
-            self.daño_ataque = 0
-        if self.animacion == 16 and self.accion == 7:
+        if self.animacion == 6 and self.accion == 7:
             self.daño_ataque = 0
 
         #Control sprites
@@ -75,11 +57,12 @@ class Jefe_Bob(pygame.sprite.Sprite):
         else:
             self.accion = 0
             self.atacando = False
-            if self.animacion == 5:
+            if self.animacion == 2:
                 self.animacion = 0
-            if self.animacion == 1:
+            if self.animacion == 6:
                 self.animacion = 0
             
+    
 
     def run(self,pos_jugador):
         desplazamiento = Util.angular(self.centroSprite, pos_jugador)
@@ -107,9 +90,13 @@ class Jefe_Bob(pygame.sprite.Sprite):
             self.run(pos_jugador)
         else:
             posibilidad_ataque=random.randint(0,20)
+            if self.velx > 0:
+                self.animacion = 0
+            elif self.velx < 0:
+                self.animacion = 4
             self.velx = 0
             self.vely = 0
             if not self.atacando:
-                if posibilidad_ataque in [1,2]:
+                if posibilidad_ataque in [1,2,3,4,5,6,7,8,9,10]:
                     self.sonido.play()
                     self.ataque(pos_jugador)

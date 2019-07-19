@@ -7,6 +7,7 @@ from niveles.lvl1 import *
 from niveles.lvl2 import *
 from Genesis import *
 from niveles.clases.Texto import *
+from niveles.clases.Tutorial import *
 
 if __name__ == '__main__':
     pygame.init()
@@ -62,7 +63,7 @@ if __name__ == '__main__':
                             j=lvl2(pantalla)
 
                     if (pos[0] > 493 and pos[0] < 913) and (pos[1] > 440 and pos[1] < 512):
-                        pass
+                        tut = Tutorial(pantalla)                        
 
 
         
