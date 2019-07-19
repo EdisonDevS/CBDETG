@@ -27,10 +27,11 @@ class Hud(pygame.sprite.Sprite):
         #300: tamaño en pixeles de la barra de vida (se modifica para el sprite bonito de Serna)
         tam_vida=(vida*Util.ANCHOVIDA)//100
 
+        color_verde = [0,0,0]
         if vida > 100:
             color_verde = [0,250,0]
         else:
-            color_verde=[250-color_verde, (vida*250)//100, 0]
+            color_verde=[250-(vida*250)//100, (vida*250)//100, 0]
 
         pygame.draw.rect(self.pantalla, color_verde, pygame.Rect((Util.POSICIONBARRAVIDA[0], Util.POSICIONBARRAVIDA[1], tam_vida, Util.ALTOVIDA)), 0)
 
