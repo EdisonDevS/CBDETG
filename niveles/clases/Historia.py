@@ -32,7 +32,7 @@ class Historia:
         #prologo = fuente1.render(textoPrologo, 1, Util.BLANCO)   
         prologo = []
         for f in textoPrologo:
-            prologo.append(fuente1.render(f, 1, Util.NEGRO))
+            prologo.append(fuente1.render(f, 1, Util.BLANCO))
 
         img_texto = pygame.image.load('niveles/images/Botones/Botones3.png')
         imagenestexto = Util.cut(img_texto, 1, 11, 966, 140)
