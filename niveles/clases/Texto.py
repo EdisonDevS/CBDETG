@@ -12,7 +12,7 @@ class Texto(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.m = mat_i
         #Valores Para Centrar Cada Texto
-        self.ajuste = [[-452, -290], [-452, -120], [-452, 80], [0, 0], [0, 0], [0, 0], [0, 0], [8, 238]]
+        self.ajuste = [[-452, -290], [-452, -120], [-452, 80], [0, 0], [0, 0], [0, 0], [0, 0], [8, 238], [0, 0], [0, 0], [8, 238]]
         self.col = 0
         #tipo 0 : Titulo Juego
         #tipo 1 : Jugar
