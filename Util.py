@@ -110,7 +110,7 @@ class Util:
                     llaves.add(llave)
                 #Bosses
                 if(c[1] == -1000):
-                    b = Bob([filas*64, col*64], imagenesBoss)
+                    b = Jefe_Bob([filas*64, col*64], imagenesBoss)
                     bobs.add(b)
                     
                 if(c[1] == -2000):
