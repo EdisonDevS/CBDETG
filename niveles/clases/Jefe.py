@@ -26,7 +26,7 @@ class Jefe(pygame.sprite.Sprite):
         self.cool_down = 0
         self.velx = 0
         self.vely = 0
-        self.vida = 10
+        self.vida = 1000
         self.daño_bala = 25
         self.muriendo = False
         self.atacar=False
