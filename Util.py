@@ -101,6 +101,7 @@ class Util:
         NPCreapers = pygame.sprite.Group()
         bobs = pygame.sprite.Group()
         llaves = pygame.sprite.Group()
+        abismos = pygame.sprite.Group()
         habitacionBoss=False
         filas = 0
         for col in range (10):
@@ -249,7 +250,12 @@ class Util:
                 if(c[0] == 25):
                     bloque = Bloque(matrizMapa[7][5], [filas*64,col*64])
                     bloques.add(bloque)
+
+                if (c[0] == 5000):
+                    bloque = Bloque(matrizMapa[0][3], [filas*64,col*64])
+                    abismos.add(bloque)
+
                 filas += 1
             filas = 0
 
-        return bloques, piso, magma, agua, pasto, puertas, enemigos, NPCreapers, bosses, llaves, bobs,habitacionBoss
+        return bloques, piso, magma, agua, pasto, puertas, enemigos, NPCreapers, bosses, llaves, bobs,habitacionBoss, abismos
