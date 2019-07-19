@@ -8,9 +8,9 @@ class Historia:
     #Clase Para El Las Historias
     def __init__(self, pantalla, tipo):
         fondoB1 = pygame.image.load('niveles/images/bosque1.png')
-        fondoB2 = pygame.image.load('niveles/images/bosque2.png')
-        fondoB3 = pygame.image.load('niveles/images/bosque3.png')
-        fondoB4 = pygame.image.load('niveles/images/bosque4.png')        
+        fondoB2 = pygame.image.load('niveles/images/Bosque2.png')
+        fondoB3 = pygame.image.load('niveles/images/Bosque3.png')
+        fondoB4 = pygame.image.load('niveles/images/Bosque4.png')        
         fondosB = [fondoB1, fondoB2, fondoB3, fondoB4]
 
         #tipo : "0" Prologo, "1" Inter-Nivel, "2" Final
@@ -34,7 +34,7 @@ class Historia:
         for f in textoPrologo:
             prologo.append(fuente1.render(f, 1, Util.NEGRO))
 
-        img_texto = pygame.image.load('niveles/images/Botones/botones3.png')
+        img_texto = pygame.image.load('niveles/images/Botones/Botones3.png')
         imagenestexto = Util.cut(img_texto, 1, 11, 966, 140)
         textos = pygame.sprite.Group()
         #t = Texto(Util.CENTRO, imagenestexto, 7)

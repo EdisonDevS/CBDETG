@@ -610,39 +610,13 @@ class lvl1:
 			player_position=j.getPosition()
 
 
+
 			balas.update()
 			bobs.update()
 			minos.update()
 			bosses.update()
 			NPCreapers.update()
 			balas_enemigas.update()
-			enemigos, NPCreapers, bosses, llaves, botiquines, bobs, habitacionBoss = j.update(bloques, enemigos, bosses, self.mapa, imagenesEnemigo, imagenesNPCreaper, NPCreapers, imagenesBoss, llaves, botiquines, bobs)
-			
-			if habitacionBoss:
-				if j.rect.y < 64:
-					j.rect.y -= 64
-					enemigos, NPCreapers, bosses, llaves, botiquines, bobs, habitacionBoss = j.update(bloques, enemigos, bosses, self.mapa, imagenesEnemigo, imagenesNPCreaper, NPCreapers, imagenesBoss, llaves, botiquines, bobs)
-					texto="Necesitas la llave para acceder a esta habitación"
-					textoPuntaje=titulos.render(texto, 1, Util.AMARILLO)
-					self.pantalla.blit(textoPuntaje,[520,200])
-				if j.rect.x <64:
-					j.rect.y- 64
-					enemigos, NPCreapers, bosses, llaves, botiquines, bobs, habitacionBoss = j.update(bloques, enemigos, bosses, self.mapa, imagenesEnemigo, imagenesNPCreaper, NPCreapers, imagenesBoss, llaves, botiquines, bobs)
-					texto="Necesitas la llave para acceder a esta habitación"
-					textoPuntaje=titulos.render(texto, 1, Util.AMARILLO)
-					self.pantalla.blit(textoPuntaje,[520,200])
-				if j.rect.y > Util.ALTO -64:
-					J.rect.y += 63
-					enemigos, NPCreapers, bosses, llaves, botiquines, bobs, habitacionBoss = j.update(bloques, enemigos, bosses, self.mapa, imagenesEnemigo, imagenesNPCreaper, NPCreapers, imagenesBoss, llaves, botiquines, bobs)
-					texto="Necesitas la llave para acceder a esta habitación"
-					textoPuntaje=titulos.render(texto, 1, Util.AMARILLO)
-					self.pantalla.blit(textoPuntaje,[520,200])
-				if j.rect.x > Util.ANCHO-64:
-					j.rect.x += 64
-					enemigos, NPCreapers, bosses, llaves, botiquines, bobs, habitacionBoss = j.update(bloques, enemigos, bosses, self.mapa, imagenesEnemigo, imagenesNPCreaper, NPCreapers, imagenesBoss, llaves, botiquines, bobs)
-					texto="Necesitas la llave para acceder a esta habitación"
-					textoPuntaje=titulos.render(texto, 1, Util.AMARILLO)
-					self.pantalla.blit(textoPuntaje,[520,200])
 
 			enemigos.update(j.getPosition(), balas_enemigas, imagenesBalasEnemigo)
 			explosiones.update()
@@ -655,6 +629,36 @@ class lvl1:
 			pasto.draw(pantalla)
 			bloques.draw(pantalla)
 			puertas.draw(pantalla)
+
+			enemigos, NPCreapers, bosses, llaves, botiquines, bobs, habitacionBoss = j.update(bloques, enemigos, bosses, self.mapa, imagenesEnemigo, imagenesNPCreaper, NPCreapers, imagenesBoss, llaves, botiquines, bobs)
+			
+			if habitacionBoss and buscarLlave:
+				if j.rect.y < 64:
+					j.rect.y -= 64
+					enemigos, NPCreapers, bosses, llaves, botiquines, bobs, habitacionBoss = j.update(bloques, enemigos, bosses, self.mapa, imagenesEnemigo, imagenesNPCreaper, NPCreapers, imagenesBoss, llaves, botiquines, bobs)
+					texto="Necesitas la llave para acceder a esta habitación"
+					textoPuntaje=titulos.render(texto, 1, Util.AMARILLO)
+					self.pantalla.blit(textoPuntaje,[200,200])
+				elif j.rect.x <64:
+					j.rect.y- 64
+					enemigos, NPCreapers, bosses, llaves, botiquines, bobs, habitacionBoss = j.update(bloques, enemigos, bosses, self.mapa, imagenesEnemigo, imagenesNPCreaper, NPCreapers, imagenesBoss, llaves, botiquines, bobs)
+					texto="Necesitas la llave para acceder a esta habitación"
+					textoPuntaje=titulos.render(texto, 1, Util.AMARILLO)
+					self.pantalla.blit(textoPuntaje,[520,200])
+				elif j.rect.y > Util.ALTO -64:
+					j.rect.y += 64
+					enemigos, NPCreapers, bosses, llaves, botiquines, bobs, habitacionBoss = j.update(bloques, enemigos, bosses, self.mapa, imagenesEnemigo, imagenesNPCreaper, NPCreapers, imagenesBoss, llaves, botiquines, bobs)
+					texto="Necesitas la llave para acceder a esta habitación"
+					textoPuntaje=titulos.render(texto, 1, Util.AMARILLO)
+					self.pantalla.blit(textoPuntaje,[520,200])
+				elif j.rect.x > Util.ANCHO-64:
+					j.rect.x += 64
+					enemigos, NPCreapers, bosses, llaves, botiquines, bobs, habitacionBoss = j.update(bloques, enemigos, bosses, self.mapa, imagenesEnemigo, imagenesNPCreaper, NPCreapers, imagenesBoss, llaves, botiquines, bobs)
+					texto="Necesitas la llave para acceder a esta habitación"
+					textoPuntaje=titulos.render(texto, 1, Util.AMARILLO)
+					self.pantalla.blit(textoPuntaje,[520,200])
+
+			
 
 
 			#se muestran los puntajes
