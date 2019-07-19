@@ -101,7 +101,7 @@ class Util:
         NPCreapers = pygame.sprite.Group()
         bobs = pygame.sprite.Group()
         llaves = pygame.sprite.Group()
-        habitacionBoss=False
+        habitacionBoss==False
         filas = 0
         for col in range (10):
             for c in mapa[col]:

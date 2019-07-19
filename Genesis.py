@@ -75,9 +75,9 @@ class Genesis:
 		room = self.map[fila][columna]
 
 		if self.level==1:
-			room[5][10][1]=-100
+			room[6][10][1]=-100
 		else:
-			room[5][10][1]=-200
+			room[6][10][1]=-200
 
 
 
