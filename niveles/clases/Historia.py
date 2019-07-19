@@ -37,8 +37,8 @@ class Historia:
         img_texto = pygame.image.load('niveles/images/Botones/Botones3.png')
         imagenestexto = Util.cut(img_texto, 1, 11, 966, 140)
         textos = pygame.sprite.Group()
-        #t = Texto(Util.CENTRO, imagenestexto, 7)
-        #textos.add(t)
+        t = Texto(Util.CENTRO, imagenestexto, 10)
+        textos.add(t)
 
         reloj=pygame.time.Clock()
         instanteInicial = datetime.now()
@@ -65,7 +65,7 @@ class Historia:
             if i > 3:
                 i = 0
             pantalla.blit(fondosB[i],[0,0])
-            #textos.draw(pantalla)
+            textos.draw(pantalla)
             for p in prologo:
                 pantalla.blit(p,[150,100 + j]) 
                 j += 23
