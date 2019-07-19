@@ -57,9 +57,9 @@ class Genesis:
 			columnaNueva=random.randint(0,4)
 
 		if self.level==1:
-			room[5][10][1]=-1000
+			room[5][12][1]=-1000
 		else:
-			room[5][10][1]=-2000
+			room[5][12][1]=-2000
 
 		room=self.map[filaNueva][columnaNueva]
 		print('la llave está en ' + str(filaNueva) + ' : ' + str(columnaNueva))
