@@ -44,7 +44,7 @@ class Jugador(pygame.sprite.Sprite):
         self.inicio_inmunidad=datetime.now()
 
 
-    def update(self, bloques, enemigos, bosses, mapa, imagenesEnemigo,imagenesNPCreaper, NPCreapers, imagenesBoss, llaves):
+    def update(self, bloques, enemigos, bosses, mapa, imagenesEnemigo,imagenesNPCreaper, NPCreapers, imagenesBoss, llaves, botiquines):
         transcurrido_inmunidad=datetime.now()-self.inicio_inmunidad
         self.tiempo_inmunidad = 5-transcurrido_inmunidad.seconds
         
@@ -83,6 +83,9 @@ class Jugador(pygame.sprite.Sprite):
                 enemigos=mapa[6]
             else:
                 enemigos=pygame.sprite.Group()
+
+            for b in botiquines:
+                botiquines.remove(b)
             NPCreapers=mapa[7]
             bosses = mapa[8]
             llaves = mapa[9]
@@ -107,6 +110,9 @@ class Jugador(pygame.sprite.Sprite):
                 enemigos=mapa[6]
             else:
                 enemigos=pygame.sprite.Group()
+
+            for b in botiquines:
+                botiquines.remove(b)
             NPCreapers=mapa[7]
             bosses = mapa[8]
             llaves = mapa[9]
@@ -131,6 +137,9 @@ class Jugador(pygame.sprite.Sprite):
                 enemigos=mapa[6]
             else:
                 enemigos=pygame.sprite.Group()
+
+            for b in botiquines:
+                botiquines.remove(b)
             NPCreapers=mapa[7]
             bosses = mapa[8]
             llaves = mapa[9]
@@ -155,6 +164,9 @@ class Jugador(pygame.sprite.Sprite):
                 enemigos=mapa[6]
             else:
                 enemigos=pygame.sprite.Group()
+
+            for b in botiquines:
+                botiquines.remove(b)
             NPCreapers=mapa[7]
             bosses = mapa[8]
             llaves = mapa[9]
