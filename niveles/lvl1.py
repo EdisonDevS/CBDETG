@@ -20,8 +20,8 @@ class lvl1:
 		imagenesJugador=Util.cut(img_juagador, 9, 21, 29, 33)
 
 		#configuracion del boss
-		img_boss= pygame.image.load('niveles/images/boss.png')
-		imagenesBoss=Util.cut(img_boss, 9, 20, 96, 96)
+		img_boss= pygame.image.load('niveles/images/el_otro_boss.png')
+		imagenesBoss=Util.cut(img_boss, 19, 8, 64, 64)
 
 		#configuracion de las explosiones
 		img_explosion=pygame.image.load('niveles/images/explosion.png')
@@ -85,13 +85,14 @@ class lvl1:
 		NPCreapers = mapita[7]
 		bosses = mapita[8]
 		llaves = mapita[9]
+		bobs = mapita[10]
 
 		#jugador
 		j=Jugador(Util.CENTRO,imagenesJugador, self.habitacionActual)
-		bob = Jefe_Bob(Util.CENTRO, imagenesBob)
-		mino = Jefe(Util.CENTRO, imagenesMino)
-		minos.add(mino)
-		bobs.add(bob)
+		#bob = Jefe_Bob(Util.CENTRO, imagenesBob)
+		#mino = Jefe(Util.CENTRO, imagenesMino)
+		#minos.add(mino)
+		#bobs.add(bob)
 		jugadores.add(j)
 		#variables necesarias
 		fin=False
@@ -166,12 +167,12 @@ class lvl1:
 					balas.remove(b)
 
 			#CONTROL VIDA MINOTAURO
-			if not mino.muriendo:
-				mino.comportamientoJefe(j.getPosition())
-			else:
-				if mino.accion == 5:
-					minos.remove(mino)
-					
+			for minon in minos:
+				if not minon.muriendo:
+					minon.comportamientoJefe(j.getPosition())
+				else:
+					if minon.accion == 5:
+						minos.remove(minon)
 
 ######################### BOB ################################################################################
 ##############################################################################################################
@@ -210,11 +211,12 @@ class lvl1:
 					balas.remove(b)
 
 			#CONTROL VIDA BOB
-			if not bob.muriendo:
-				bob.comportamientoJefe_Bob(j.getPosition())
-			else:
-				if bob.accion == 18:
-					bobs.remove(bob)
+			for bobn in bobs:
+				if not bobn.muriendo:
+					bobn.comportamientoJefe_Bob(j.getPosition())
+				else:
+					if bobn.accion == 18:
+						bobs.remove(bobn)
 
 ##############################################################################################################
 ##############################################################################################################
@@ -554,7 +556,7 @@ class lvl1:
 				for e in ls_col:
 					if ((dinosaurio.velx == 0 and dinosaurio.vely > 0) and (dinosaurio.rect.bottom <= e.rect.top+10) and (len(ls_col)==2) and ((ls_col[0].rect.right==ls_col[1].rect.right) and ((ls_col[0].rect.bottom==ls_col[1].rect.top) or (ls_col[1].rect.bottom==ls_col[0].rect.top)))):
 						dinosaurio.rect.y+=7
-					elif ((dinosaurio.velx == 0 and dinosaurio.vely < 0) and (dinosaurio.rect.top >= e.rect.bottom-10) and (len(ls_col)==2) and ((ls_col[0].rect.right==ls_col[1].rect.right) and ((ls_col[0].rect.bottom==ls_col[1].rect.top) or (ls_col[1].rect.bottom==ls_col[0].rect.top)))):
+					elif ((dinosaurio.velx == 0 and dinosaurio.vely < 0) and (dinosaurio.rect.top >= e.rect.bottom-10) and (len(ls_col)==2) and ((ls_col[0].rect.right==ls_col[1].rect.right) and ((ls_col[0].rect.bottom==ls_col[1].rect.top) or (ls_col[1].rect.bottom==ls_coaaaaaal[0].rect.top)))):
 						dinosaurio.rect.y-=7
 					elif ((dinosaurio.velx < 0 and dinosaurio.vely == 0) and (dinosaurio.rect.left >= e.rect.right-10) and (len(ls_col)==2) and ((ls_col[0].rect.top==ls_col[1].rect.top) and ((ls_col[0].rect.left==ls_col[1].rect.right) or (ls_col[1].rect.left==ls_col[0].rect.right)))):
 						dinosaurio.rect.x-=7
@@ -606,7 +608,7 @@ class lvl1:
 			bosses.update()
 			NPCreapers.update()
 			balas_enemigas.update()
-			enemigos, NPCreapers, bosses, llaves = j.update(bloques, enemigos, bosses, self.mapa, imagenesEnemigo, imagenesNPCreaper, NPCreapers, imagenesBoss, llaves, botiquines)
+			enemigos, NPCreapers, bosses, llaves, botiquines, bobs = j.update(bloques, enemigos, bosses, self.mapa, imagenesEnemigo, imagenesNPCreaper, NPCreapers, imagenesBoss, llaves, botiquines, bobs)
 			enemigos.update(j.getPosition(), balas_enemigas, imagenesBalasEnemigo)
 			explosiones.update()
 			pantalla.fill(Util.FONDO)

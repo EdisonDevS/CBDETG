@@ -34,7 +34,7 @@ class Jugador(pygame.sprite.Sprite):
         self.vely = 0
         self.sonido = pygame.mixer.Sound('niveles/sonidos/fireball.ogg')
         self.burn = pygame.mixer.Sound('niveles/sonidos/burn.ogg')
-        self.vida = 10000
+        self.vida = 100
         self.cadencia = 5
         self.disparos = 0
         self.escudo = 0
@@ -44,7 +44,7 @@ class Jugador(pygame.sprite.Sprite):
         self.inicio_inmunidad=datetime.now()
 
 
-    def update(self, bloques, enemigos, bosses, mapa, imagenesEnemigo,imagenesNPCreaper, NPCreapers, imagenesBoss, llaves, botiquines):
+    def update(self, bloques, enemigos, bosses, mapa, imagenesEnemigo,imagenesNPCreaper, NPCreapers, imagenesBoss, llaves, botiquines, bobs):
         transcurrido_inmunidad=datetime.now()-self.inicio_inmunidad
         self.tiempo_inmunidad = 5-transcurrido_inmunidad.seconds
         
@@ -89,6 +89,7 @@ class Jugador(pygame.sprite.Sprite):
             NPCreapers=mapa[7]
             bosses = mapa[8]
             llaves = mapa[9]
+            bobs = mapa[10]
 
         if self.rect.x > Util.ANCHO-self.rect.w:
             if self.habitacionActual[1]==4:
@@ -116,6 +117,7 @@ class Jugador(pygame.sprite.Sprite):
             NPCreapers=mapa[7]
             bosses = mapa[8]
             llaves = mapa[9]
+            bobs = mapa[10]
 
         if self.rect.y < 0:
             if self.habitacionActual[0]==0:
@@ -143,6 +145,7 @@ class Jugador(pygame.sprite.Sprite):
             NPCreapers=mapa[7]
             bosses = mapa[8]
             llaves = mapa[9]
+            bobs = mapa[10]
 
         if self.rect.y > Util.ALTO-self.rect.h:
             if self.habitacionActual[0]==4:
@@ -170,6 +173,7 @@ class Jugador(pygame.sprite.Sprite):
             NPCreapers=mapa[7]
             bosses = mapa[8]
             llaves = mapa[9]
+            bobs = mapa[10]
 
         if self.accion < self.limite[self.animacion]-1:
             self.accion+=1
@@ -183,7 +187,7 @@ class Jugador(pygame.sprite.Sprite):
                 self.animacion = 0
 
 
-        return enemigos, NPCreapers, bosses, llaves
+        return enemigos, NPCreapers, bosses, llaves, botiquines, bobs
 
 
 

@@ -65,7 +65,7 @@ class Jefe_Bob(pygame.sprite.Sprite):
     
 
     def run(self,pos_jugador):
-        desplazamiento = Util.angular(self.centroSprite, pos_jugador)
+        desplazamiento = self.angular(self.centroSprite, pos_jugador)
         self.velx = 7*desplazamiento[0]
         self.vely = 7*desplazamiento[1]
         if self.accion == 0:
@@ -78,12 +78,21 @@ class Jefe_Bob(pygame.sprite.Sprite):
         self.velx = 0
         self.vely = 0
         self.atacando=True
-        desplazamiento = Util.angular(self.centroSprite, pos_jugador)
+        desplazamiento = self.angular(self.centroSprite, pos_jugador)
         if self.accion == 0:
             if desplazamiento[0] >= 0:
                 self.animacion = 2
             else:
                 self.animacion = 6
+
+    def angular(self, Inicio, Fin):
+        yo = Fin[1] - Inicio[1]
+        xo = Fin[0] - Inicio[0]
+        ang = math.atan2(yo,xo)
+        print(ang)
+        x = math.cos(ang)
+        y = math.sin(ang)
+        return ([x,y])
 
     def comportamientoJefe_Bob(self, pos_jugador):
         if not self.atacar: 
