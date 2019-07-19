@@ -138,9 +138,7 @@ class lvl1:
 			#oleadas de enemigos
 			if segundos<20:
 				posibilidad_enemigo=random.randint(0,100)
-
 				#print(posibilidad_enemigo)
-
 				if posibilidad_enemigo in [100,50,25,0]:
 					x=j.rect.x
 					y=j.rect.y
@@ -156,7 +154,6 @@ class lvl1:
 							None
 						else:
 							crear=True
-
 					if crear:
 						e=Enemigo(coordenadas, imagenesEnemigo)
 						e.tipo_enemigo=2*8
@@ -164,10 +161,8 @@ class lvl1:
 							e.incremento_caminar=3
 							e.incremento_correr=3
 						enemigos.add(e)
-
 			elif segundos>25 and segundos<45:
 				posibilidad_enemigo=random.randint(0,100)
-
 				#print(posibilidad_enemigo)
 				if posibilidad_enemigo in [100,50,25,0]:
 					x=j.rect.x
@@ -184,7 +179,6 @@ class lvl1:
 							None
 						else:
 							crear=True
-
 					if crear:
 						e=Enemigo(coordenadas, imagenesEnemigo)
 						e.tipo_enemigo=random.randint(2,3)*8
@@ -192,12 +186,9 @@ class lvl1:
 							e.incremento_caminar=3
 							e.incremento_correr=3
 						enemigos.add(e)
-
 			elif segundos>50 and segundos<70:
 				posibilidad_enemigo=random.randint(0,100)
-
 				#print(posibilidad_enemigo)
-
 				if posibilidad_enemigo in [100,50,25,0]:
 					x=j.rect.x
 					y=j.rect.y
@@ -213,7 +204,6 @@ class lvl1:
 							None
 						else:
 							crear=True
-
 					if crear:
 						e=Enemigo(coordenadas, imagenesEnemigo)
 						e.tipo_enemigo=random.randint(0,3)*8
@@ -221,12 +211,9 @@ class lvl1:
 							e.incremento_caminar=3
 							e.incremento_correr=3
 						enemigos.add(e)
-
 			elif segundos>75 and segundos<95:
 				posibilidad_enemigo=random.randint(0,100)
-
 				#print(posibilidad_enemigo)
-
 				if posibilidad_enemigo in [100,50,25,0]:
 					x=j.rect.x
 					y=j.rect.y
@@ -242,7 +229,6 @@ class lvl1:
 							None
 						else:
 							crear=True
-
 					if crear:
 						e=Enemigo(coordenadas, imagenesEnemigo)
 						e.tipo_enemigo=random.randint(1,3)*8
@@ -549,18 +535,14 @@ class lvl1:
 				texto="Segunda oleada: "+str(25-segundos)
 				textoPuntaje=titulos.render(texto, 1, Util.BLANCO)
 				pantalla.blit(textoPuntaje,[100,300])
-
 			if(segundos>45 and segundos<50):
 				texto="Tercera oleada: "+str(50-segundos)
 				textoPuntaje=titulos.render(texto, 1, Util.BLANCO)
 				pantalla.blit(textoPuntaje,[100,300])
-
-
 			if(segundos>70 and segundos<75):
 				texto="Cuarta oleada: "+str(75-segundos)
 				textoPuntaje=titulos.render(texto, 1, Util.BLANCO)
 				pantalla.blit(textoPuntaje,[100,300])
-
 			"""
 			'''
 			pygame.draw.line(pantalla, Util.ROJO, [int(j.rect.x+j.rect.width/2), int(j.rect.y+j.rect.height/2)], desplazamiento, 1)
