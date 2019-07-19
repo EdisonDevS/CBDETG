@@ -171,11 +171,12 @@ class lvl1:
 					balas.remove(b)
 
 			#CONTROL VIDA MINOTAURO
-			if not mino.muriendo:
-				mino.comportamientoJefe(j.getPosition())
-			else:
-				if mino.accion == 5:
-					minos.remove(mino)
+			for minon in minos:
+				if not minon.muriendo:
+					minon.comportamientoJefe(j.getPosition())
+				else:
+					if minon.accion == 5:
+						minos.remove(minon)
 
 ######################### BOB ################################################################################
 ##############################################################################################################
@@ -214,11 +215,12 @@ class lvl1:
 					balas.remove(b)
 
 			#CONTROL VIDA BOB
-			if not bob.muriendo:
-				bob.comportamientoJefe_Bob(j.getPosition())
-			else:
-				if bob.accion == 18:
-					bobs.remove(bob)
+			for bobn in bobs:
+				if not bobn.muriendo:
+					bobn.comportamientoJefe_Bob(j.getPosition())
+				else:
+					if bobn.accion == 18:
+						bobs.remove(bobn)
 
 ##############################################################################################################
 ##############################################################################################################
