@@ -40,8 +40,8 @@ class lvl1:
 		imagenesBotiquin=Util.cut(img_botiquin, 2, 1, 32, 24)
 
 		#configuracion de NPC 1
-		img_NPCreaper= pygame.image.load('niveles/images/NPCwitch.png')
-		imagenesNPCreaper = Util.cut(img_NPCreaper, 4, 1, 64, 96)
+		img_NPCreaper= pygame.image.load('niveles/images/NPCreaper.png')
+		imagenesNPCreaper = Util.cut(img_NPCreaper, 3, 1, 64, 72)
 
 		img_enemigo= pygame.transform.scale2x(pygame.image.load('niveles/images/enemigos.png'))
 		imagenesEnemigo=Util.cut(img_enemigo, 7, 32, 48, 48)
@@ -51,6 +51,9 @@ class lvl1:
 
 		img_Mino = pygame.image.load('niveles/images/boss.png')
 		imagenesMino = Util.cut(img_Mino, 9, 20, 96, 96)
+
+		dialogos = pygame.image.load('niveles/images/dialogos.png')
+		imagenesDialogos = Util.cut(dialogos, 4, 1, 492, 268)
 
 		HUD=Hud(pantalla)
 
@@ -108,8 +111,11 @@ class lvl1:
 		fuente=pygame.font.Font(None, 30)
 		titulos=pygame.font.Font(None, 70)
 
+		dialogo = 0
+
 		#juego
 		while not fin:
+
 			
 			mapita = Util.mapear(self.habitacionActual, self.mapa, imagenesEnemigo, imagenesNPCreaper, imagenesBoss)
 
@@ -347,6 +353,12 @@ class lvl1:
 			"""
 
 			eventos=pygame.event.get()
+
+			for e in eventos:
+				if e.type==pygame.KEYDOWN:
+					if e.key == pygame.K_e:
+						if dialogo<3:
+							dialogo+=1
 
 			for event in eventos:
 				if event.type == pygame.QUIT:
@@ -662,6 +674,13 @@ class lvl1:
 					self.pantalla.blit(textoPuntaje,[200,200])
 
 			
+			for j in jugadores:
+				ls_col = pygame.sprite.spritecollide(j, NPCreapers, False)
+				for e in ls_col:
+					if dialogo in [0,1,3]:
+						pantalla.blit(imagenesDialogos[dialogo][0], [e.rect.x - 492, e.rect.y - 268])
+					else:
+						pantalla.blit(imagenesDialogos[dialogo][0], [j.rect.x, e.rect.y - 268])
 
 
 			#se muestran los puntajes

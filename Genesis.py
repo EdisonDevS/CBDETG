@@ -73,9 +73,9 @@ class Genesis:
 		room = self.map[2][2]
 
 		if self.level==1:
-			room[6][10][1]=-200
-		else:
 			room[6][10][1]=-100
+		else:
+			room[6][10][1]=-200
 
 
 

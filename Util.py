@@ -122,11 +122,12 @@ class Util:
                     habitacionBoss=True
                 #NPCs
                 if(c[1] == -100):
-                    m = NPC(imagenesNPCreaper, 4, 1, filas, col)
+                    m = NPC(imagenesNPCreaper, 3, 1, filas, col)
                     NPCreapers.add(m)
                 if(c[1] == -200):
                     m = NPC(imagenesNPCreaper, 4, 1, filas, col)
                     NPCreapers.add(m)
+
                 #enemigos
                 if(c[1] == -10):
                     e=Enemigo([filas*64,col*64], imagenesEnemigo)
