@@ -16,7 +16,7 @@ if __name__ == '__main__':
     titulos=pygame.font.Font(None, 70)
     reloj=pygame.time.Clock()
 
-    fondo = pygame.image.load('niveles/images/Cave.png')
+    fondo = pygame.transform.scale2x(pygame.image.load('niveles/images/fondo.png'))
     #Textos
     img_texto = pygame.image.load('niveles/images/Botones/botones.png')
     imagenestexto = Util.cut(img_texto, 1, 7, 966, 130)
@@ -49,12 +49,14 @@ if __name__ == '__main__':
                             j=lvl2(pantalla)
                     '''
                     #Jugar
-                    #if (pos[0] > 306 and pos[0] < 598) and (pos[1] > 182 and pos[1] < 312):
                     if (pos[0] > 556 and pos[0] < 850) and (pos[1] > 236 and pos[1] < 307):
                         map=Genesis()
                         j=lvl1(pantalla, map.generateMap(1))
                         if j.nivel_aprobado:
                             j=lvl2(pantalla)
+
+                    if (pos[0] > 493 and pos[0] < 913) and (pos[1] > 440 and pos[1] < 512):
+                        pass
 
 
         
