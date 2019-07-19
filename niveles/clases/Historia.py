@@ -11,6 +11,7 @@ class Historia:
         fondoB2 = pygame.image.load('niveles/images/bosque2.png')
         fondoB3 = pygame.image.load('niveles/images/bosque3.png')
         fondoB4 = pygame.image.load('niveles/images/bosque4.png')
+        #fondosB = [fondoB1, fondoB1, fondoB1, fondoB2, fondoB2, fondoB2, fondoB3, fondoB3, fondoB3, fondoB4, fondoB4, fondoB4]
         fondosB = [fondoB1, fondoB2, fondoB3, fondoB4]
         #tipo : "0" Prologo, "1" Inter-Nivel, "2" Final
         fuente = pygame.font.SysFont("Times New Roman", 20)        
@@ -19,8 +20,10 @@ class Historia:
         textos = pygame.sprite.Group()
         #t = Texto(Util.CENTRO, imagenestexto, 7)
         #textos.add(t)
+        reloj=pygame.time.Clock()
+        instanteInicial = datetime.now()
         fin = False
-
+        i = 0
         while not fin:            
             eventos = pygame.event.get()
             for event in eventos:
@@ -31,8 +34,16 @@ class Historia:
                         pos=pygame.mouse.get_pos()     
                         #Volver                   
                         if (pos[0] > 996 and pos[0] < 1337) and (pos[1] > 563 and pos[1] < 629):
-                            fin = True       
+                            fin = True  
             
-            pantalla.blit(fondosB[3],[0,0])
+            instanteFinal = datetime.now()                     
+            tiempo = instanteFinal - instanteInicial # Devuelve un objeto timedelta
+            segundos = tiempo.seconds
+            #if segundos % 1 == 0:
+            i += 1
+            if i > 3:
+                i = 0
+            pantalla.blit(fondosB[i],[0,0])
             #textos.draw(pantalla)
             pygame.display.flip()
+            reloj.tick(1)
