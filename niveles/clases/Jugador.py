@@ -48,6 +48,8 @@ class Jugador(pygame.sprite.Sprite):
         transcurrido_inmunidad=datetime.now()-self.inicio_inmunidad
         self.tiempo_inmunidad = 5-transcurrido_inmunidad.seconds
 
+        llaves=pygame.sprite.Group()
+
         if transcurrido_inmunidad.seconds >= Util.INMUNIDAD:
             self.inmune=False
 
@@ -75,6 +77,7 @@ class Jugador(pygame.sprite.Sprite):
             enemigos=mapa[6]
             NPCreapers=mapa[7]
             bosses = mapa[8]
+            llaves = mapa[9]
 
         if self.rect.x > Util.ANCHO-self.rect.w:
             if self.habitacionActual[1]==4:
@@ -91,6 +94,7 @@ class Jugador(pygame.sprite.Sprite):
             enemigos=mapa[6]
             NPCreapers=mapa[7]
             bosses = mapa[8]
+            llaves = mapa[9]
 
         if self.rect.y < 0:
             if self.habitacionActual[0]==0:
@@ -107,6 +111,7 @@ class Jugador(pygame.sprite.Sprite):
             enemigos=mapa[6]
             NPCreapers=mapa[7]
             bosses = mapa[8]
+            llaves = mapa[9]
 
         if self.rect.y > Util.ALTO-self.rect.h:
             if self.habitacionActual[0]==4:
@@ -123,6 +128,7 @@ class Jugador(pygame.sprite.Sprite):
             enemigos=mapa[6]
             NPCreapers=mapa[7]
             bosses = mapa[8]
+            llaves = mapa[9]
 
         if self.accion < self.limite[self.animacion]-1:
             self.accion+=1
@@ -136,7 +142,7 @@ class Jugador(pygame.sprite.Sprite):
                 self.animacion = 0
 
 
-        return enemigos, NPCreapers, bosses
+        return enemigos, NPCreapers, bosses, llaves
 
 
 

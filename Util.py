@@ -85,6 +85,7 @@ class Util:
         #print(mapa)
         mapi = pygame.image.load('niveles/images/mapa.png')
         puer = pygame.image.load('niveles/images/puertasDobles.png')
+        key = pygame.image.load('niveles/images/llave.png')
         puerta = Util.cut(puer, 4, 2, 64, 64)
         matrizMapa = Util.cut(mapi, 8, 6, 64, 64)
         imagenesEnemigo=ene
@@ -99,9 +100,14 @@ class Util:
         puertas = pygame.sprite.Group()
         bosses = pygame.sprite.Group()
         NPCreapers = pygame.sprite.Group()
+        llaves = pygame.sprite.Group()
         filas = 0
         for col in range (10):
             for c in mapa[col]:
+                #Llave
+                if(c[1] == 8000):
+                    llave = Bloque(key, [filas*64,col*64])
+                    llaves.add(llave)
                 #Bosses
                 if(c[1] == -1000):
                     b = Jefe([filas*64, col*64], imagenesBoss)
@@ -242,4 +248,4 @@ class Util:
                 filas += 1
             filas = 0
 
-        return bloques, piso, magma, agua, pasto, puertas, enemigos, NPCreapers, bosses
+        return bloques, piso, magma, agua, pasto, puertas, enemigos, NPCreapers, bosses, llaves
